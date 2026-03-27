@@ -1,0 +1,13 @@
+I0327 07:50:15.473951     395 load.go:31] Reloading schema and connectors...
+I0327 07:50:15.544300     395 control.go:100] [/emulator/fdc-quickstart-web 5dfa] UpdateResources(): done
+Main schema: sources: schema/schema.gql [2945B] 
+Connector "movie-connector": sources: movie-connector/mutations.gql [2673B] movie-connector/queries.gql [6315B] 
+I0327 07:50:15.602996     395 codegen.go:80] [connector "movie-connector" javascriptSdk] Generating sources into "/home/user/roo7z/app/src/lib/dataconnect-sdk"
+I0327 07:50:15.612860     395 collector.go:107] schema extensions wrote into "/home/user/roo7z/dataconnect/.dataconnect/schema"
+Generated sources: main/implicit.gql [2031B] main/input.gql [46794B] main/relation.gql [26964B] main/query.gql [8831B] main/mutation.gql [23905B] prelude.gql [73281B] 
+I0327 07:50:15.613487     395 collector.go:107] connector "movie-connector" javascriptSdk wrote into "/home/user/roo7z/app/src/lib/dataconnect-sdk"
+Generated sources: esm/index.esm.js [5121B] esm/package.json [17B] package.json [641B] README.md [59730B] .guides/usage.md [2111B] index.d.ts [13887B] index.cjs.js [5867B] .guides/setup.md [580B] .guides/config.json [236B] 
+I0327 07:50:15.615511     395 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation
+I0327 07:50:15.615547     395 load.go:109] Finished reloading
+I0327 07:50:15.635665     395 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+I0327 07:50:17.252999     395 engine.go:156] [/emulator/fdc-quickstart-web 5dfa] ExecuteGraphqlRead IntrospectionQuery: succeeded. 

@@ -10,5 +10,6 @@
       "username": "user",
       "password": "mypassword"
     }
-  ]
+  ],
+  "workbench.startupEditor": "readme"
 }

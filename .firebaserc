@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": null
+    "default": "monospace-10"
   },
   "targets": {},
   "etags": {}
