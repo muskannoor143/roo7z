@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <meta name="Description" content="Discover Roo7z women's jewelry collection with elegant necklaces, rings and bracelets. New arrivals are coming soon.">
+   <title>Women's Jewelry Collection | Roo7z</title> 
+  <!-- bootstrap CDN-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0-4/css/all.css">
+  <!-- OWN CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive-style.css">
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f0f0f">
+<link rel="canonical" href="https://www.roo7z.com/women.html">
+<meta property="og:image" content="https://www.roo7z.com/android-chrome-512x512.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Roo7z",
+  "url": "https://www.roo7z.com",
+  "logo": "https://www.roo7z.com/android-chrome-512x512.png"
+}
+</script>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar">
+    <!--header design-->
+    <header>
+        <div class="top-header">
+            <div class="container d-flex justify-content-between align-items-center py-3"> 
+                 <span id="shippingText"> Free Shipping for Order over 3000-RS</span>
+                <span> Contact@roo7z.com</span>
+    
+            </div>
+        </div>
+    
+        <nav class="navbar navbar-expand-lg navigation-wrap">
+            <div class="container">
+              <a class="navbar-brand" href="#">
+                <img src="images/roo7z-logo.png" alt="logo" class="logo">   
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                 <i class="fas fa-bars navbar-toggler-icon"></i>
+              </button>
+              
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+ <!-- JEWELRIFY -->
+            <li class="nav-item dropdown d-flex align-items-center">
+             <a class="nav-link" href="jewelrify.html" style="padding-right: 0;">
+                   Jewelrify
+                    </a>
+                   
+                      </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="features.html">Features</a>
+                  </li>
+
+                   <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                  </li>
+                 
+                 
+  <!-- Left button: navigates to another page -->
+  <a class="nav-link" href="men.html" style="padding-right: 0;">
+    He/His
+  </a>
+
+ 
+                  <!-- SHE/HER -->
+<li class="nav-item dropdown d-flex align-items-center">
+  <a class="nav-link" href="women.html" style="padding-right: 0;">
+    She/Her
+  </a>
+  
+
+                     
+                      
+                   <li class="nav-item">
+  <a class="nav-link" href="javascript:void(0);" id="userIcon">
+    <i class="far fa-user" ></i>
+  </a>
+</li>
+
+                    
+
+                    
+                <form id="search-form" class="search-container">
+                <input type="search" id="search-input" placeholder="Search here..." />
+                   <button type="submit" id="search-button">
+                 <i class="fas fa-search"></i>
+            </button>
+          </form> 
+
+          
+          <!-- ===== Universal cart + auth (paste once, e.g. right after <header>) ===== -->
+<!-- Cart toggle (floating / mobile-friendly) -->
+<!-- Cart Icon in Navbar -->
+<li class="nav-item">
+  <a id="univ-cart-toggle" class="nav-link" href="javascript:void(0)" aria-label="Open Cart">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="univ-cart-count" class="cart-badge">0</span>
+  </a>
+</li>
+
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+
+
+<!-- Cart sidebar -->
+<aside id="univ-cart-sidebar" class="univ-cart-sidebar" aria-hidden="true">
+  <div class="univ-cart-head">
+    <div>
+      <strong>Your Cart</strong>
+      <div class="muted small" id="univ-cart-items-count">0 items</div>
+    </div>
+    <button id="univ-close-cart" class="univ-close-btn" aria-label="Close cart">✖</button>
+  </div>
+
+  <div id="univ-cart-items" class="univ-cart-items"></div>
+
+  <div class="univ-cart-footer">
+    <div class="univ-subtotal">Subtotal: <strong id="univ-cart-subtotal">PKR 0</strong></div>
+    <div class="univ-cart-actions">
+      <button id="univ-checkout" class="btn">Checkout</button>
+      <button id="univ-clear-cart" class="btn ghost">Clear</button>
+    </div>
+  </div>
+</aside>
+
+<!-- Auth modal (login / signup) -->
+<div id="univ-auth-overlay" class="univ-overlay" aria-hidden="true">
+  <div class="univ-modal" role="dialog" aria-modal="true" aria-labelledby="univ-auth-title">
+    <div class="univ-auth-head">
+      <h3 id="univ-auth-title">Login to Roo7z</h3>
+      <button id="univ-close-auth" class="univ-close-btn" aria-label="Close auth">✖</button>
+    </div>
+
+    <form id="univ-auth-form" class="univ-auth-form">
+      <label class="small">Email
+        <input type="email" id="univ-email" required />
+      </label>
+      <label class="small">Password
+        <input type="password" id="univ-password" minlength="6" required />
+      </label>
+
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button id="univ-auth-submit" class="btn" type="submit">Login</button>
+        <button id="univ-toggle-auth" type="button" class="btn ghost">Create account</button>
+      </div>
+
+      <div id="univ-auth-msg" class="muted small" style="display:none;margin-top:8px"></div>
+    </form>
+  </div>
+</div>
+<!-- ===== end universal cart + auth ===== -->
+
+
+<!-- Coming Soon Section -->
+<section class="coming-soon-section">
+  <div class="coming-soon-content">
+    <h1 class="coming-soon-title">Coming Soon</h1>
+    <p class="coming-soon-subtitle">We're working hard to bring you something amazing. Stay tuned!</p>
+  </div>
+</section>
+
+<style>
+.coming-soon-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+   object-fit: cover;
+  object-position: center;
+  background-image: url('images/bg/18-fractal-glass-hero-bg.jpg');
+  color: white;
+  text-align: center;
+}
+
+.coming-soon-content {
+  animation: rotate3D 11s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+@keyframes rotate3D {
+  
+  /* Slow rotation (front view) */
+  0% {
+    transform: rotateY(0deg) rotateX(0deg);
+  }
+
+  20% {
+    transform: rotateY(45deg) rotateX(5deg);
+  }
+
+  /* FAST section */
+  40% {
+    transform: rotateY(180deg) rotateX(0deg);
+  }
+  60% {
+    transform: rotateY(270deg) rotateX(-10deg);
+  }
+
+  /* Slow again when getting straight */
+  80% {
+    transform: rotateY(330deg) rotateX(0deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(0deg);
+  }
+}
+
+.coming-soon-content {
+  animation: rotate3D 8s linear infinite;
+  transform-style: preserve-3d;
+}
+
+
+.coming-soon-title {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.coming-soon-subtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .coming-soon-title {
+    font-size: 2.5rem;
+  }
+  .coming-soon-subtitle {
+    font-size: 1.2rem;
+  }
+}
+</style>
+
+
+
+
+
+
+<!-- Checkout Form Overlay -->
+<div id="checkout-overlay" class="checkout-overlay">
+  <form id="checkout-form" class="checkout-form">
+    <div class="checkout-header">
+      <h2>Secure Checkout</h2>
+      <p>Complete your order with confidence</p>
+    </div>
+
+    <div class="form-section">
+      <h3>Delivery Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="checkout-name">Full Name</label>
+          <input type="text" id="checkout-name" required placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="checkout-email">Email Address</label>
+          <input type="email" id="checkout-email" required placeholder="Enter your email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="checkout-address">Delivery Address</label>
+        <input type="text" id="checkout-address" required placeholder="Enter your full address">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="checkout-city">City</label>
+          <input type="text" id="checkout-city" required placeholder="Enter your city">
+        </div>
+        <div class="form-group">
+          <label for="checkout-phone">Phone Number</label>
+          <input type="tel" id="checkout-phone" required placeholder="Enter your phone number">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Payment Method</h3>
+      <div class="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="payment" value="cod" checked required>
+          <div class="payment-card">
+            <div class="payment-icon">COD</div>
+            <div class="payment-info">
+              <span class="payment-title">Cash on Delivery</span>
+              <span class="payment-desc">Pay when you receive</span>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    
+
+    <div class="form-actions">
+      <button type="button" id="close-checkout" class="btn-secondary">Cancel</button>
+      <button type="submit" class="btn-primary">Confirm Order</button>
+    </div>
+  </form>
+</div>
+
+<style>
+.checkout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.checkout-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkout-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.checkout-header h2 {
+  margin: 0 0 5px 0;
+  color: #214740;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.checkout-header p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-section h3 {
+  margin: 0 0 15px 0;
+  color: #214740;
+  font-size: 18px;
+  font-weight: 500;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 5px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #214740;
+  box-shadow: 0 0 0 3px rgba(33, 71, 64, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #aaa;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.payment-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.payment-card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 12px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.payment-option input[type="radio"]:checked + .payment-card {
+  border-color: #214740;
+  background: #f0f8f5;
+  box-shadow: 0 0 0 3px rgba(33, 71, 64, 0.1);
+}
+
+.payment-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #214740;
+  color: white;
+  border-radius: 8px;
+}
+
+.payment-info {
+  flex: 1;
+}
+
+.payment-title {
+  display: block;
+  font-weight: 600;
+  color: #214740;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.payment-desc {
+  display: block;
+  color: #666;
+  font-size: 12px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-primary, .btn-secondary {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #214740, #2a5f5a);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2a5f5a, #214740);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(33, 71, 64, 0.4);
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+  color: #666;
+  border: 2px solid #e1e1e1;
+}
+
+.btn-secondary:hover {
+  background: #e1e1e1;
+  color: #333;
+}
+
+/* Payment Overlay Styles */
+.payment-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.payment-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.payment-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.payment-header h2 {
+  margin: 0 0 5px 0;
+  color: #214740;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.payment-header p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.payment-form .form-section h3 {
+  margin: 0 0 15px 0;
+  color: #214740;
+  font-size: 18px;
+  font-weight: 500;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 5px;
+}
+
+.payment-form .form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  background: white;
+}
+
+.payment-form .form-group select:focus {
+  outline: none;
+  border-color: #214740;
+  box-shadow: 0 0 0 3px rgba(33, 71, 64, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .checkout-form, .payment-form {
+    padding: 20px;
+    max-width: 95%;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+  }
+}
+</style>
+
+
+
+
+<!-- js libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+  <!--on js-->
+   
+ <script type="module" src="js/products.js"></script>
+<script src="js/geolocation.js"></script>
+<script type="module" src="js/main.js?v=20260302l"></script>
+
+
+<!-- Modules always in the end -->
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/cart-login.js"></script>
+
+
+
+
+</body>
+</html>
+
+
+
+

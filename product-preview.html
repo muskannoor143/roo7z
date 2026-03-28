@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <meta name="Description" content="Enter your description here">
+   <title>Product Preview & Details | Roo7z Jewelry</title> 
+  <!-- bootstrap CDN-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0-4/css/all.css">
+  <!-- OWN CSS -->
+  <link rel="stylesheet" href="css/style.css?v=20260228b">
+  <link rel="stylesheet" href="css/responsive-style.css?v=20260228b">
+  <link rel="stylesheet" href="css/product-preview.css?v=20260307b">
+
+  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f0f0f">
+<link rel="canonical" href="https://www.roo7z.com/product-preview.html">
+<meta property="og:image" content="https://www.roo7z.com/android-chrome-512x512.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Roo7z",
+  "url": "https://www.roo7z.com",
+  "logo": "https://www.roo7z.com/android-chrome-512x512.png"
+}
+</script>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar">
+    <!--header design-->
+    <header>
+        <div class="top-header">
+            <div class="container d-flex justify-content-between align-items-center py-3"> 
+                 <span id="shippingText"> Free Shipping for Order over 3000-RS</span>
+               <span> Contact@roo7z.com</span>
+    
+            </div>
+        </div>
+    
+       <nav class="navbar navbar-expand-lg navigation-wrap">
+            <div class="container">
+              <a class="navbar-brand" href="#">
+                <img src="images/roo7z-logo.png" alt="logo" class="logo">   
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                 <i class="fas fa-bars navbar-toggler-icon"></i>
+              </button>
+              
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+ <!-- JEWELRIFY -->
+            <li class="nav-item dropdown d-flex align-items-center">
+             <a class="nav-link" href="jewelrify.html" style="padding-right: 0;">
+                   Jewelrify
+                    </a>
+                   
+                      </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="features.html">Features</a>
+                  </li>
+
+                   <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                  </li>
+                 
+                 
+  <!-- Left button: navigates to another page -->
+   <li class="nav-item dropdown d-flex align-items-center">
+  <a class="nav-link" href="men.html" style="padding-right: 0;">
+    He/His
+  </a>
+</li>
+
+ 
+                  <!-- SHE/HER -->
+<li class="nav-item dropdown d-flex align-items-center">
+  <a class="nav-link" href="women.html" style="padding-right: 0;">
+    She/Her
+  </a>
+</li>
+
+                     
+                      
+                   <li class="nav-item">
+  <a class="nav-link" href="javascript:void(0);" id="userIcon">
+    <i class="far fa-user" ></i>
+  </a>
+</li>
+
+                    
+
+                    
+                <form id="search-form" class="search-container">
+                <input type="search" id="search-input" placeholder="Search here..." />
+                   <button type="submit" id="search-button">
+                 <i class="fas fa-search"></i>
+            </button>
+          </form> 
+
+          
+          <!-- ===== Universal cart + auth (paste once, e.g. right after <header>) ===== -->
+<!-- Cart toggle (floating / mobile-friendly) -->
+<!-- Cart Icon in Navbar -->
+<li class="nav-item">
+  <a id="univ-cart-toggle" class="nav-link" href="javascript:void(0)" aria-label="Open Cart">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="univ-cart-count" class="cart-badge">0</span>
+  </a>
+</li>
+
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+
+  <!-- Cart sidebar -->
+<aside id="univ-cart-sidebar" class="univ-cart-sidebar" aria-hidden="true">
+  <div class="univ-cart-head">
+    <div>
+      <strong>Your Cart</strong>
+      <div class="muted small" id="univ-cart-items-count">0 items</div>
+    </div>
+    <button id="univ-close-cart" class="univ-close-btn" aria-label="Close cart">✖</button>
+  </div>
+
+  <div id="univ-cart-items" class="univ-cart-items"></div>
+
+  <div class="univ-cart-footer">
+    <div class="univ-subtotal">Subtotal: <strong id="univ-cart-subtotal">PKR 0</strong></div>
+    <div class="univ-cart-actions">
+      <button id="univ-checkout" class="btn">Checkout</button>
+      <button id="univ-clear-cart" class="btn ghost">Clear</button>
+    </div>
+  </div>
+</aside>
+
+<!-- Auth modal (login / signup) -->
+<div id="univ-auth-overlay" class="univ-overlay" aria-hidden="true">
+  <div class="univ-modal" role="dialog" aria-modal="true" aria-labelledby="univ-auth-title">
+    <div class="univ-auth-head">
+      <h3 id="univ-auth-title">Login to Roo7z</h3>
+      <button id="univ-close-auth" class="univ-close-btn" aria-label="Close auth">✖</button>
+    </div>
+
+    <form id="univ-auth-form" class="univ-auth-form">
+      <label class="small">Email
+        <input type="email" id="univ-email" required />
+      </label>
+      <label class="small">Password
+        <input type="password" id="univ-password" minlength="6" required />
+      </label>
+
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button id="univ-auth-submit" class="btn" type="submit">Login</button>
+        <button id="univ-toggle-auth" type="button" class="btn ghost">Create account</button>
+      </div>
+
+      <div id="univ-auth-msg" class="muted small" style="display:none;margin-top:8px"></div>
+    </form>
+  </div>
+</div>
+<!-- ===== end universal cart + auth ===== -->
+
+<!-- Checkout Form Overlay -->
+<div id="checkout-overlay" class="checkout-overlay">
+  <form id="checkout-form" class="checkout-form">
+    <div class="checkout-header">
+      <h2>Secure Checkout</h2>
+      <p>Complete your order with confidence</p>
+    </div>
+
+    <div class="form-section">
+      <h3>Delivery Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="checkout-name">Full Name</label>
+          <input type="text" id="checkout-name" required placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label for="checkout-email">Email Address</label>
+          <input type="email" id="checkout-email" required placeholder="Enter your email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="checkout-address">Delivery Address</label>
+        <input type="text" id="checkout-address" required placeholder="Enter your full address">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="checkout-city">City</label>
+          <input type="text" id="checkout-city" required placeholder="Enter your city">
+        </div>
+        <div class="form-group">
+          <label for="checkout-phone">Phone Number</label>
+          <input type="tel" id="checkout-phone" required placeholder="Enter your phone number">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Payment Method</h3>
+      <div class="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="payment" value="cod" checked required>
+          <div class="payment-card">
+            <div class="payment-icon">COD</div>
+            <div class="payment-info">
+              <span class="payment-title">Cash on Delivery</span>
+              <span class="payment-desc">Pay when you receive</span>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    
+
+
+    <div class="form-actions">
+      <button type="button" id="close-checkout" class="btn-secondary">Cancel</button>
+      <button type="submit" class="btn-primary">Confirm Order</button>
+    </div>
+  </form>
+</div>
+
+<style>
+.checkout-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.checkout-overlay.show {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.checkout-overlay {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  align-items: flex-start !important;
+  overflow-y: auto;
+  pointer-events: none;
+}
+
+.checkout-overlay.show {
+  pointer-events: auto;
+}
+
+.checkout-form {
+  position: relative;
+  z-index: 2001;
+  pointer-events: auto;
+  margin-top: 20px;
+}
+
+.checkout-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.checkout-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.checkout-header h2 {
+  margin: 0 0 5px 0;
+  color: #214740;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.checkout-header p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-section h3 {
+  margin: 0 0 15px 0;
+  color: #214740;
+  font-size: 18px;
+  font-weight: 500;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 5px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: #214740;
+  box-shadow: 0 0 0 3px rgba(33, 71, 64, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #aaa;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-option {
+  position: relative;
+  cursor: pointer;
+}
+
+.payment-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.payment-card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 12px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.payment-option input[type="radio"]:checked + .payment-card {
+  border-color: #214740;
+  background: #f0f8f5;
+  box-shadow: 0 0 0 3px rgba(33, 71, 64, 0.1);
+}
+
+.payment-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #214740;
+  color: white;
+  border-radius: 8px;
+}
+
+.payment-info {
+  flex: 1;
+}
+
+.payment-title {
+  display: block;
+  font-weight: 600;
+  color: #214740;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.payment-desc {
+  display: block;
+  color: #666;
+  font-size: 12px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-primary, .btn-secondary {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #214740, #2a5f5a);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #2a5f5a, #214740);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(33, 71, 64, 0.4);
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+  color: #666;
+  border: 2px solid #e1e1e1;
+}
+
+.btn-secondary:hover {
+  background: #e1e1e1;
+  color: #333;
+}
+
+/* Payment Overlay Styles */
+.payment-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.payment-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.payment-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.payment-header h2 {
+  margin: 0 0 5px 0;
+  color: #214740;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.payment-header p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.payment-form .form-section h3 {
+  margin: 0 0 15px 0;
+  color: #214740;
+  font-size: 18px;
+  font-weight: 500;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 5px;
+}
+
+.payment-form .form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  background: white;
+}
+
+.payment-form .form-group select:focus {
+  outline: none;
+  border-color: #214740;
+  box-shadow: 0 0 0 3px rgba(33, 71, 64, 0.1);
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .checkout-form, .payment-form {
+    padding: 20px;
+    max-width: 95%;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+  }
+}
+</style>
+
+<main class="preview-page container">
+  <div class="preview-grid">
+    <section class="gallery">
+      <div class="main-image is-loading" id="pp-main-image">
+        <div class="image-loader" aria-live="polite" aria-label="Loading image">
+          <span class="image-spinner" aria-hidden="true"></span>
+          <span class="image-loader-text">Loading image...</span>
+        </div>
+        <img src="" alt="Product preview image" id="pp-main-img">
+      </div>
+      <div class="thumbs" id="pp-thumbs"></div>
+    </section>
+
+    <aside class="details">
+      <h1 id="pp-title">Product Title</h1>
+      <p class="muted" id="pp-category">Category</p>
+      <div class="price-row">
+        <div class="price" id="pp-price">₨ 0</div>
+        <div class="discount" id="pp-discount"></div>
+      </div>
+      <p id="pp-description" class="desc">Product description...</p>
+
+      <div id="color-section" class="option-block" style="display:none;">
+        <div class="option-label">Color</div>
+        <div id="pp-colors" class="swatches"></div>
+      </div>
+
+      <div id="size-section" class="option-block" style="display:none;">
+        <div class="option-label">Size</div>
+        <div id="pp-sizes" class="sizes"></div>
+        
+      </div>
+      
+      <div id="design-section" class="option-block" style="display:none;">
+        <div class="option-label">Design</div>
+        <div id="pp-designs" class="designs"></div>
+      </div>
+
+     <div class="actions">
+  <button id="pp-add" class="btn primary">Add to cart</button>
+  <button id="pp-buy-now" class="btn secondary">Buy Now</button>
+ 
+</div>
+
+
+      <div class="meta">
+        <small id="pp-stock" class="muted">Availability: In stock</small>
+      </div>
+    </aside>
+  </div>
+
+
+
+  <section class="reviews">
+    <h3>Customer Reviews</h3>
+    <button id="add-review-btn" class="btn primary">Write a Review</button>
+    <div id="pp-reviews" class="reviews-list"></div>
+  </section>
+
+  <!-- Review Form Modal -->
+  <div id="review-modal" class="review-modal-overlay" style="display:none;">
+    <div class="review-modal">
+      <div class="review-modal-header">
+        <h4>Write a Review</h4>
+        <button id="close-review-modal" class="close-btn">&times;</button>
+      </div>
+      <form id="review-form" class="review-form">
+        <div class="form-group">
+          <label for="review-rating">Rating:</label>
+          <div class="rating-stars">
+            <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+            <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+            <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+            <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="review-name">Your Name:</label>
+          <input type="text" id="review-name" required>
+        </div>
+        <div class="form-group">
+          <label for="review-text">Your Review:</label>
+          <textarea id="review-text" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="review-image">Add Image (optional):</label>
+          <input type="file" id="review-image" accept="image/*">
+        </div>
+        <button type="submit" class="btn primary">Submit Review</button>
+      </form>
+    </div>
+  </div>
+
+  <section class="related">
+    <h3>You might also like</h3>
+    <div id="pp-related" class="related-grid"></div>
+  </section>
+</main>
+
+
+
+
+
+<footer class="footer-section">
+
+  <!-- ⭐ Glass Feature Boxes -->
+  <div class="footer-features">
+    <div class="footer-box">
+      <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/delivery.png" alt="Fast delivery service icon">
+      <h3>Free Delivery</h3>
+      <p>On all orders above PKR 5000</p>
+    </div>
+
+    <div class="footer-box">
+       <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/lock--v1.png" alt="Secure checkout lock icon">
+      <h3>Secure Payment</h3>
+      <p>100% safe checkout</p>
+    </div>
+
+    <div class="footer-box">
+      <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/ok.png" alt="Quality guaranteed checkmark icon">
+      <h3>Quality Guarantee</h3>
+      <p>Premium verified products</p>
+    </div>
+
+    <div class="footer-box">
+       <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/return.png" alt="Easy return policy icon">
+      <h3>Easy Return</h3>
+      <p>7 days return policy</p>
+    </div>
+
+    <div class="footer-box">
+       <img src="https://img.icons8.com/fluency-systems-filled/48/ffffff/customer-support.png" alt="24/7 customer support icon">
+      <h3>24/7 Support</h3>
+      <p><a href="mailto:Contact@roo7z.com" class="footer-support-link">Contact@roo7z.com</a></p>
+    </div>
+  </div>
+
+  <!-- ⭐ Payments + App Buttons + Logo -->
+  <div class="footer-center">
+
+    <img src="images/roo7z-logo.png" class="footer-logo" alt="Roo7z Logo">
+
+  </div>
+
+  <!-- ⭐ Copyright -->
+  <div class="footer-bottom">
+    © ROO7Z. All Rights Reserved
+  </div>
+
+</footer>
+   <!-- js libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <!--on js-->
+   
+<script type="module" src="js/products.js"></script>
+<script src="js/geolocation.js"></script>
+<script type="module" src="js/main.js?v=20260302l"></script>
+
+<!-- Modules always in the end -->
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/product-preview.js?v=20260307a"></script>
+
+
+
+    </body>
+    </html>
+
+
+
+

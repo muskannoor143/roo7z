@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You - Roo7z</title>
+  <style>
+    :root {
+      --primary: #1e3a1a;
+      --accent: #31612a;
+      --bg: #e9eee9;
+      --text: #222;
+      --white: #fff;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: var(--bg);
+    }
+
+    .box {
+      width: 90%;
+      max-width: 460px;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 40px 25px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: var(--text);
+      font-size: 1rem;
+      margin: 8px 0;
+    }
+
+    #orderTotal {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      margin-top: 25px;
+      background: var(--primary);
+      color: var(--white);
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .box {
+        padding: 30px 20px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>🎉 Thank You for Your Order!</h1>
+    <p>Your order has been placed successfully.</p>
+    <p>Total Amount: <span id="orderTotal"></span></p>
+    <button class="btn" onclick="window.location.href='user.html'">Go to My Account</button>
+  </div>
+
+  <script>
+    // === Retrieve last order details ===
+    const total = parseFloat(localStorage.getItem("roo7z_last_total")) || 0;
+    const currency = localStorage.getItem("roo7z_last_currency") || "PKR";
+    const symbol = currency === "GBP" ? "£" : "₨";
+    document.getElementById("orderTotal").textContent = `${symbol}${total.toFixed(2)}`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Roo7z</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css?v=20260218">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/roo7z-logo.png" alt="Roo7z Logo" class="admin-logo">
+            <h4>Admin Panel</h4>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active" data-section="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-link" data-section="products">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </a>
+            <a href="#" class="nav-link" data-section="orders">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </a>
+            <a href="#" class="nav-link" data-section="reviews">
+                <i class="fas fa-star"></i>
+                <span>Reviews</span>
+            </a>
+            <a href="#" class="nav-link" data-section="users">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="#" class="nav-link" data-section="categories">
+                <i class="fas fa-tags"></i>
+                <span>Categories</span>
+            </a>
+            <a href="#" class="nav-link" data-section="inventory">
+                <i class="fas fa-warehouse"></i>
+                <span>Inventory</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="admin-header">
+            <button class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 id="headerTitle">Dashboard</h1>
+            <div class="admin-actions">
+                <button id="ordersBell" class="icon-btn" aria-label="Order notifications">
+                    <i class="fas fa-bell"></i>
+                    <span id="ordersBellCount" class="icon-badge">0</span>
+                </button>
+                <div class="admin-user">
+                    <span id="adminEmail"></span>
+                    <i class="fas fa-user-circle fa-2x"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Alert Container -->
+        <div id="alertContainer" class="alert-container"></div>
+
+        <!-- Dashboard Section -->
+        <section id="dashboardSection" class="content-section active">
+            <h2 class="section-title">Dashboard Overview</h2>
+            
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon tone-blue">
+                        <i class="fas fa-bag-shopping"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalOrders">0</h3>
+                        <p>Total Orders</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon tone-indigo">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="newOrders">0</h3>
+                        <p>New Orders</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon tone-amber">
+                        <i class="fas fa-gear"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="processingOrders">0</h3>
+                        <p>Processing</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon tone-green">
+                        <i class="fas fa-truck-fast"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="deliveredOrders">0</h3>
+                        <p>Delivered</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon tone-red">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="cancelledOrders">0</h3>
+                        <p>Cancelled</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-wide">
+                    <div class="stat-icon tone-emerald">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="todayRevenue">Rs.0</h3>
+                        <p>Today Revenue (Delivered)</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-wide">
+                    <div class="stat-icon tone-teal">
+                        <i class="fas fa-chart-column"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="monthRevenue">Rs.0</h3>
+                        <p>Monthly Revenue (Delivered)</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-wide">
+                    <div class="stat-icon tone-dark">
+                        <i class="fas fa-sack-dollar"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalRevenue">Rs.0</h3>
+                        <p>Total Revenue (Delivered)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Recent Orders</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentOrdersTable">
+                                <tr>
+                                    <td colspan="6" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="productsSection" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Products Management</h2>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button id="exportProductsExcel" class="btn btn-outline-success">
+                        <i class="fas fa-file-excel"></i> Export Excel
+                    </button>
+                    <button id="exportProductsPdf" class="btn btn-outline-danger">
+                        <i class="fas fa-file-pdf"></i> Export PDF
+                    </button>
+                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bulkProductModal">
+                        <i class="fas fa-upload"></i> Bulk Upload
+                    </button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="ordersSection" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Orders Management</h2>
+                <div class="orders-toolbar">
+                    <div class="search-box wide">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="orderSearchInput" placeholder="Search by customer, phone, order ID, or product...">
+                    </div>
+                    <div class="filter-row">
+                        <button class="filter-chip active" data-filter="all">All</button>
+                        <button class="filter-chip" data-filter="new">New</button>
+                        <button class="filter-chip" data-filter="today">Today</button>
+                        <button class="filter-chip" data-filter="week">This Week</button>
+                        <button class="filter-chip" data-filter="month">This Month</button>
+                        <select id="statusFilterSelect" class="filter-select">
+                            <option value="all">All Status</option>
+                            <option value="new">New</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <button id="clearOrderFilters" class="filter-clear">Clear</button>
+                        <button id="deleteSelectedOrders" class="filter-clear bulk-delete-btn" disabled>Delete Selected (0)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="order-select-col">
+                                        <input type="checkbox" id="ordersSelectAll" class="order-select-input" aria-label="Select all orders">
+                                    </th>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Items</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTable">
+                                <tr>
+                                    <td colspan="8" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section id="reviewsSection" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Reviews Management</h2>
+                <div class="orders-toolbar">
+                    <div class="search-box wide">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="reviewSearchInput" placeholder="Search by reviewer, product, or review text...">
+                    </div>
+                    <div class="filter-row">
+                        <select id="reviewRatingFilter" class="filter-select">
+                            <option value="all">All Ratings</option>
+                            <option value="5">5 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="2">2 Stars</option>
+                            <option value="1">1 Star</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Reviewer</th>
+                                    <th>Rating</th>
+                                    <th>Review</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reviewsTable">
+                                <tr>
+                                    <td colspan="5" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="usersSection" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Users Management</h2>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="userSearch" placeholder="Search users...">
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Joined Date</th>
+                                    <th>Orders</th>
+                                    <th>Total Spent</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section id="categoriesSection" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Categories Management</h2>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                    <i class="fas fa-plus"></i> Add Category
+                </button>
+            </div>
+
+            <!-- Categories Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Product Count</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoriesTableBody">
+                                <tr>
+                                    <td colspan="4" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inventory Section -->
+        <section id="inventorySection" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Inventory Management</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-stock="all">All</button>
+                    <button class="filter-btn" data-stock="low">Low Stock</button>
+                    <button class="filter-btn" data-stock="out">Out of Stock</button>
+                </div>
+            </div>
+
+            <!-- Inventory Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>SKU</th>
+                                    <th>Current Stock</th>
+                                    <th>Reserved</th>
+                                    <th>Available</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTable">
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bulk Product Upload Modal -->
+    <div class="modal fade" id="bulkProductModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bulk Product Upload</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="bulkProductUploadForm">
+                        <div class="mb-3">
+                            <label for="bulkProductsFile" class="form-label">Upload File (.csv, .xlsx, .json)</label>
+                            <input type="file" class="form-control" id="bulkProductsFile" accept=".csv,.xlsx,.xls,.json" required>
+                            <small class="text-muted">
+                                Required columns: <code>title</code>. Recommended: <code>category</code>, <code>pricePKR</code>, <code>priceGBP</code>, <code>stock</code>, <code>img</code>, <code>description</code>.
+                            </small>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="bulkSkipDuplicates" checked>
+                            <label class="form-check-label" for="bulkSkipDuplicates">
+                                Skip duplicate products by title
+                            </label>
+                        </div>
+                        <div id="bulkUploadStatus" class="small text-muted mb-2"></div>
+                        <div class="modal-footer px-0 pb-0">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" id="bulkUploadSubmitBtn" class="btn btn-primary">Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm">
+                        <input type="hidden" name="productId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Product Title</label>
+                                <input type="text" class="form-control" name="title" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Category</label>
+                                <select class="form-select" name="category" id="categorySelect" required>
+                                    <option value="">Select Category</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Price (PKR)</label>
+                                <input type="number" class="form-control" name="pricePKR" step="0.01" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Price (GBP)</label>
+                                <input type="number" class="form-control" name="priceGBP" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Discount (%)</label>
+                                <input type="number" class="form-control" name="discount" min="0" max="100">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Stock</label>
+                                <input type="number" class="form-control" name="stock" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Variants</label>
+                                <input type="text" class="form-control" name="variants" placeholder="e.g. S, M, L">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Colors</label>
+                                <input type="text" class="form-control" name="colors" placeholder="e.g. Red, Blue, Green">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Sizes</label>
+                                <input type="text" class="form-control" name="sizes" placeholder="e.g. S, M, L, XL">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Upload Image</label>
+                            <input type="file" class="form-control" id="productImage" accept="image/*">
+                            <small class="form-text text-muted">Select an image file from your device</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Or Enter Image URL</label>
+                            <input type="url" class="form-control" name="imageUrl" placeholder="https://example.com/image.jpg">
+                            <small class="form-text text-muted">Alternatively, enter a direct image URL</small>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="modal fade" id="categoryModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="categoryForm">
+                        <input type="hidden" name="categoryId">
+                        <div class="mb-3">
+                            <label class="form-label">Category Name</label>
+                            <input type="text" class="form-control" id="categoryName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="categoryDescription" name="description" rows="2"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Category</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+    <script type="module" src="js/admin.js?v=20260224a"></script>
+</body>
+</html>

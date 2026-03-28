@@ -1,0 +1,4 @@
+id,title,category,categoryId,pricePKR,priceGBP,discount,stock,img,images,colors,sizes,variants,description,isNew
+,Classic Pearl Pendant,pendants,,1299,4.99,10,25,images/Pendants/sample-pearl.jpg,"images/Pendants/sample-pearl.jpg,images/Pendants/sample-pearl-2.jpg","Gold,Silver","Free Size","Standard","Elegant daily-wear pearl pendant.",true
+,Minimal Ring Set,rings,,999,3.49,0,40,images/rings/sample-ring.jpg,"images/rings/sample-ring.jpg","Silver","6,7,8","Ring Set","Minimal ring set for everyday use.",false
+,Charm Bracelet,bracelets,,1599,5.99,5,18,images/bracelets/sample-bracelet.jpg,"images/bracelets/sample-bracelet.jpg,images/bracelets/sample-bracelet-2.jpg","Rose Gold","Free Size","Adjustable","Lightweight charm bracelet.",false

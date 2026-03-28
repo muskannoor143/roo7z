@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Categories</title>
+</head>
+<body>
+    <h1>Adding Categories...</h1>
+    <div id="status"></div>
+
+    <script type="module">
+        // Script to add predefined categories to Firestore
+        import {
+            db,
+            collection,
+            addDoc,
+            serverTimestamp
+        } from './js/firebase.js';
+
+        const categories = [
+            { name: 'Pendants', description: 'Beautiful pendant jewelry collection' },
+            { name: 'Rings', description: 'Elegant ring designs for every occasion' },
+            { name: 'Bracelets', description: 'Stylish bracelet collection' },
+            { name: 'Earrings', description: 'Trendy earrings for all styles' },
+            { name: 'Oxidizing-jewels', description: 'Unique oxidized jewelry pieces' },
+            { name: 'Sets', description: 'Complete jewelry sets' }
+        ];
+
+        async function addCategories() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = 'Adding categories to Firestore...';
+
+            try {
+                for (const category of categories) {
+                    const categoryData = {
+                        ...category,
+                        productCount: 0,
+                        createdAt: serverTimestamp(),
+                        updatedAt: serverTimestamp()
+                    };
+
+                    const docRef = await addDoc(collection(db, 'categories'), categoryData);
+                    statusDiv.innerHTML += `<br>Added category: ${category.name} with ID: ${docRef.id}`;
+                    console.log(`Added category: ${category.name} with ID: ${docRef.id}`);
+                }
+
+                statusDiv.innerHTML += '<br><br>All categories added successfully!';
+                console.log('All categories added successfully!');
+            } catch (error) {
+                statusDiv.innerHTML += `<br><br>Error adding categories: ${error.message}`;
+                console.error('Error adding categories:', error);
+            }
+        }
+
+        // Run the function when page loads
+        addCategories();
+    </script>
+</body>
+</html>
