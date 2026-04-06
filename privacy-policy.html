@@ -3,139 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Read the Roo7z Privacy Policy and learn how we collect, use, and protect your personal information.">
   <title>Privacy Policy | Roo7z</title>
-
+  <link rel="canonical" href="https://www.roo7z.com/privacy-policy.html">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Privacy Policy | Roo7z">
+  <meta property="og:description" content="Read the Roo7z Privacy Policy and learn how we collect, use, and protect your personal information.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.roo7z.com/privacy-policy.html">
+  <meta property="og:image" content="https://www.roo7z.com/android-chrome-512x512.png">
   <style>
+    :root {
+      --bg: #0b1020;
+      --card: #121934;
+      --muted: #aab3cf;
+      --text: #f2f6ff;
+      --accent: #7ee4c2;
+      --line: #283258;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      line-height: 1.7;
-      color: #fff;
-       background: linear-gradient(135deg, #141e30, #243b55);
-      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top right, #1b2550 0%, var(--bg) 45%);
+      color: var(--text);
+    }
+    .container { width: min(980px, 92%); margin: 0 auto; }
+    header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(11, 16, 32, 0.75);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+    }
+    .nav {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding: 14px 0;
     }
-
-    .wrap {
-      max-width: 900px;
-      width: 90%;
-      padding: 40px;
-      border-radius: 20px;
-
-      /* Glassmorphism */
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 32px;
-      text-align: center;
-      letter-spacing: 1px;
-    }
-
-    h2 {
-      margin-top: 30px;
-      font-size: 20px;
-      border-left: 4px solid rgba(255,255,255,0.6);
-      padding-left: 10px;
-    }
-
-    p, li {
-      color: rgba(255,255,255,0.9);
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    a {
-      color: #ffd369;
+    .brand { color: var(--text); text-decoration: none; font-weight: 700; }
+    .links a {
+      color: var(--muted);
       text-decoration: none;
-      font-weight: 500;
+      margin-left: 18px;
+      font-size: 0.95rem;
     }
-
-    a:hover {
-      text-decoration: underline;
+    .links a.active, .links a:hover { color: var(--accent); }
+    main { padding: 38px 0 30px; }
+    .card {
+      background: rgba(18, 25, 52, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
-
-    .muted {
+    h1 { margin-top: 0; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+    h2 { margin: 24px 0 10px; font-size: 1.2rem; }
+    p, li { color: #d9e2ff; line-height: 1.75; }
+    ul { padding-left: 20px; }
+    .meta { color: var(--muted); margin-top: -8px; margin-bottom: 22px; }
+    a { color: var(--accent); }
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 30px;
+      padding: 16px 0 26px;
+      color: var(--muted);
       text-align: center;
-      color: rgba(255,255,255,0.7);
-      font-size: 14px;
-      margin-bottom: 30px;
     }
-
-    @media (max-width: 600px) {
-      .wrap {
-        padding: 25px;
-      }
+    @media (max-width: 720px) {
+      .nav { flex-direction: column; gap: 10px; }
+      .links a { margin: 0 10px; }
+      .card { padding: 20px; }
     }
   </style>
 </head>
-
 <body>
-  <main class="wrap">
-    <h1>Privacy Policy</h1>
-    <p class="muted">Last updated: February 17, 2026</p>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html">ROO7Z</a>
+      <nav class="links" aria-label="Legal and company pages">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a class="active" href="privacy-policy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
 
-    <p><strong>Roo7z</strong> ("we", "our", "us") values your privacy. This Privacy Policy explains how we collect, use, protect, and share your information when you visit our website or purchase jewellery and clothing products from our store.</p>
+  <main>
+    <section class="container card">
+      <h1>Privacy Policy</h1>
+      <p class="meta">Last updated: March 28, 2026</p>
 
-    <h2>1. Information We Collect</h2>
-    <p>We may collect the following types of information:</p>
-    <ul>
-      <li>Your full name</li>
-      <li>Email address</li>
-      <li>Phone number</li>
-      <li>Billing and shipping address</li>
-      <li>Order and transaction details</li>
-      <li>Account login information</li>
-      <li>IP address, browser type, and device information</li>
-    </ul>
+      <p>Roo7z ("we", "our", "us") values your privacy. This Privacy Policy explains what data we collect, why we collect it, and how we protect it when you use our website and place orders.</p>
 
-    <h2>2. Google Authentication</h2>
-    <p>If you sign in using Google, we receive basic profile information such as your name and email address as permitted by your Google account settings. We do not access or store your Google password.</p>
+      <h2>1. Information We Collect</h2>
+      <ul>
+        <li>Identity and contact details: name, email, phone number, shipping address.</li>
+        <li>Order details: items purchased, delivery info, payment status, and support messages.</li>
+        <li>Technical data: IP address, browser type, device data, and basic usage logs.</li>
+      </ul>
 
-    <h2>3. How We Use Your Information</h2>
-    <ul>
-      <li>Create and manage your account</li>
-      <li>Process and deliver orders</li>
-      <li>Confirm payments</li>
-      <li>Provide customer support</li>
-      <li>Improve website functionality and user experience</li>
-      <li>Send order updates and promotional emails (if subscribed)</li>
-      <li>Prevent fraud and enhance security</li>
-    </ul>
+      <h2>2. How We Use Data</h2>
+      <ul>
+        <li>To process orders and provide customer support.</li>
+        <li>To improve product listings and website performance.</li>
+        <li>To send order updates and important account notices.</li>
+        <li>To detect abuse, fraud, and unauthorized access.</li>
+      </ul>
 
-    <h2>4. Cookies & Tracking Technologies</h2>
-    <p>We use cookies and similar tracking technologies to improve your browsing experience, analyze traffic, and remember your preferences. You can disable cookies in your browser settings; however, some features of the website may not function properly.</p>
+      <h2>3. Cookies</h2>
+      <p>We may use cookies and local storage to keep sessions active, remember preferences, and improve user experience. You can disable cookies in browser settings, but some features may not work correctly.</p>
 
-    <h2>5. Payments</h2>
-    <p>All payments are processed through secure third-party payment providers. Roo7z does not store your credit or debit card details on our servers.</p>
+      <h2>4. Payments</h2>
+      <p>Payments are processed through third-party providers. Roo7z does not store complete card credentials on its own servers.</p>
 
-    <h2>6. Data Sharing</h2>
-    <p>We do not sell or rent your personal information. We may share limited information with trusted service providers when necessary to operate our business.</p>
+      <h2>5. Data Sharing</h2>
+      <p>We do not sell your personal data. Information is shared only with required service providers (such as payment and shipping partners) to fulfill your orders.</p>
 
-    <h2>7. Data Security</h2>
-    <p>We implement appropriate technical and organizational safeguards to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+      <h2>6. Data Security</h2>
+      <p>We use reasonable technical and organizational safeguards to protect your data. No online method is fully risk-free, but we continuously improve security practices.</p>
 
-    <h2>8. Your Rights</h2>
-    <p>You may request access, correction, or deletion of your personal data by contacting us at:</p>
-    <p><a href="mailto:Contact@roo7z.com">Contact@roo7z.com</a></p>
+      <h2>7. Your Rights</h2>
+      <p>You can request access, correction, or deletion of personal data by emailing <a href="mailto:Contact@roo7z.com">Contact@roo7z.com</a>.</p>
 
-    <h2>9. Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. Updates will be posted on this page with a revised date.</p>
+      <h2>8. Policy Updates</h2>
+      <p>We may revise this page periodically. Updated versions will be published here with a revised date.</p>
 
-    <h2>10. Contact Us</h2>
-    <p>Email: <a href="mailto:Contact@roo7z.com">Contact@roo7z.com</a></p>
-
-    <p><a href="index.html">← Back to Home</a></p>
+      <h2>9. Contact</h2>
+      <p>Email: <a href="mailto:Contact@roo7z.com">Contact@roo7z.com</a></p>
+    </section>
   </main>
+
+  <footer>
+    <div class="container">© ROO7Z. All Rights Reserved.</div>
+  </footer>
 </body>
 </html>

@@ -3,113 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Review Roo7z terms of service for website use, orders, pricing, shipping, and support.">
   <title>Terms of Service | Roo7z</title>
-
+  <link rel="canonical" href="https://www.roo7z.com/terms.html">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Terms of Service | Roo7z">
+  <meta property="og:description" content="Review Roo7z terms of service for website use, orders, pricing, shipping, and support.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.roo7z.com/terms.html">
+  <meta property="og:image" content="https://www.roo7z.com/android-chrome-512x512.png">
   <style>
+    :root {
+      --bg: #0b1020;
+      --card: #121934;
+      --muted: #aab3cf;
+      --text: #f2f6ff;
+      --accent: #7ee4c2;
+      --line: #283258;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      line-height: 1.7;
-      color: #fff;
-      background: linear-gradient(135deg, #141e30, #243b55);
-      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top right, #1b2550 0%, var(--bg) 45%);
+      color: var(--text);
+    }
+    .container { width: min(980px, 92%); margin: 0 auto; }
+    header {
+      border-bottom: 1px solid var(--line);
+      background: rgba(11, 16, 32, 0.75);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+    }
+    .nav {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding: 14px 0;
     }
-
-    .wrap {
-      max-width: 900px;
-      width: 90%;
-      padding: 40px;
-      border-radius: 20px;
-
-      /* Glass Effect */
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 32px;
-      text-align: center;
-      letter-spacing: 1px;
-    }
-
-    h2 {
-      margin-top: 30px;
-      font-size: 20px;
-      border-left: 4px solid rgba(255,255,255,0.6);
-      padding-left: 10px;
-    }
-
-    p {
-      color: rgba(255,255,255,0.9);
-    }
-
-    a {
-      color: #ffd369;
+    .brand { color: var(--text); text-decoration: none; font-weight: 700; }
+    .links a {
+      color: var(--muted);
       text-decoration: none;
-      font-weight: 500;
+      margin-left: 18px;
+      font-size: 0.95rem;
     }
-
-    a:hover {
-      text-decoration: underline;
+    .links a.active, .links a:hover { color: var(--accent); }
+    main { padding: 38px 0 30px; }
+    .card {
+      background: rgba(18, 25, 52, 0.86);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
     }
-
-    .muted {
+    h1 { margin-top: 0; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+    h2 { margin: 24px 0 10px; font-size: 1.2rem; }
+    p, li { color: #d9e2ff; line-height: 1.75; }
+    ul { padding-left: 20px; }
+    .meta { color: var(--muted); margin-top: -8px; margin-bottom: 22px; }
+    a { color: var(--accent); }
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 30px;
+      padding: 16px 0 26px;
+      color: var(--muted);
       text-align: center;
-      color: rgba(255,255,255,0.7);
-      font-size: 14px;
-      margin-bottom: 30px;
     }
-
-    @media (max-width: 600px) {
-      .wrap {
-        padding: 25px;
-      }
+    @media (max-width: 720px) {
+      .nav { flex-direction: column; gap: 10px; }
+      .links a { margin: 0 10px; }
+      .card { padding: 20px; }
     }
   </style>
 </head>
-
 <body>
-  <main class="wrap">
-    <h1>Terms of Service</h1>
-    <p class="muted">Last updated: February 17, 2026</p>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html">ROO7Z</a>
+      <nav class="links" aria-label="Legal and company pages">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy-policy.html">Privacy</a>
+        <a class="active" href="terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
 
-    <p>Welcome to <strong>Roo7z</strong>. By accessing or using our website and purchasing our jewellery or clothing products, you agree to be bound by the following Terms of Service.</p>
+  <main>
+    <section class="container card">
+      <h1>Terms of Service</h1>
+      <p class="meta">Last updated: March 28, 2026</p>
 
-    <h2>1. Use of Website</h2>
-    <p>You agree to use this website only for lawful purposes and provide accurate information when placing orders.</p>
+      <p>By using Roo7z and placing an order, you agree to these Terms of Service. If you do not agree, please discontinue use of the website.</p>
 
-    <h2>2. Account Responsibility</h2>
-    <p>You are responsible for maintaining the confidentiality of your account credentials.</p>
+      <h2>1. Website Use</h2>
+      <p>You agree to use this website lawfully and provide accurate details when creating an account or placing an order.</p>
 
-    <h2>3. Products & Availability</h2>
-    <p>All products are subject to availability. We reserve the right to modify or discontinue items at any time.</p>
+      <h2>2. Account Security</h2>
+      <p>You are responsible for maintaining confidentiality of your login credentials and for activity under your account.</p>
 
-    <h2>4. Orders & Payments</h2>
-    <p>All orders are subject to confirmation. We reserve the right to cancel any order at our discretion.</p>
+      <h2>3. Products and Availability</h2>
+      <p>Product availability may change without notice. We reserve the right to update, replace, or discontinue products at any time.</p>
 
-    <h2>5. Pricing</h2>
-    <p>Prices may change without notice. In case of pricing errors, we reserve the right to cancel the order.</p>
+      <h2>4. Orders and Pricing</h2>
+      <ul>
+        <li>All orders are subject to acceptance and verification.</li>
+        <li>Prices can be updated without prior notice.</li>
+        <li>In case of a pricing or listing error, we may cancel affected orders and inform you.</li>
+      </ul>
 
-    <h2>6. Shipping & Delivery</h2>
-    <p>Delivery timelines are estimates and may vary due to external factors.</p>
+      <h2>5. Shipping and Delivery</h2>
+      <p>Delivery timelines are estimated and can vary based on logistics, location, and external circumstances.</p>
 
-    <h2>7. Returns & Refunds</h2>
-    <p>Please review our Return & Refund Policy before making a purchase.</p>
+      <h2>6. Returns and Refunds</h2>
+      <p>Returns and refunds are handled under Roo7z return policy rules shared at purchase or through support communication.</p>
 
-    <h2>8. Limitation of Liability</h2>
-    <p>Roo7z shall not be liable for any indirect or consequential damages arising from the use of our website.</p>
+      <h2>7. Intellectual Property</h2>
+      <p>Site content including text, media, logos, and branding is owned or licensed by Roo7z and may not be reused without permission.</p>
 
-    <h2>9. Contact</h2>
-    <p>Email: <a href="mailto:Contact@roo7z.com">Contact@roo7z.com</a></p>
-    <p><a href="index.html">Back to Home</a></p>
+      <h2>8. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by law, Roo7z is not liable for indirect or consequential losses arising from website use or service interruption.</p>
+
+      <h2>9. Contact</h2>
+      <p>For legal or support concerns, email <a href="mailto:Contact@roo7z.com">Contact@roo7z.com</a>.</p>
+    </section>
   </main>
+
+  <footer>
+    <div class="container">© ROO7Z. All Rights Reserved.</div>
+  </footer>
 </body>
 </html>

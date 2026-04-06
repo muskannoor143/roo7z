@@ -1,10 +1,12 @@
 // main.js — Final Roo7z Version (with Currency Toggle ₨ / £, cart removed)
-import { allProducts as hardcodedProducts } from "./products.js";
+import { allProducts as hardcodedProducts } from "./products.js?v=20260404a";
 
 // Auto-reload stale tabs (e.g., when a long-open tab is revisited after days)
 const STALE_TAB_LAST_SEEN_KEY = "roo7z_last_seen_at";
 const STALE_TAB_RELOAD_GUARD_KEY = "roo7z_stale_tab_reload_done";
 const STALE_TAB_MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24 hours
+const TAB_LAST_ACTIVE_AT_KEY = "roo7z_tab_last_active_at";
+const TAB_RETURN_FORCE_SYNC_AFTER_MS = 2 * 60 * 60 * 1000; // 2 hours
 
 function markTabSeenNow() {
   try {
@@ -49,13 +51,35 @@ function maybeReloadStaleTab() {
   markTabSeenNow();
 }
 
+function markTabActiveNow() {
+  try {
+    sessionStorage.setItem(TAB_LAST_ACTIVE_AT_KEY, String(Date.now()));
+  } catch (_err) {
+    // Ignore storage access failures
+  }
+}
+
+function shouldForceRefreshOnTabReturn() {
+  const now = Date.now();
+  let lastActive = 0;
+  try {
+    lastActive = Number(sessionStorage.getItem(TAB_LAST_ACTIVE_AT_KEY) || 0);
+    sessionStorage.setItem(TAB_LAST_ACTIVE_AT_KEY, String(now));
+  } catch (_err) {
+    return false;
+  }
+  return lastActive > 0 && (now - lastActive) > TAB_RETURN_FORCE_SYNC_AFTER_MS;
+}
+
 maybeReloadStaleTab();
+markTabActiveNow();
 window.addEventListener("focus", maybeReloadStaleTab);
 document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible") {
     maybeReloadStaleTab();
   } else {
     markTabSeenNow();
+    markTabActiveNow();
   }
 });
 window.addEventListener("pagehide", markTabSeenNow);
@@ -185,13 +209,17 @@ const isFeaturesPage = pageName === "features";
 
 const PRODUCTS_PER_PAGE = 24;
 const FEATURES_INITIAL_PRODUCTS = 15;
+const AUTO_NEW_PRODUCTS_LIMIT = 10;
 let allProducts = {}; // Will be loaded from Firestore
 let currentProducts = [];
 let currentPage = 1;
 let currentFilter = "all";
 let productsLoadPromise = null;
+let lastProductsNetworkFetchAt = 0;
+let lastProductsVisibilityRefreshAt = 0;
 const PRODUCTS_CACHE_KEY = "roo7z_products_cache_v12";
 const PRODUCTS_CACHE_TTL_MS = 30 * 60 * 1000;
+const PRODUCTS_VISIBLE_REFRESH_MIN_INTERVAL_MS = 45 * 1000;
 
 function resolveCacheStorage() {
   try {
@@ -249,16 +277,21 @@ function isJewelryCategory(cat) {
 
 function dedupeById(arr) {
   const seen = new Set();
-  return arr.filter((p) => {
+  const dedupedFromEnd = [];
+
+  // Keep the most recent occurrence when duplicate ids/titles exist.
+  for (let i = arr.length - 1; i >= 0; i -= 1) {
+    const p = arr[i];
     const idKey = String(p?.id ?? "").trim().toLowerCase();
     const titleKey = normalizeTitle(p?.title);
     const imageKey = String(p?.img || p?.imageUrl || p?.image || "").trim().toLowerCase();
-    // Prefer stable id; fallback to title+image when id is inconsistent/missing.
     const key = idKey || `${titleKey}__${imageKey}`;
-    if (!key || seen.has(key)) return false;
+    if (!key || seen.has(key)) continue;
     seen.add(key);
-    return true;
-  });
+    dedupedFromEnd.push(p);
+  }
+
+  return dedupedFromEnd.reverse();
 }
 
 function normalizeProductsShape(source) {
@@ -272,6 +305,45 @@ function normalizeProductsShape(source) {
   return {
     jewelery: normalizedJewelery,
     features: normalizedFeatures
+  };
+}
+
+function getProductIdentityKey(product) {
+  const idKey = String(product?.id ?? "").trim();
+  if (idKey) return `id:${idKey}`;
+  const titleKey = normalizeTitle(product?.title);
+  const imageKey = String(getFirstImageCandidate(product) || "").trim().toLowerCase();
+  if (!titleKey && !imageKey) return "";
+  return `fallback:${titleKey}__${imageKey}`;
+}
+
+function applyAutomaticNewFlags(productsShape) {
+  const normalized = normalizeProductsShape(productsShape);
+  const sourceList = Array.isArray(normalized.jewelery) ? normalized.jewelery : [];
+
+  // NEW badge rule (exact): only the last 10 entries from products.js seed order.
+  const latestKeys = new Set(
+    sourceList
+      .map((item, index) => ({ item, index, seedOrder: Number(item?.__seedOrder) }))
+      .filter(({ seedOrder }) => Number.isFinite(seedOrder))
+      .sort((a, b) => {
+        if (a.seedOrder !== b.seedOrder) return b.seedOrder - a.seedOrder;
+        return b.index - a.index;
+      })
+      .slice(0, AUTO_NEW_PRODUCTS_LIMIT)
+      .map(({ item }) => getProductIdentityKey(item))
+      .filter(Boolean)
+  );
+
+  const markList = (list) =>
+    list.map((item) => ({
+      ...item,
+      isNew: latestKeys.has(getProductIdentityKey(item))
+    }));
+
+  return {
+    jewelery: markList(normalized.jewelery),
+    features: markList(normalized.features)
   };
 }
 
@@ -317,97 +389,17 @@ function sortNewProductsFirst(products) {
   const list = Array.isArray(products) ? [...products] : [];
   if (list.length <= 1) return list;
 
-  const pinned = [];
-  const afterPinnedItems = [];
-  const candidates = [];
-
-  list.forEach((item) => {
-    const title = String(item?.title || "").toLowerCase();
-    const idText = String(item?.id || "").toLowerCase();
-    const isRamadanPinned =
-      Number(item?.id) === 231 ||
-      title.includes("ramadan offer") ||
-      title.includes("ramadan deal");
-    // Use this keyword in product id to force placement after pinned item.
-    const variantTokens = Array.isArray(item?.variants)
-      ? item.variants.map((v) => String(v || "").toLowerCase().trim())
-      : [];
-    const isAfterPinnedKeyword =
-      item?.pinAfterPinned === true ||
-      idText.includes("afterpin") ||
-      variantTokens.includes("afterpin");
-
-    if (isRamadanPinned) {
-      pinned.push(item);
-      return;
-    }
-    if (isAfterPinnedKeyword) {
-      afterPinnedItems.push(item);
-      return;
-    }
-    candidates.push(item);
-  });
-
-  // Rule:
-  // 1) Ramadan pinned first
-  // 2) "After pinned" items (keyword/flagged)
-  // 3) Latest NEW item
-  // 4) Remaining NEW items
-  // 5) Oxidized items
-  // 6) Remaining items
-  let latestNew = null;
-  let latestNewIndex = -1;
-  let latestNewTime = -Infinity;
-  candidates.forEach((item, index) => {
-    if (!item?.isNew) return;
-    const itemTime = getProductSortTime(item);
-    if (itemTime > latestNewTime) {
-      latestNewTime = itemTime;
-      latestNewIndex = index;
-      latestNew = item;
-    }
-  });
-  if (latestNewIndex >= 0) {
-    candidates.splice(latestNewIndex, 1);
-  }
-
-  const newItems = [];
-  const oxidizedItems = [];
-  const otherItems = [];
-  candidates.forEach((item) => {
-    const categoryKeys = getProductCategoryKeys(item);
-    const isOxidized =
-      categoryKeys.includes("oxidize") ||
-      categoryKeys.includes("oxidizingjewels");
-
-    if (item?.isNew) newItems.push(item);
-    else if (isOxidized) oxidizedItems.push(item);
-    else otherItems.push(item);
-  });
-
-  pinned.sort((a, b) => getProductSortTime(b) - getProductSortTime(a));
-  const getAfterPinnedPriority = (item) => {
-    const id = Number(item?.id);
-    if (id === 245) return 0;
-    if (id === 246) return 1;
-    if (id === 247) return 2;
-    return 10;
-  };
-  afterPinnedItems.sort((a, b) => {
-    const aPri = getAfterPinnedPriority(a);
-    const bPri = getAfterPinnedPriority(b);
-    if (aPri !== bPri) return aPri - bPri;
-    return getProductSortTime(b) - getProductSortTime(a);
-  });
-  newItems.sort((a, b) => getProductSortTime(b) - getProductSortTime(a));
-  return [
-    ...pinned,
-    ...afterPinnedItems,
-    ...(latestNew ? [latestNew] : []),
-    ...newItems,
-    ...oxidizedItems,
-    ...otherItems,
-  ];
+  // Listing rule (exact):
+  // 1) products.js seeded entries first by seed order (last in file appears first)
+  // 2) non-seeded entries after that (createdAt, then fallback index)
+  return list
+    .map((item, index) => ({ item, index, recency: getProductRecency(item, index) }))
+    .sort((a, b) => {
+      if (a.recency.bucket !== b.recency.bucket) return b.recency.bucket - a.recency.bucket;
+      if (a.recency.value !== b.recency.value) return b.recency.value - a.recency.value;
+      return b.index - a.index;
+    })
+    .map(({ item }) => item);
 }
 
 function buildProductsFromList(list, seedProducts = {}) {
@@ -428,40 +420,40 @@ function buildProductsFromList(list, seedProducts = {}) {
     const usedIds = new Set();
     const usedTitles = new Set();
 
-    seedList.forEach((seedItem) => {
+    seedList.forEach((seedItem, seedIndex) => {
       const idKey = String(seedItem?.id ?? "").trim();
       const titleKey = normalizeTitle(seedItem?.title);
       const idMatch = byId.get(idKey);
       const titleMatch = idMatch ? null : byTitle.get(titleKey);
       const match = idMatch || titleMatch;
-      const resolved = match ? { ...seedItem, ...match } : seedItem;
+      // Source-of-truth for seeded items: code (products.js) should win over Firestore fields.
+      const resolved = match ? { ...match, ...seedItem } : seedItem;
       if (!idMatch && titleMatch && idKey) {
         // Keep canonical seed id when falling back to title-based merge.
         resolved.id = seedItem.id;
       }
       if (match) {
-        // Keep NEW badge unless Firestore explicitly sets true/false.
-        resolved.isNew = typeof match.isNew === "boolean" ? match.isNew : Boolean(seedItem.isNew);
-        // Preserve seed product image when Firestore contains fallback/placeholder values.
-        const firestorePrimaryImage = getFirstImageCandidate(match);
-        const seedPrimaryImage = getFirstImageCandidate(seedItem);
-        const preferredPrimaryImage = (!isFallbackLikeImage(firestorePrimaryImage) && firestorePrimaryImage)
-          ? firestorePrimaryImage
-          : seedPrimaryImage;
-        if (preferredPrimaryImage) {
-          resolved.img = preferredPrimaryImage;
+        // Keep inventory from dashboard unless explicitly set in code.
+        const hasSeedStock = seedItem?.stock !== undefined && seedItem?.stock !== null && String(seedItem.stock).trim() !== "";
+        if (!hasSeedStock) {
+          resolved.stock = Number(match?.stock) || 10;
         }
-        // Keep seed gallery images when Firestore item does not include full images[].
-        if (!Array.isArray(match.images) || match.images.length === 0 || isFallbackLikeImage(match.images[0])) {
-          resolved.images = Array.isArray(seedItem.images) ? seedItem.images : resolved.images;
-        } else if (preferredPrimaryImage && Array.isArray(resolved.images) && resolved.images.length > 0) {
-          // Ensure first gallery item matches the preferred primary image.
-          const deduped = [preferredPrimaryImage, ...resolved.images].filter(
-            (value, index, arr) => typeof value === "string" && value.trim() && arr.indexOf(value) === index
-          );
-          resolved.images = deduped;
+        // Seeded products should stay active even if an old dashboard record was soft-deleted.
+        resolved.deleted = false;
+        // Keep NEW badge unless Firestore explicitly sets true/false.
+        resolved.isNew = typeof seedItem.isNew === "boolean"
+          ? seedItem.isNew
+          : (typeof match.isNew === "boolean" ? match.isNew : false);
+        // For seeded products, keep media strictly from code to avoid title/image mixups.
+        const seedPrimaryImage = getFirstImageCandidate(seedItem);
+        if (seedPrimaryImage) {
+          resolved.img = seedPrimaryImage;
+        }
+        if (Array.isArray(seedItem.images) && seedItem.images.length > 0) {
+          resolved.images = seedItem.images;
         }
       }
+      resolved.__seedOrder = seedIndex;
       if (resolved?.deleted) return;
       const resolvedId = String(resolved?.id ?? "").trim();
       const resolvedTitle = normalizeTitle(resolved?.title);
@@ -499,13 +491,35 @@ function getProductSortTime(product) {
   return Number.isNaN(parsed) ? (parseInt(product?.id, 10) || 0) : parsed;
 }
 
+function hasProductCreatedAt(product) {
+  const createdAt = product?.createdAt;
+  if (!createdAt) return false;
+  if (typeof createdAt.toMillis === "function") return true;
+  if (typeof createdAt === "number") return Number.isFinite(createdAt);
+  if (typeof createdAt?.seconds === "number") return true;
+  if (typeof createdAt === "string") return !Number.isNaN(Date.parse(createdAt));
+  return false;
+}
+
+function getProductRecency(product, fallbackIndex = 0) {
+  const seedOrder = Number(product?.__seedOrder);
+  if (Number.isFinite(seedOrder)) {
+    return { bucket: 3, value: seedOrder };
+  }
+  if (hasProductCreatedAt(product)) {
+    return { bucket: 2, value: getProductSortTime(product) };
+  }
+  return { bucket: 1, value: Number(fallbackIndex) || 0 };
+}
+
 function saveProductsToCache(products) {
   try {
+    const autoNewProducts = applyAutomaticNewFlags(products);
     productsCacheStorage.setItem(
       PRODUCTS_CACHE_KEY,
       JSON.stringify({
         timestamp: Date.now(),
-        products: normalizeProductsShape(products)
+        products: autoNewProducts
       })
     );
   } catch (e) {
@@ -530,7 +544,7 @@ function readProductsFromCache() {
 }
 
 function commitProducts(products) {
-  allProducts = normalizeProductsShape(products);
+  allProducts = applyAutomaticNewFlags(products);
   window.allProducts = allProducts;
   window.dispatchEvent(new Event("productsLoaded"));
   renderProducts();
@@ -590,19 +604,22 @@ document.addEventListener("DOMContentLoaded", updateShippingText);
 updateShippingText();
 
 // ===== Load Products from Firestore =====
-async function loadProductsFromFirestore() {
+async function loadProductsFromFirestore(options = {}) {
   if (!productList || !pageName) return;
   if (productsLoadPromise) return productsLoadPromise;
+  const useCachedFirst = options.useCachedFirst !== false;
 
   productsLoadPromise = (async () => {
-    const cachedProducts = readProductsFromCache();
     let renderedFastFallback = false;
-    if (cachedProducts) {
-      commitProducts(cachedProducts);
-      renderedFastFallback = true;
-    } else {
-      commitProducts(normalizeProductsShape(hardcodedProducts));
-      renderedFastFallback = true;
+    if (useCachedFirst) {
+      const cachedProducts = readProductsFromCache();
+      if (cachedProducts) {
+        commitProducts(cachedProducts);
+        renderedFastFallback = true;
+      } else {
+        commitProducts(normalizeProductsShape(hardcodedProducts));
+        renderedFastFallback = true;
+      }
     }
 
     try {
@@ -633,6 +650,7 @@ async function loadProductsFromFirestore() {
       const mergedProducts = buildProductsFromList(firestoreProducts, hardcodedProducts);
       saveProductsToCache(mergedProducts);
       commitProducts(mergedProducts);
+      lastProductsNetworkFetchAt = Date.now();
       console.log("Products loaded from Firestore:", mergedProducts);
     } catch (error) {
       console.error("Error loading products from Firestore:", error);
@@ -645,6 +663,19 @@ async function loadProductsFromFirestore() {
   });
 
   return productsLoadPromise;
+}
+
+function maybeRefreshProductsOnReturn() {
+  if (!productList || !pageName) return;
+  if (document.visibilityState !== "visible") return;
+
+  const now = Date.now();
+  const throttled = now - lastProductsVisibilityRefreshAt < PRODUCTS_VISIBLE_REFRESH_MIN_INTERVAL_MS;
+
+  if (throttled) return;
+  lastProductsVisibilityRefreshAt = now;
+  // Always fetch fresh products when user returns to the tab.
+  loadProductsFromFirestore({ useCachedFirst: false });
 }
 
 // ===== Render Products =====
@@ -916,6 +947,16 @@ window.addEventListener("productsLoaded", () => {
   // Ensure filter applies after products are loaded/rendered
   setTimeout(applyFilterFromHash, 0);
   setTimeout(applySearchFromQuery, 0);
+});
+
+window.addEventListener("focus", () => {
+  maybeRefreshProductsOnReturn();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    maybeRefreshProductsOnReturn();
+  }
 });
 
 // Load products from Firestore on page load

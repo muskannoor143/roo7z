@@ -18,9 +18,15 @@
     "source": "./dataconnect"
   },
   "hosting": {
-    "public": "app/dist",
+    "public": ".",
     "ignore": [
       "firebase.json",
+      ".firebaserc",
+      "README.md",
+      "TODO.md",
+      "dev.nix",
+      "dataconnect/**",
+      "app/**",
       "**/.*",
       "**/node_modules/**"
     ]

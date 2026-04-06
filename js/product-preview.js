@@ -2,7 +2,7 @@
 
 import { db, storage, ref, uploadBytes, getDownloadURL, collection, addDoc, getDocs, getDoc, query, where, doc, setDoc, serverTimestamp } from './firebase.js';
 import { showCheckoutForm } from './cart-login.js?v=20260307a';
-import { allProducts as seedProducts } from './products.js';
+import { allProducts as seedProducts } from './products.js?v=20260404a';
 
 const PRODUCT_FALLBACK_IMAGE = "images/roo7z-logo.png";
 const THUMB_FALLBACK_IMAGE = "images/roo7z-logo.png";
@@ -719,6 +719,30 @@ async function renderReviews(p) {
   reviewsNode.innerHTML = "<p>Loading reviews...</p>";
   const escapeReviewHtml = (value) =>
     String(value || "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+  const escapeAttr = (value) => escapeReviewHtml(value);
+  const formatReviewDate = (timestamp) => {
+    if (!timestamp) return "Unknown date";
+    try {
+      if (typeof timestamp?.toDate === "function") {
+        return timestamp.toDate().toLocaleDateString();
+      }
+      const date = new Date(timestamp);
+      if (!Number.isNaN(date.getTime())) return date.toLocaleDateString();
+    } catch (error) {
+      console.warn("Invalid review timestamp:", error);
+    }
+    return "Unknown date";
+  };
+  const resolveReviewImageUrl = (review) => {
+    const candidates = [
+      review?.imageUrl,
+      review?.reviewImageUrl,
+      review?.image,
+      review?.photoUrl,
+      review?.photoURL
+    ];
+    return candidates.find((value) => typeof value === "string" && value.trim()) || "";
+  };
 
   try {
     // Fetch reviews from Firebase
@@ -732,8 +756,9 @@ async function renderReviews(p) {
 
     // Sort reviews by timestamp (newest first)
     reviews.sort((a, b) => {
-      if (!a.timestamp || !b.timestamp) return 0;
-      return b.timestamp.toDate() - a.timestamp.toDate();
+      const aTime = typeof a?.timestamp?.toDate === "function" ? a.timestamp.toDate().getTime() : 0;
+      const bTime = typeof b?.timestamp?.toDate === "function" ? b.timestamp.toDate().getTime() : 0;
+      return bTime - aTime;
     });
 
     reviewsNode.innerHTML = "";
@@ -746,10 +771,12 @@ async function renderReviews(p) {
     reviews.forEach(review => {
       const div = document.createElement("div");
       div.className = "review-item";
-      const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
-      const date = review.timestamp ? review.timestamp.toDate().toLocaleDateString() : "Unknown date";
-      const imageBlock = review.imageUrl
-        ? `<img src="${review.imageUrl}" alt="Review image by ${escapeReviewHtml(review.name)}" class="review-image" loading="lazy">`
+      const rating = Math.max(1, Math.min(5, Number(review.rating) || 5));
+      const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
+      const date = formatReviewDate(review.timestamp);
+      const reviewImage = resolveReviewImageUrl(review);
+      const imageBlock = reviewImage
+        ? `<img src="${escapeAttr(reviewImage)}" alt="Review image by ${escapeReviewHtml(review.name)}" class="review-image" loading="lazy" referrerpolicy="no-referrer">`
         : "";
       div.innerHTML = `
         <div class="review-header">
@@ -903,6 +930,7 @@ function initReviewModal(p) {
         rating: parseInt(rating),
         text: text,
         imageUrl: reviewImageUrl,
+        reviewImageUrl: reviewImageUrl,
         timestamp: serverTimestamp()
       });
 

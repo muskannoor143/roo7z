@@ -1523,11 +1523,10 @@ async function addDefaultCategories() {
     }
 }
 
-// Migrate products.js to Firestore (one-time operation)
+// Sync products.js seed data to Firestore so code edits appear in dashboard too.
 async function migrateProductsToFirestore() {
     try {
-        // Import products from products.js
-        const { allProducts } = await import('./products.js');
+        const { allProducts } = await import('./products.js?v=20260404a');
         const jewelryProducts = Array.isArray(allProducts?.jewelery) ? allProducts.jewelery : [];
         const featureProducts = Array.isArray(allProducts?.features) ? allProducts.features : [];
         const seedProducts = [...jewelryProducts, ...featureProducts];
@@ -1537,59 +1536,94 @@ async function migrateProductsToFirestore() {
             return;
         }
 
-        showAlert('Migrating products to database...', 'info');
+        showAlert('Syncing products from code to database...', 'info');
 
-        // Get existing products
         const existingSnapshot = await getDocs(collection(db, 'products'));
-        const existingTitles = new Set();
+        const existingById = new Map();
+        const existingByTitle = new Map();
 
-        existingSnapshot.forEach((doc) => {
-            const product = doc.data();
+        existingSnapshot.forEach((docSnap) => {
+            const product = docSnap.data() || {};
             const normalizedExistingTitle = String(product?.title || '').toLowerCase().trim();
+            const existingId = String(product?.id ?? '').trim();
+
+            if (existingId) {
+                existingById.set(existingId, { docId: docSnap.id, data: product });
+            }
             if (normalizedExistingTitle) {
-                existingTitles.add(normalizedExistingTitle);
+                existingByTitle.set(normalizedExistingTitle, { docId: docSnap.id, data: product });
             }
         });
 
-        let migratedCount = 0;
+        let createdCount = 0;
+        let updatedCount = 0;
 
-        // Migrate seed products (only if they don't already exist)
         for (const product of seedProducts) {
+            if (!product || typeof product !== 'object') continue;
+
             const normalizedTitle = String(product?.title || '').toLowerCase().trim();
-            if (!normalizedTitle || existingTitles.has(normalizedTitle)) continue;
+            const seedId = String(product?.id ?? '').trim();
+            if (!normalizedTitle) continue;
+
+            const existingMatch = (seedId && existingById.get(seedId)) || existingByTitle.get(normalizedTitle) || null;
+            const hasExplicitStock = product?.stock !== undefined && product?.stock !== null && String(product.stock).trim() !== '';
+            const existingStock = Number(existingMatch?.data?.stock);
+            const resolvedStock = hasExplicitStock
+                ? Number(product.stock)
+                : (Number.isFinite(existingStock) ? existingStock : 10);
+
+            const images = Array.isArray(product.images)
+                ? product.images.filter((value) => typeof value === 'string' && value.trim())
+                : [];
+            const primaryImage = String(product.img || product.imageUrl || images[0] || '').trim();
 
             const productData = {
                 title: String(product.title || '').trim(),
                 category: product.category || '',
+                categories: Array.isArray(product.categories) ? product.categories : [],
                 pricePKR: Number(product.pricePKR) || 0,
                 priceGBP: Number(product.priceGBP) || 0,
                 discount: Number(product.discount) || 0,
                 description: product.description || '',
-                img: product.img || '',
+                img: primaryImage,
+                images: images.length ? images : (primaryImage ? [primaryImage] : []),
                 colors: Array.isArray(product.colors) ? product.colors : [],
                 sizes: Array.isArray(product.sizes) ? product.sizes : [],
-                stock: Number(product.stock) || 10,
+                stock: Number.isFinite(resolvedStock) ? resolvedStock : 10,
                 variants: Array.isArray(product.variants) ? product.variants : [],
-                createdAt: serverTimestamp(),
+                sets: Array.isArray(product.sets) ? product.sets : [],
+                designs: Array.isArray(product.designs) ? product.designs : [],
+                isNew: Boolean(product.isNew),
+                deleted: false,
+                source: 'products.js',
+                seedSyncedAt: serverTimestamp(),
                 updatedAt: serverTimestamp()
             };
 
-            await addDoc(collection(db, 'products'), productData);
-            existingTitles.add(normalizedTitle);
-            migratedCount++;
+            if (seedId) {
+                productData.id = product.id;
+            } else if (existingMatch?.data?.id !== undefined) {
+                productData.id = existingMatch.data.id;
+            }
+
+            if (existingMatch) {
+                productData.createdAt = existingMatch.data?.createdAt || serverTimestamp();
+                await setDoc(doc(db, 'products', existingMatch.docId), productData, { merge: true });
+                updatedCount++;
+            } else {
+                productData.createdAt = serverTimestamp();
+                await addDoc(collection(db, 'products'), productData);
+                createdCount++;
+            }
         }
 
-        if (migratedCount > 0) {
-            showAlert(`${migratedCount} products migrated successfully!`, 'success');
-            console.log(`${migratedCount} products migrated to Firestore`);
-        } else {
-            showAlert('All products already exist in database.', 'info');
-            console.log('All products already exist in Firestore');
-        }
+        const totalSynced = createdCount + updatedCount;
+        showAlert(`${totalSynced} products synced (${updatedCount} updated, ${createdCount} created).`, 'success');
+        console.log(`Seed sync complete. Updated: ${updatedCount}, Created: ${createdCount}`);
 
     } catch (error) {
-        console.error('Error migrating products:', error);
-        showAlert(`Error migrating products: ${error?.message || 'Unknown error'}`, 'danger');
+        console.error('Error syncing products:', error);
+        showAlert(`Error syncing products: ${error?.message || 'Unknown error'}`, 'danger');
     }
 }
 
