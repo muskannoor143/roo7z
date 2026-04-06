@@ -387,6 +387,19 @@ title: "Wing Statement Ring",
   description: "Experience the perfect blend of organic beauty and modern minimalism with this delicate pearl bracelet. Featuring a stunning sequence of natural-shaped baroque pearls and polished round accents, this piece is held together by a slender, high-shine gold-toned chain. Its lightweight design and adjustable fit make it an effortless choice for adding a touch of sophisticated soft luxury to any outfit."
 },
 
+{id: 266,
+  title: "Golden Sunburst Pearl Ring",
+  pricePKR: 399,
+  priceGBP: 11.99,
+  discount: 0,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/rings/sunflower1.jpeg",
+  images: ["images/rings/sunflower1.jpeg","images/rings/sunflower.jpeg","images/rings/sunflower2.jpeg","images/rings/sun.jpeg"],
+  category: "rings",
+  description: "A stylish gold ring shaped like a sunburst with a centered pearl, perfect for adding a touch of elegance to any outfit."
+},
+
 ],
 
 
