@@ -401,6 +401,19 @@ title: "Wing Statement Ring",
   description: "A stylish gold ring shaped like a sunburst with a centered pearl, perfect for adding a touch of elegance to any outfit."
 },
 
+
+{id: 267,
+  title: "Tribal Frame Bell Drop Earrings",
+  pricePKR: 599,
+  priceGBP: 11.99,
+  discount: 0,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/framebell.jpeg",
+  images: ["images/earring/framebell.jpeg", "images/earring/framebell-1.jpeg","images/earring/framebell-2.jpeg","images/earring/framebell-3.jpeg"],
+  category: "earrings",
+  description: "These stunning oxidized silver earrings offer a beautiful blend of boho-chic style and vintage elegance. The unique open rectangular frame is decorated with intricate textured engravings and features delicate silver ghungroo drops that add a soft and melodic charm to your every movement. Crafted with a premium antique matte finish, these earrings provide an authentic tribal look while remaining remarkably lightweight for all-day comfort. Whether you are dressing up for a festive occasion or adding a fusion touch to your everyday Western outfit, these statement pieces are designed to be the highlight of your ensemble."
+},
 ],
 
 
