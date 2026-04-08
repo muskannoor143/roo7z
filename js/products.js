@@ -414,10 +414,23 @@ title: "Wing Statement Ring",
   category: "earrings",
   description: "These stunning oxidized silver earrings offer a beautiful blend of boho-chic style and vintage elegance. The unique open rectangular frame is decorated with intricate textured engravings and features delicate silver ghungroo drops that add a soft and melodic charm to your every movement. Crafted with a premium antique matte finish, these earrings provide an authentic tribal look while remaining remarkably lightweight for all-day comfort. Whether you are dressing up for a festive occasion or adding a fusion touch to your everyday Western outfit, these statement pieces are designed to be the highlight of your ensemble."
 },
+
+
+
+
+{id: 268,
+  title: "Ball-and-link chain bracelet",
+  pricePKR: 650,
+  priceGBP: 17.99,
+  discount: 0,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/link.jpeg",
+  images: ["images/bracelets/link.jpeg","images/bracelets/link1.jpeg","images/bracelets/link2.jpeg","images/bracelets/link3.jpeg","images/bracelets/link4.jpeg"],
+  category: "bracelets",
+  description: "Embrace sophistication with our new [Brand Name] Gold Ball-and-Link Chain Bracelet. The beautifully patterned U-shaped links are meticulously punctuated with textured gold beads, creating a dance of light with every movement. Complete with a secure adjustable chain and a stylish tag, its designed to be your favorite new daily accessory."
+},
 ],
-
-
-
 
 
 
