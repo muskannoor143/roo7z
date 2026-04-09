@@ -430,6 +430,34 @@ title: "Wing Statement Ring",
   category: "bracelets",
   description: "Embrace sophistication with our new [Brand Name] Gold Ball-and-Link Chain Bracelet. The beautifully patterned U-shaped links are meticulously punctuated with textured gold beads, creating a dance of light with every movement. Complete with a secure adjustable chain and a stylish tag, its designed to be your favorite new daily accessory."
 },
+
+{id: 269,
+  title: "Pearl Kiss Heart Earrings",
+  pricePKR: 550,
+  priceGBP: 16.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/heartpearl.jpeg",
+  images: ["images/earring/heartpearl.jpeg", "images/earring/heartpearl-1.jpeg","images/earring/heartpearl-2.jpeg","images/earring/heartpearl-3.jpeg"],
+  category: "earrings",
+  description: "A symbol of love, reimagined in a modern, minimal design. These gold heart-shaped earrings are delicately lined with luminous pearls, creating the perfect balance of elegance and charm. The open-heart structure adds a contemporary touch, while the pearls bring timeless beauty. Lightweight and versatile, they’re perfect for everyday wear or adding a romantic glow to special moments."
+
+},
+
+{id: 270,
+  title: "The Modern Relic Bracelet",
+  pricePKR: 750,
+  priceGBP: 19.99,
+  discount: 0,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/b-2.jpeg",
+  images: ["images/bracelets/b-2.jpeg","images/bracelets/b-2.1.jpeg","images/bracelets/b-2.2.jpeg","images/bracelets/b-2.3.jpeg","images/bracelets/b-2.4.jpeg"],
+  category: "bracelets",
+  description: "Forget fast fashion and fleeting trends. This piece is crafted for those who value substance as much as style. Featuring an intricate, organic melted gold texture, this bracelet captures the raw beauty of nature with the precision of modern craftsmanship."
+
+},
 ],
 
 
