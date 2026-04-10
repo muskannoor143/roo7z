@@ -46,8 +46,6 @@ export const allProducts = {
         
         { id: 215, title: "Timeless Bow Pendant", pricePKR: 449, priceGBP: 22.99, discount: 4, img: "images/Pendants/p-9.1.jfif", "images": ["images/Pendants/p-9.1.jfif","images/Pendants/p-9.jfif","images/Pendants/p-9.2.jfif"],category: "pendants", description: "Add a touch of feminine charm to your everyday style with our Timeless Bow Pendant. Inspired by the timeless elegance of a perfectly tied ribbon, this pendant is crafted with exquisite detail to capture a soft, fluid silhouette. Whether you're dressing up for a brunch date or adding a coquette touch to your office attire, this piece is the ultimate symbol of dainty sophistication." },
         
-        { id: 216, title: "GRACE OXIDISE HANDCUFF", pricePKR: 799, priceGBP: 26, discount: 9, img: "images/bracelets/b-7.jpeg","images": ["images/bracelets/b-7.jpeg","images/bracelets/b-7.1.jpeg"], category: "oxidize", description: "Make a bold yet elegant statement with this intricately crafted antique cuff bracelet. Designed with delicate filigree patterns and charming dangling accents, it captures the essence of vintage beauty while elevating any modern look. Perfect for festive occasions or refined everyday styling, this piece wraps your wrist in sophistication and effortless charm." },
-       
         { id: 217, title: "EARrings", pricePKR: 450, priceGBP: 16.99, discount: 0, img: "images/earring/e-9.jpeg", "images": ["images/earring/e-9.jpeg","images/earring/e-9.1.jpeg"],category: "Earrings", description: "Elegant rings." },
         
         { id: 218, title: "CLASSIC HAMMERED DISC CUFF", pricePKR: 799, priceGBP: 19.99, discount: 7, img: "images/bracelets/b-3.jpeg", "images": ["images/bracelets/b-3.jpeg","images/bracelets/b-3.1.png","images/bracelets/b-3.2.png"],category: "bracelets", description: "An elegent hammered golden stainless steel cuff with smooth disc detailing, designed to reflect understated sophistication and modern charm." },
@@ -458,6 +456,22 @@ title: "Wing Statement Ring",
   description: "Forget fast fashion and fleeting trends. This piece is crafted for those who value substance as much as style. Featuring an intricate, organic melted gold texture, this bracelet captures the raw beauty of nature with the precision of modern craftsmanship."
 
 },
+
+{id: 271,
+  title: "The Old World Charm Bracelet",
+  pricePKR: 950,
+  priceGBP: 31.99,
+  discount: 5,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/b-7.jpeg",
+  images: ["images/bracelets/b-7.jpeg","images/bracelets/b-7.2.jpeg","images/bracelets/b-7.3.jpeg","images/bracelets/b-7.1.jpeg"],
+  category: "oxidize",
+  description: "Add a tribal edge to your jewelry collection with the roo7z Tribal Statement Kada. Featuring a rich, blackened silver finish and intricate ethnic motifs, this cuff is the perfect blend of tradition and trend. Lightweight enough for all-day wear, yet bold enough to be the star of your outfit."
+
+},
+
+
 ],
 
 
