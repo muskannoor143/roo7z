@@ -17,6 +17,9 @@
   "dataconnect": {
     "source": "./dataconnect"
   },
+  "functions": {
+    "source": "functions"
+  },
   "hosting": {
     "public": ".",
     "ignore": [

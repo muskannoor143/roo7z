@@ -575,6 +575,53 @@ function updateUserStatus() {
   });
 }
 
+const quickActionsState = {
+  user: null,
+  cart: null,
+  resizeBound: false
+};
+
+function rememberOriginalSpot(key, item) {
+  if (!item || quickActionsState[key]) return;
+  const placeholder = document.createComment(`quick-${key}-placeholder`);
+  item.parentNode?.insertBefore(placeholder, item);
+  quickActionsState[key] = { placeholder };
+}
+
+function restoreToOriginalSpot(key, item) {
+  const state = quickActionsState[key];
+  if (!item || !state?.placeholder?.parentNode) return;
+  state.placeholder.parentNode.insertBefore(item, state.placeholder.nextSibling);
+}
+
+function placeMobileQuickActions() {
+  const navContainer = document.querySelector(".navigation-wrap .container");
+  const toggler = navContainer?.querySelector(".navbar-toggler");
+  if (!navContainer || !toggler) return;
+
+  let quickWrap = navContainer.querySelector(".mobile-quick-actions");
+  if (!quickWrap) {
+    quickWrap = document.createElement("div");
+    quickWrap.className = "mobile-quick-actions";
+    toggler.insertAdjacentElement("afterend", quickWrap);
+  }
+
+  const isMobile = window.matchMedia("(max-width: 991px)").matches;
+  const userItem = document.getElementById("userIcon")?.closest(".nav-item");
+  const cartItem = document.getElementById("univ-cart-toggle")?.closest(".nav-item");
+
+  rememberOriginalSpot("user", userItem);
+  rememberOriginalSpot("cart", cartItem);
+
+  if (isMobile) {
+    if (userItem && userItem.parentElement !== quickWrap) quickWrap.appendChild(userItem);
+    if (cartItem && cartItem.parentElement !== quickWrap) quickWrap.appendChild(cartItem);
+  } else {
+    restoreToOriginalSpot("user", userItem);
+    restoreToOriginalSpot("cart", cartItem);
+  }
+}
+
 // ===== Checkout handler =====
 export function showCheckoutForm() {
   console.log("showCheckoutForm called");
@@ -660,6 +707,12 @@ function debugDOMElements() {
 
 // Function to initialize DOM elements and event listeners
 function initEventListeners() {
+  placeMobileQuickActions();
+  if (!quickActionsState.resizeBound) {
+    quickActionsState.resizeBound = true;
+    window.addEventListener("resize", placeMobileQuickActions);
+  }
+
   // Debug DOM elements first
   debugDOMElements();
   
@@ -871,6 +924,7 @@ function initEventListeners() {
   // Load cart state and sync count after initialization
   loadState();
   syncCount();
+  placeMobileQuickActions();
 
 }
 
@@ -1055,20 +1109,22 @@ function syncCount() {
     toggle.style.position = "relative";
   });
 
-  badges.forEach((badge) => {
+  badges.forEach((badge, idx) => {
+    const toggle = toggles[idx];
+    const inMobileQuickActions = Boolean(toggle?.closest(".mobile-quick-actions"));
     badge.textContent = badgeText;
     badge.hidden = count <= 0;
     badge.style.setProperty("display", count > 0 ? "inline-flex" : "none", "important");
     badge.style.position = "absolute";
-    badge.style.top = "-10px";
-    badge.style.right = "-10px";
+    badge.style.top = inMobileQuickActions ? "-6px" : "-10px";
+    badge.style.right = inMobileQuickActions ? "-6px" : "-10px";
     badge.style.zIndex = "9";
     badge.style.background = "#ef4444";
     badge.style.color = "#fff";
     badge.style.fontWeight = "700";
     badge.style.borderRadius = "999px";
-    badge.style.minWidth = "18px";
-    badge.style.height = "18px";
+    badge.style.minWidth = inMobileQuickActions ? "16px" : "18px";
+    badge.style.height = inMobileQuickActions ? "16px" : "18px";
     badge.style.alignItems = "center";
     badge.style.justifyContent = "center";
     badge.style.lineHeight = "1";

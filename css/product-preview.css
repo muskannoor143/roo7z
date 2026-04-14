@@ -182,14 +182,20 @@
 
 
 .thumbs {
-  display:flex;
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap:8px;
   margin-top:8px;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .preview-page .thumbs img {
-  width: 110px;
-  height: 110px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -397,6 +403,11 @@
     width: 34px;
     height: 34px;
     font-size: 24px;
+  }
+
+  .thumbs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
   }
 }
 

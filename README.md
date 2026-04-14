@@ -129,3 +129,45 @@ This repository contains the quickstart to help you explore the functionalities 
 ## License
 
 © Google, 2024. Licensed under an [Apache-2](../../LICENSE) license.
+
+## Roo7z Order Confirmation Email (Hostinger SMTP)
+
+Order create hote hi customer ko confirmation email bhejne ke liye Firebase Cloud Functions add ki gayi hain:
+
+- `users/{userId}/orders/{orderId}`
+- `guest_orders/{orderId}`
+
+### Setup Steps
+
+1. Functions dependencies install karein:
+
+```bash
+cd functions
+npm install
+```
+
+2. Firebase secrets set karein (Hostinger SMTP):
+
+```bash
+firebase functions:secrets:set SMTP_HOST
+firebase functions:secrets:set SMTP_PORT
+firebase functions:secrets:set SMTP_USER
+firebase functions:secrets:set SMTP_PASS
+```
+
+Suggested values:
+- `SMTP_HOST`: `smtp.hostinger.com`
+- `SMTP_PORT`: `465` (SSL) ya `587` (TLS)
+- `SMTP_USER`: aap ka Hostinger mailbox (e.g. `orders@yourdomain.com`)
+- `SMTP_PASS`: mailbox password
+
+3. Functions deploy karein:
+
+```bash
+firebase deploy --only functions
+```
+
+4. Test:
+- Website se order place karein.
+- Firestore order document me `emailStatus.confirmation = sent` aana chahiye.
+- Customer ko confirmation mail milni chahiye.

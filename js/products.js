@@ -46,6 +46,8 @@ export const allProducts = {
         
         { id: 215, title: "Timeless Bow Pendant", pricePKR: 449, priceGBP: 22.99, discount: 4, img: "images/Pendants/p-9.1.jfif", "images": ["images/Pendants/p-9.1.jfif","images/Pendants/p-9.jfif","images/Pendants/p-9.2.jfif"],category: "pendants", description: "Add a touch of feminine charm to your everyday style with our Timeless Bow Pendant. Inspired by the timeless elegance of a perfectly tied ribbon, this pendant is crafted with exquisite detail to capture a soft, fluid silhouette. Whether you're dressing up for a brunch date or adding a coquette touch to your office attire, this piece is the ultimate symbol of dainty sophistication." },
         
+
+
         { id: 217, title: "EARrings", pricePKR: 450, priceGBP: 16.99, discount: 0, img: "images/earring/e-9.jpeg", "images": ["images/earring/e-9.jpeg","images/earring/e-9.1.jpeg"],category: "Earrings", description: "Elegant rings." },
         
         { id: 218, title: "CLASSIC HAMMERED DISC CUFF", pricePKR: 799, priceGBP: 19.99, discount: 7, img: "images/bracelets/b-3.jpeg", "images": ["images/bracelets/b-3.jpeg","images/bracelets/b-3.1.png","images/bracelets/b-3.2.png"],category: "bracelets", description: "An elegent hammered golden stainless steel cuff with smooth disc detailing, designed to reflect understated sophistication and modern charm." },
@@ -471,6 +473,67 @@ title: "Wing Statement Ring",
 
 },
 
+{id: 272,
+  title: "LOVE DROP Earrings",
+  pricePKR: 450,
+  priceGBP: 13.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/heartbow.jpeg",
+  images: ["images/earring/heartbow.jpeg", "images/earring/heartbow-1.jpeg","images/earring/heartbow-2.jpeg","images/earring/heartbow-3.jpeg","images/earring/heartbow-4.jpeg","images/earring/heartbow-5.jpeg"],
+  category: "earrings",
+  description: "Delicate yet eye-catching, these golden bow heart earrings bring a perfect mix of charm and elegance. The soft bow design paired with a smooth heart drop creates a timeless look that feels both feminine and graceful. Lightweight and versatile, they’re perfect for everyday wear or adding a subtle statement to your special outfits."
+
+},
+
+{ id: 273, 
+  title: "Subtle Slay Set", 
+     pricePKR: 599, priceGBP: 18.99, discount: 0, 
+     img:"images/Pendants/SubtleSlay.jpeg",
+      isNew: true,
+    "images": ["images/Pendants/SubtleSlay.jpeg","images/Pendants/SubtleSlay1.jpeg","images/Pendants/SubtleSlay2.jpeg","images/Pendants/SubtleSlay3.jpeg","images/Pendants/SubtleSlay4.jpeg","images/Pendants/SubtleSlay5.jpeg"] ,
+    category: "pendants", 
+    description: "A perfect blend of simplicity and sophistication, this golden jewelry set is designed to elevate your everyday style. Featuring a delicate chain with a refined finish, it adds a subtle glow that complements every outfit. Whether you're dressing up for an occasion or keeping it minimal for daily wear, this set brings effortless elegance to your look." 
+  },
+
+{id: 274,
+  title: "Molten Muse Earrings",
+  pricePKR: 450,
+  priceGBP: 13.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/MoltenMuse.jpeg",
+  images: ["images/earring/MoltenMuse.jpeg", "images/earring/MoltenMuse1.jpeg","images/earring/MoltenMuse2.jpeg","images/earring/MoltenMuse3.jpeg","images/earring/MoltenMuse4.jpeg"],
+  category: "earrings",
+  description: "Designed for the bold minimalists, these sculptural earrings blend fluid gold tones with a textured metallic finish. Inspired by organic forms and modern art, they create a statement without trying too hard. Perfect for elevating both casual fits and dressed-up looks—because effortless style should still turn heads."
+
+},
+
+  {id: 275,
+  title: "The Artisanal Weave Earrings",
+  pricePKR: 450,
+  priceGBP: 13.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/ArtisanalWeave.jpeg",
+  images: ["images/earring/ArtisanalWeave.jpeg", "images/earring/ArtisanalWeave1.jpeg","images/earring/ArtisanalWeave2.jpeg","images/earring/ArtisanaWeave3.jpeg"],
+  category: "earrings",
+  description: "Elevate your everyday style with these meticulously crafted oval studs. Featuring an intricate interlocking woven texture, these earrings are designed to catch and reflect light from every angle, creating a dynamic shimmer that mimics the look of high-end fine jewelry."
+
+},
+{ id: 276, 
+  title: "The Gilded Bloom pendant", 
+     pricePKR: 599, priceGBP: 18.99, discount: 0, 
+     img:"images/Pendants/flower/main.jpeg",
+      isNew: true,
+    "images": ["images/Pendants/flower/main.jpeg","images/Pendants/flower/main1.jpeg","images/Pendants/flower/1.jpeg","images/Pendants/flower/2.jpeg","images/Pendants/flower/3.jpeg","images/Pendants/flower/4.jpeg","images/Pendants/flower/5.jpeg"] ,
+    category: "pendants", 
+    description: "This exquisite floral-inspired necklace captures the essence of a shimmering garden, featuring a brilliant, oversized cushion-cut crystal held in an artisanal embrace of sculpted golden petals. Designed for the woman who appreciates jewelry that tells a story of natural beauty, the pendant showcases a unique blooming design where delicately textured gold-toned leaves wrap around a high-clarity stone. Finished with a premium high-polish luster, it provides a warm, luxurious glow against the skin and hangs from a refined, durable cable chain for a sophisticated yet comfortable silhouette. Whether worn for a gala evening, as wedding guest attire, or given as a sentimental gift, this piece remains a timeless statement of romantic elegance."
+  
+  },
 
 ],
 

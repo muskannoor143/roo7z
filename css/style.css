@@ -44,13 +44,65 @@ ol{
     scroll-behavior: smooth;
  }
 
- body{
-    font-size: 100%;
-    font-weight: 400;
-    font-family: 'Playfair Display', serif;
-    overflow-x: hidden;
+body{
+   font-size: 100%;
+   font-weight: 400;
+   font-family: 'Playfair Display', serif;
+   overflow-x: hidden;
 
  }
+
+.skip-link {
+    position: absolute;
+    top: -48px;
+    left: 12px;
+    z-index: 3000;
+    background: #214740;
+    color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 12px;
+    color: #ffffff !important;
+}
+
+.back-to-top {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #214740, #2a5f5a);
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1;
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+    z-index: 1400;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: linear-gradient(135deg, #2a5f5a, #214740);
+}
 /*
  ============================================
     custom scrollbar
@@ -1455,6 +1507,20 @@ p1 {
   .univ-modal {
     padding: 35px 25px;
     width: 95%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

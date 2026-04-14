@@ -161,6 +161,29 @@ window.addEventListener("scroll", function () {
   }
 });
 
+function initBackToTop() {
+  const backToTopBtn = document.getElementById("backToTop");
+  if (!backToTopBtn) return;
+
+  const updateVisibility = () => {
+    const shouldShow = (window.scrollY || document.documentElement.scrollTop || 0) > 520;
+    backToTopBtn.classList.toggle("show", shouldShow);
+  };
+
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  updateVisibility();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initBackToTop, { once: true });
+} else {
+  initBackToTop();
+}
+
 // ✅ Slider
 let currentIndex = 0;
 function slide(direction) {
