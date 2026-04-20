@@ -535,6 +535,31 @@ title: "Wing Statement Ring",
   
   },
 
+  {id: 277,
+  title: "Double Layer Bracelet",
+  pricePKR: 850,
+  priceGBP: 15.99,
+  discount: 10,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/DoubleLayerBracelet.jpeg",
+  images: ["images/bracelets/DoubleLayerBracelet.jpeg","images/bracelets/DoubleLayerBracelet4.jpeg","images/bracelets/DoubleLayerBracelet5.jpeg","images/bracelets/DoubleLayerBracelet3.jpeg","images/bracelets/DoubleLayerBracelet1.jpeg","images/bracelets/DoubleLayerBracelet2.jpeg"],
+  category: "bracelets",
+  description: "Experience the perfect blend of organic beauty and modern minimalism with this delicate double layer bracelet. Featuring a stunning sequence of double layer chain , this piece is held together by a slender, high-shine gold-toned chain. Its lightweight design and adjustable fit make it an effortless choice for adding a touch of sophisticated soft luxury to any outfit."
+
+},
+
+  { id: 278, 
+  title: "Emerald Heart Elegance Pendant", 
+     pricePKR: 750, priceGBP: 18.99, discount: 0, 
+     img:"images/Pendants/green1.jpeg",
+      isNew: true,
+    "images": ["images/Pendants/green1.jpeg","images/Pendants/green.jpeg","images/Pendants/green2.jpeg","images/Pendants/green3.jpeg","images/Pendants/green4.jpeg","images/Pendants/green5.jpeg"] ,
+    category: "pendants", 
+    description: "Add a touch of timeless elegance to your collection with this stunning emerald heart necklace. Featuring a deep green gemstone set in a delicate gold frame, this piece symbolizes sophistication and charm. The minimal yet luxurious design makes it perfect for both everyday wear and special occasions."
+  },
+
+  
 ],
 
 
