@@ -21,8 +21,8 @@
   
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <link rel="canonical" href="https://www.roo7z.com/">
-  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://www.roo7z.com/jewelrify.html">
+  <meta name="robots" content="noindex,follow">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -32,10 +32,18 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0f0f0f">
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      if (!params.has("home")) {
+        window.location.replace("jewelrify.html");
+      }
+    })();
+  </script>
   <meta property="og:title" content="Roo7z Jewelry | Men, Women & Custom Designs">
   <meta property="og:description" content="Shop men's and women's jewelry, and create custom pieces with Jewelrify at Roo7z.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.roo7z.com/">
+  <meta property="og:url" content="https://www.roo7z.com/jewelrify.html">
   <meta property="og:image" content="https://www.roo7z.com/android-chrome-512x512.png">
 <script type="application/ld+json">
 {
@@ -92,7 +100,7 @@
                   </li>
 
                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index.html?home=1">Home</a>
                   </li>
                  
                  
@@ -607,8 +615,8 @@
               <div class="carousel-caption text-center">
                 <h1>let Roo7z be a Reflextion of your soul</h1>
                 <p>Style that Shine from inside out</p>
-                <a href="features.html">
-                 <button class="main-btn main-btn--gooey" onclick="document.location='men.html'"> Coming Soon 
+                <a href="jewelrify.html">
+                 <button class="main-btn main-btn--gooey" onclick="document.location='jewelrify.html'"> Coming Soon
                     <div class="main-btn__blobs">
                     <div></div>
                     <div></div>
@@ -623,7 +631,7 @@
               <div class="carousel-caption text-center">
                 <h1>Not just a look. It's a feeling. It's Roo7z.</h1>
                 <p>Wear what empowers you.</p>
-                <button class="main-btn main-btn--gooey" onclick="document.location='features.html'"> SHOP NOW
+                <button class="main-btn main-btn--gooey" onclick="document.location='jewelrify.html'"> SHOP NOW
                     <div class="main-btn__blobs">
                     <div></div>
                     <div></div>
@@ -744,7 +752,7 @@
   
 <!-- section-2 about  us  -->
  
- <section class="about-section">
+  <section class="about-section">
 <div class="content">
       <h2>About Us</h2>
       <p>
@@ -753,46 +761,117 @@
     </div>
     <img src="./images/bg/Download_set_of_abstract_organic_blob_shape_elements_with_line_for_free-removebg-preview.png" class="shape shape1" alt="shape" loading="lazy" decoding="async" />
     <img src="./images/bg/Download_set_of_abstract_organic_blob_shape_elements_with_line_for_free-removebg-preview.png" class="shape shape2" alt="shape" loading="lazy" decoding="async" />
-    
-   
+
   </section>
+
+  <!-- section-2.5 jewelrify showcase -->
+<section class="jewelrify-showcase" aria-label="Jewelrify showcase">
+  <div class="showcase-shell">
+    <div class="showcase-head">
+      <div class="showcase-copy">
+        <span class="showcase-kicker">Jewelrify Preview</span>
+        <h2>Editorial jewelry, curated for everyday wear.</h2>
+        <p>Explore a polished preview of Roo7z Jewelrify before opening the full collection.</p>
+      </div>
+      <a class="showcase-cta" href="jewelrify.html">Show All</a>
+    </div>
+
+    <div class="showcase-carousel">
+      <button class="showcase-nav showcase-nav-prev" type="button" onclick="jewelrifyShowcaseScroll(-1)" aria-label="Previous jewelrify item">
+        <span aria-hidden="true">←</span>
+      </button>
+
+      <div class="showcase-track" id="jewelrify-showcase-track">
+        <article class="showcase-card">
+          <div class="showcase-media">
+            <img src="images/Pendants/noor-e-nazar.jpeg" alt="Noor-e-Nazar pendant preview" loading="lazy" decoding="async">
+          </div>
+          <div class="showcase-card-body">
+            <span class="showcase-tag">Pendant</span>
+            <h3>Noor-e-Nazar</h3>
+            <p>Minimal, refined, and designed to sit beautifully on the neckline.</p>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-media">
+            <img src="images/rings/r-2.jpeg" alt="Royal emerald ring preview" loading="lazy" decoding="async">
+          </div>
+          <div class="showcase-card-body">
+            <span class="showcase-tag">Ring</span>
+            <h3>Royal Emerald</h3>
+            <p>Statement color with a polished finish for effortless styling.</p>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-media">
+            <img src="images/bracelets/b-9.jpeg" alt="Golden leaf bracelet preview" loading="lazy" decoding="async">
+          </div>
+          <div class="showcase-card-body">
+            <span class="showcase-tag">Bracelet</span>
+            <h3>Golden Leaf Luxe</h3>
+            <p>Layered detail with a premium gold-tone look.</p>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-media">
+            <img src="images/earring/e-5.jpeg" alt="Muse minimalist studs preview" loading="lazy" decoding="async">
+          </div>
+          <div class="showcase-card-body">
+            <span class="showcase-tag">Earrings</span>
+            <h3>Muse Minimalist</h3>
+            <p>Soft sculptural shape for a clean modern finish.</p>
+          </div>
+        </article>
+
+        <article class="showcase-card">
+          <div class="showcase-media">
+            <img src="images/Pendants/p-11.jfif" alt="Noor heritage pendant set preview" loading="lazy" decoding="async">
+          </div>
+          <div class="showcase-card-body">
+            <span class="showcase-tag">Oxidized Set</span>
+            <h3>Noor Heritage</h3>
+            <p>Traditional textures with a refined, balanced silhouette.</p>
+          </div>
+        </article>
+      </div>
+
+      <button class="showcase-nav showcase-nav-next" type="button" onclick="jewelrifyShowcaseScroll(1)" aria-label="Next jewelrify item">
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </div>
+</section>
 
 
   <!-- section-3 gallary-->
 <div class="gallery-container">
   <div class="gallery-header">
+    <span class="gallery-kicker">Editorial Archive</span>
     <h1>PHOTO DUMP</h1>
-    <h1>Fall / Summer 2025</h1>
+    <h2>Fall / Summer 2025</h2>
     <p>New Season · New Looks</p>
-    <button class="shop-btn"><a href="features.html">Shop the Collection</a></button>
+    <a class="shop-btn" href="jewelrify.html">Shop the Collection</a>
   </div>
 
   <div class="slider-wrapper">
-    <button class="nav left" onclick="slide('left')">&#8592;</button>
+    <button class="nav left" type="button" onclick="slide('left')" aria-label="Previous look">&#8592;</button>
     <div class="slider" id="slider">
       
-      <div class="slide"><img src="./images/product-img/Gemini_Generated_Image_.png" alt="Look 2" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/tshirt-4.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/female-model-in-streetwear-pose.jpg" alt="Look 1" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/back-view.jpg" alt="Look 2" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/img/tshirt-20 (1).jpg" alt="Look 1" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/img/co-ords.png" alt="Look 2" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/tshirt-3.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/roo7z product.jpg" alt="Look 1" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/Gemini_Generated_Image_.png" alt="Look 2" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/tshirt-4.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/t-shirt-2.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/tshirt-1.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/back-view.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/tshirt-3.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/roo7z product.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/tshirt-1.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/tshirt-4.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/roo7z product.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
-      <div class="slide"><img src="./images/product-img/tshirt-4.jpg" alt="Look 3" loading="lazy" decoding="async" /></div>
+      <article class="slide"><img src="./images/product-img/Gemini_Generated_Image_.png" alt="Look 1" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/product-img/tshirt-4.jpg" alt="Look 2" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/product-img/female-model-in-streetwear-pose.jpg" alt="Look 3" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/product-img/back-view.jpg" alt="Look 4" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/img/co-ords.png" alt="Look 5" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/product-img/tshirt-3.jpg" alt="Look 6" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/product-img/roo7z product.jpg" alt="Look 7" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/product-img/minimalist-duo-tshirt.jpeg" alt="Look 8" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/product-img/tshirt-1.jpg" alt="Look 9" loading="lazy" decoding="async" /></article>
+      <article class="slide"><img src="./images/product-img/t-shirt-2.jpg" alt="Look 10" loading="lazy" decoding="async" /></article>
     </div>
-    <button class="nav right" onclick="slide('right')">&#8594;</button>
-    <button class="nav left" onclick="slide('left')">&#8592;</button>
+    <button class="nav right" type="button" onclick="slide('right')" aria-label="Next look">&#8594;</button>
   </div>
 </div>
 
@@ -884,7 +963,7 @@
   <!--on js-->
 <script type="module" src="js/products.js?v=20260404a"></script>
 <script src="js/geolocation.js"></script>
-<script type="module" src="js/main.js?v=20260414a"></script>
+<script type="module" src="js/main.js?v=20260428a"></script>
 
 <!-- Modules always in the end -->
 <script type="module" src="js/firebase.js"></script>

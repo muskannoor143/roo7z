@@ -254,11 +254,11 @@
                       </li>
 
                   <li class="nav-item">
-                    <a class="nav-link" href="features.html">Features</a>
+                    <a class="nav-link" href="jewelrify.html">Features</a>
                   </li>
 
                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index.html?home=1">Home</a>
                   </li>
                  
                  
@@ -370,7 +370,7 @@
   <main class="user-main">
     <div class="profile-card" id="user-info"></div>
     <div class="orders-card" id="orderHistory"></div>
-    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Website</a>
+    <a href="index.html?home=1" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Website</a>
   </main>
 </div>
 
@@ -498,7 +498,7 @@ onAuthStateChanged(auth, async (user) => {
 
     document.getElementById("logoutBtn")?.addEventListener("click", async () => {
       await signOut(auth);
-      window.location.href = "index.html";
+      window.location.href = "index.html?home=1";
     });
   } else {
     const overlay = document.getElementById("univ-auth-overlay");
@@ -519,7 +519,7 @@ onAuthStateChanged(auth, async (user) => {
    
     <script type="module" src="js/products.js?v=20260404a"></script>
 <script src="js/geolocation.js"></script>
-<script type="module" src="js/main.js?v=20260404d"></script>
+<script type="module" src="js/main.js?v=20260428a"></script>
 
 <!-- Debug tool (remove before production) -->
 <script src="js/debug-currency.js"></script>

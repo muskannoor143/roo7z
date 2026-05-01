@@ -86,7 +86,7 @@ window.addEventListener("pagehide", markTabSeenNow);
 
 function normalizePagePath(path) {
   const clean = String(path || "").split("?")[0].split("#")[0].trim().toLowerCase();
-  if (!clean || clean === "/") return "/features.html";
+  if (!clean || clean === "/") return "/index.html";
   return clean.startsWith("/") ? clean : `/${clean}`;
 }
 
@@ -185,23 +185,67 @@ if (document.readyState === "loading") {
 }
 
 // ✅ Slider
-let currentIndex = 0;
+let currentSliderOffset = 0;
+
+function getGallerySlideStep(slider) {
+  const firstSlide = slider.querySelector(".slide");
+  if (!firstSlide) return 0;
+
+  const styles = window.getComputedStyle(slider);
+  const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+  return firstSlide.getBoundingClientRect().width + gap;
+}
+
+function syncGallerySliderOffset() {
+  const slider = document.getElementById("slider");
+  if (!slider) return;
+
+  const viewportWidth = slider.parentElement?.clientWidth || 0;
+  const maxOffset = Math.max(0, slider.scrollWidth - viewportWidth);
+  const step = getGallerySlideStep(slider);
+  if (step) {
+    currentSliderOffset = Math.round(currentSliderOffset / step) * step;
+  }
+  currentSliderOffset = Math.min(currentSliderOffset, maxOffset);
+  slider.style.transform = `translateX(-${currentSliderOffset}px)`;
+}
+
 function slide(direction) {
   const slider = document.getElementById("slider");
   if (!slider) return;
-  const slides = document.querySelectorAll(".slide");
-  const totalSlides = slides.length;
+  const step = getGallerySlideStep(slider);
+  if (!step) return;
+
+  const viewportWidth = slider.parentElement?.clientWidth || 0;
+  const maxOffset = Math.max(0, slider.scrollWidth - viewportWidth);
 
   if (direction === "left") {
-    currentIndex = currentIndex > 0 ? currentIndex - 1 : totalSlides - 1;
+    currentSliderOffset = Math.max(0, currentSliderOffset - step);
   } else {
-    currentIndex = currentIndex < totalSlides - 1 ? currentIndex + 1 : 0;
+    currentSliderOffset = Math.min(maxOffset, currentSliderOffset + step);
   }
-  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+  slider.style.transform = `translateX(-${currentSliderOffset}px)`;
 }
 
 // Expose for inline onclick handlers
 window.slide = slide;
+window.addEventListener("resize", syncGallerySliderOffset, { passive: true });
+
+window.jewelrifyShowcaseScroll = function jewelrifyShowcaseScroll(direction) {
+  const track = document.getElementById("jewelrify-showcase-track");
+  if (!track) return;
+
+  const firstCard = track.querySelector(".showcase-card");
+  const styles = window.getComputedStyle(track);
+  const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+  const step = firstCard ? firstCard.getBoundingClientRect().width + gap : 320;
+
+  track.scrollBy({
+    left: direction * step,
+    behavior: "smooth"
+  });
+};
 
 // Scroll restore for product list pages
 const restoreScrollPath = sessionStorage.getItem("roo7z_scroll_restore_path");
@@ -229,6 +273,7 @@ const pageName = productSection?.dataset.page?.toLowerCase() || "";
 const productList = document.getElementById("product-list");
 const filterBtns = document.querySelectorAll(".filter-btn");
 const isFeaturesPage = pageName === "features";
+const isJewelrifyPage = pageName === "jewelery";
 
 const PRODUCTS_PER_PAGE = 24;
 const FEATURES_INITIAL_PRODUCTS = 15;
@@ -774,6 +819,7 @@ productList.innerHTML = visibleProducts
     return `
   <div class="product-card"
     onclick="if(event.target.tagName !== 'BUTTON'){
+      if (event.target.closest && event.target.closest('.cart-btn')) return;
       const btn = this.querySelector('.cart-btn');
       const id = btn.dataset.id;
       const category = '${pageName}';
@@ -797,7 +843,7 @@ productList.innerHTML = visibleProducts
           data-img="${imgSrc}"
           data-stock="${hasExplicitStock ? String(stockCount) : ""}"
           ${isSoldOut ? "disabled" : ""}
-          aria-label="${isSoldOut ? "Sold out" : "Add to cart"}">${isSoldOut ? "Sold out" : "🛒"}</button>
+          aria-label="${isSoldOut ? "Sold out" : "Add to cart"}">${isSoldOut ? "Sold out" : '<i class="fas fa-shopping-cart" aria-hidden="true"></i>'}</button>
       </div>
     </div>`;
   })
@@ -921,7 +967,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    applySearchTerm(searchInput.value);
+    const term = String(searchInput.value || "").trim();
+    if (!term) {
+      if (productList && pageName) renderProducts("all");
+      return;
+    }
+
+    if (!isJewelrifyPage) {
+      window.location.assign(`jewelrify.html?search=${encodeURIComponent(term)}`);
+      return;
+    }
+
+    applySearchTerm(term);
   });
 
   searchInput.addEventListener("input", (e) => {
@@ -1000,26 +1057,26 @@ if (productList && pageName) {
 
 // === Handle Add to Cart Button Clicks (use universal cart) ===
 document.addEventListener("click", (e) => {
-  if (e.target.matches("[data-add-to-cart]")) {
-    const btn = e.target;
-    if (btn.hasAttribute("disabled")) return;
-    const stockValue = btn.dataset.stock;
-    if (stockValue !== undefined && stockValue !== "") {
-      const stockCount = Number(stockValue);
-      if (!Number.isFinite(stockCount) || stockCount <= 0) return;
-    }
+  const btn = e.target.closest?.("[data-add-to-cart]");
+  if (!btn) return;
+  if (btn.hasAttribute("disabled")) return;
 
-    const cartItem = {
-      id: btn.dataset.id,
-      title: btn.dataset.title,
-      img: btn.dataset.img,
-      qty: 1,
-      pricePKR: Number(btn.dataset.pricepkr) || 0,
-      priceGBP: Number(btn.dataset.pricegbp) || 0
-    };
-
-    // Dispatch a custom event to universal cart
-    const event = new CustomEvent("universal-add-to-cart", { detail: cartItem });
-    document.dispatchEvent(event);
+  const stockValue = btn.dataset.stock;
+  if (stockValue !== undefined && stockValue !== "") {
+    const stockCount = Number(stockValue);
+    if (!Number.isFinite(stockCount) || stockCount <= 0) return;
   }
+
+  const cartItem = {
+    id: btn.dataset.id,
+    title: btn.dataset.title,
+    img: btn.dataset.img,
+    qty: 1,
+    pricePKR: Number(btn.dataset.pricepkr) || 0,
+    priceGBP: Number(btn.dataset.pricegbp) || 0
+  };
+
+  // Dispatch a custom event to universal cart
+  const event = new CustomEvent("universal-add-to-cart", { detail: cartItem });
+  document.dispatchEvent(event);
 });
