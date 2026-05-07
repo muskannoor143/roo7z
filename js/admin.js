@@ -42,6 +42,7 @@ let reviewRatingFilter = 'all';
 const productTitleCache = new Map();
 const selectedOrderKeys = new Set();
 let productsCache = [];
+let reviewsListenerStarted = false;
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -223,16 +224,8 @@ function setupEventListeners() {
 
 // Initialize Dashboard
 async function initializeDashboard() {
-    // Migrate products from products.js to Firestore if needed
-    await migrateProductsToFirestore();
-    await refreshProductTitleCache();
-
     subscribeOrdersRealtime();
-    subscribeReviewsRealtime();
-    loadProducts();
-    loadUsers();
-    loadCategories();
-    loadInventory();
+    loadDashboardStats();
 }
 
 // Show Section
@@ -265,6 +258,7 @@ function showSection(section) {
             renderOrdersTable();
             break;
         case 'reviews':
+            ensureReviewsRealtime();
             renderReviewsTable();
             break;
         case 'users':
@@ -484,9 +478,8 @@ async function refreshProductTitleCache() {
 }
 
 function subscribeReviewsRealtime() {
-    if (reviewsUnsubscribe) {
-        reviewsUnsubscribe();
-    }
+    if (reviewsListenerStarted) return;
+    reviewsListenerStarted = true;
 
     const reviewsQuery = query(
         collection(db, 'reviews'),
@@ -511,6 +504,10 @@ function subscribeReviewsRealtime() {
         console.error('Realtime reviews listener error:', error);
         showAlert('Realtime reviews listener failed. Check Firestore rules/index.', 'danger');
     });
+}
+
+function ensureReviewsRealtime() {
+    subscribeReviewsRealtime();
 }
 
 function getReviewTimestamp(review) {

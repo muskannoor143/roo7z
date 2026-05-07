@@ -607,6 +607,22 @@ title: "Wing Statement Ring",
   description: "Experience double the elegance with our Aura 2-in-1 Convertible Molten Pearl Hoops. This innovative design offers two distinct styles in one single piece. Wear them as a Classic Reverse Pearl Stack for a sophisticated, layered look, or flip them to showcase the Modern Wavy Baroque J-Hoop for an organic, sculptural statement. Featuring a molten gold core encased in a luminous pearlescent shell, these earrings are the ultimate versatile addition to any luxury collection."
 },
   
+
+
+{ id: 283,
+   title: "Heart Drip Layered Necklace",
+  pricePKR: 1199,
+  priceGBP: 24.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/Pendants/heart.jpeg",
+  "images": ["images/Pendants/heart.jpeg","images/Pendants/heart1.jpeg","images/Pendants/heart2.jpeg","images/Pendants/heart3.jpeg","images/Pendants/heart4.jpeg"] ,
+    category: "pendants", 
+    description: "This layered heart necklace is crafted from premium stainless steel with a luxe gold finish that’s made for everyday slay. Featuring a sleek snake chain paired with a delicate heart-drop pendant, it gives the perfect trendy stacked look without the effort. Tarnish-resistant, lightweight, and easy to style with both casual & dressy fits."
+
+  },
+  
 ],
 
 
