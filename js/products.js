@@ -48,11 +48,11 @@ export const allProducts = {
         
 
 
-        { id: 217, title: "EARrings", pricePKR: 450, priceGBP: 16.99, discount: 0, img: "images/earring/e-9.jpeg", "images": ["images/earring/e-9.jpeg","images/earring/e-9.1.jpeg"],category: "Earrings", description: "Elegant rings." },
+        { id: 217, title: "earring", pricePKR: 450, priceGBP: 16.99, discount: 0, img: "images/earring/e-9.jpeg", "images": ["images/earring/e-9.jpeg","images/earring/e-9.1.jpeg"],category: "Earrings", description: "Elegant rings." },
         
         { id: 218, title: "CLASSIC HAMMERED DISC CUFF", pricePKR: 799, priceGBP: 19.99, discount: 7, img: "images/bracelets/b-3.jpeg", "images": ["images/bracelets/b-3.jpeg","images/bracelets/b-3.1.png","images/bracelets/b-3.2.png"],category: "bracelets", description: "An elegent hammered golden stainless steel cuff with smooth disc detailing, designed to reflect understated sophistication and modern charm." },
        
-        { id: 219, title: "Royal Azure", pricePKR: 1599, priceGBP: 24.99, discount: 5, img: "images/rings/r5.jpeg", "images": ["images/rings/r5.jpeg","images/rings/r5.1.jpeg"],category: "rings", 
+        { id: 219, title: "ROYAL AZURE ZIRCON", pricePKR: 1599, priceGBP: 24.99, discount: 5, img: "images/rings/r5.jpeg", "images": ["images/rings/r5.jpeg","images/rings/r5.1.jpeg"],category: "rings", 
             description: "Beautiful ring collection." },
 
         { id: 220, title: "silver bird oxidise jhumka ", pricePKR: 1399, priceGBP: 24.99, discount: 0, img: "images/earring/e-7.jpeg", "images": ["images/earring/e-7.jpeg","images/earring/e-7.1.jpeg"], category: "oxidize", 
@@ -90,16 +90,16 @@ export const allProducts = {
 
          {
   id: 235,
-  title: "Noor Heritage Pendant Set✨",
+  title: "Noor Heritage Set✨",
   pricePKR: 3499,
   priceGBP: 39.99,
   discount: 0,
   isNew: true,
   variants: ["afterpin"],
-  img: "images/Pendants/p-11.jfif",
-  images: ["images/Pendants/p-11.jfif", "images/Pendants/p-11.jpg"],
+  img: "images/Pendants/p-111.jpeg",
+  images: ["images/Pendants/p-111.jpeg","images/Pendants/p-11.jfif", "images/Pendants/p-11.jpg"],
   category: "oxidize",
-  description: "Inspired by timeless craftsmanship, our Noor Heritage Pendant Set beautifully blends tradition with elegance. Featuring a bold handcrafted oxidized silver pendant with intricate detailing and delicate ghunghroo accents, this set is paired with matching statement earrings for a complete royal look.Perfect for festive gatherings, cultural events, and elegant day wear, this piece enhances your outfit without overpowering it."
+  description: "Inspired by timeless craftsmanship, our Noor Heritage Set beautifully blends tradition with elegance. Featuring a bold handcrafted oxidized silver pendant with intricate detailing and delicate ghunghroo accents, this set is paired with matching statement earrings for a complete royal look.Perfect for festive gatherings, cultural events, and elegant day wear, this piece enhances your outfit without overpowering it."
 },
 
         { id: 236, title: "Islamic 4 Qul Sharif Gold plated Pendant", pricePKR: 1699, priceGBP: 27.99, discount: 0, category:"Pendants", img:"images/Pendants/islamic.jpeg" , images:["images/Pendants/islamic.jpeg","images/Pendants/4-qul.1.jpg"], description: "This beautiful 4 Qul Sharif pendant necklace features Surah Al-Ikhlas, Surah Al-Falaq, Surah An-Naas, and Surah Al-Kafirun engraved in a premium round gold-tone design.The 4 Quls are known for protection, blessings, and spiritual peace, making this pendant a meaningful jewelry piece for daily wear and gifting. The elegant chain and polished finish give it a luxury look, perfect for both men and women." },
@@ -349,7 +349,7 @@ title: "Wing Statement Ring",
 
 
   {id: 263,
-  title: "Triple-row Peridot-Statement-Ring",
+  title: "Triple-row Peridot-Zircon-Ring",
   pricePKR: 1050,
   priceGBP: 29.99,
   discount: 0,
@@ -596,7 +596,7 @@ title: "Wing Statement Ring",
 
 { id: 282,
    title: "Aura 2-in-1 Convertible Molten Pearl Hoops",
-  pricePKR: 1099,
+  pricePKR: 899,
   priceGBP: 25.99,
   discount: 0,
    isNew: true,
@@ -622,7 +622,63 @@ title: "Wing Statement Ring",
     description: "This layered heart necklace is crafted from premium stainless steel with a luxe gold finish that’s made for everyday slay. Featuring a sleek snake chain paired with a delicate heart-drop pendant, it gives the perfect trendy stacked look without the effort. Tarnish-resistant, lightweight, and easy to style with both casual & dressy fits."
 
   },
-  
+
+  { id: 284,
+   title: "Moon Drip Necklace 🌙",
+  pricePKR: 899,
+  priceGBP: 19.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/Pendants/moondrip1.jpeg",
+  "images": ["images/Pendants/moondrip1.jpeg","images/Pendants/moondrip.jpeg","images/Pendants/moondrip2.jpeg","images/Pendants/moondrip3.jpeg"] ,
+    category: "pendants", 
+    description: "Minimal but impossible to ignore ✨This anti-tarnish necklace features an abstract fluid bar design with a delicate crystal drop for that soft luxe vibe. Perfect for layering or wearing solo when you want your outfit to look effortlessly put together. Lightweight, classy, and made for everyday slay 💫"
+  },
+
+
+  { id: 285,
+   title: "IT Girl Jhumkas ✨",
+  pricePKR: 1099,
+  priceGBP: 24.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/ITjhumka.jpeg",
+  images: ["images/earring/ITjhumka.jpeg", "images/earring/ITjhumka1.jpeg","images/earring/ITjhumka2.jpeg"],
+  category: "earrings",
+  description: "A stunning pair of silver-tone statement earrings featuring mirror-inspired detailing, crystal accents, and delicate dangling beads for the perfect fusion of traditional charm and modern Gen-Z glam ✨.Lightweight yet eye-catching — perfect for weddings, festive looks, dinners, and those “everyone asks where they’re from” moments 🤍"
+  },
+
+
+    {id: 286,
+  title: "Aurelia Cuff",
+  pricePKR: 1049,
+  priceGBP: 25.99,
+  discount: 20,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/AureliaCuff.jpeg",
+  images: ["images/bracelets/AureliaCuff.jpeg","images/bracelets/AureliaCuff1.jpeg","images/bracelets/AureliaCuff2.jpeg","images/bracelets/AureliaCuff3.jpeg","images/bracelets/AureliaCuff4.jpeg"],
+  category: "bracelets",
+  description: "Pakistani's womens choice! Minimal elegance with luxury energy ✨This gold-tone anti-tarnish bracelet features delicate floral-inspired motifs framed with shimmering zircon detailing for that classy rich-girl aesthetic. Lightweight, elegant, and perfect for everyday wear or special occasions — the kind of piece that instantly upgrades your whole look 🤍"
+},
+
+
+  {id: 287,
+  title: "Obsidian Glow Cuff",
+  pricePKR: 1049,
+  priceGBP: 25.99,
+  discount: 10,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/ObsidianGlowCuff.jpeg",
+  images: ["images/bracelets/ObsidianGlowCuff.jpeg","images/bracelets/ObsidianGlowCuff1.jpeg","images/bracelets/ObsidianGlowCuff2.jpeg","images/bracelets/ObsidianGlowCuff3.jpeg","images/bracelets/ObsidianGlowCuff4.jpeg"],
+  category: "bracelets",
+  description: "Pakistani's womens choice! A timeless gold-tone bracelet designed with sleek black enamel circles and elegant Roman numeral detailing for that effortlessly luxurious vibe ✨Minimal, classy, and powerful — the perfect piece for girls who love quiet luxury and clean aesthetics. Wear it solo for a chic look or stack it for full IT-girl energy 🤍"
+},
+
+
 ],
 
 

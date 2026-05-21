@@ -844,7 +844,7 @@ function renderRelated(p) {
         }
       }
       if (pageGroup) params.set("category", pageGroup);
-      window.location.href = `product-preview.html?${params.toString()}`;
+      window.location.href = `product-preview?${params.toString()}`;
     });
 
     relatedNode.appendChild(div);

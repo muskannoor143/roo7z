@@ -86,8 +86,9 @@ window.addEventListener("pagehide", markTabSeenNow);
 
 function normalizePagePath(path) {
   const clean = String(path || "").split("?")[0].split("#")[0].trim().toLowerCase();
-  if (!clean || clean === "/") return "/index.html";
-  return clean.startsWith("/") ? clean : `/${clean}`;
+  if (!clean || clean === "/") return "/";
+  const withLeadingSlash = clean.startsWith("/") ? clean : `/${clean}`;
+  return withLeadingSlash.endsWith(".html") ? withLeadingSlash.slice(0, -5) : withLeadingSlash;
 }
 
 function setActiveNavLink() {
@@ -264,7 +265,7 @@ function restoreScrollIfNeeded() {
 window.goToProduct = function goToProduct(id, category) {
   sessionStorage.setItem("roo7z_scroll_restore", String(window.scrollY || 0));
   sessionStorage.setItem("roo7z_scroll_restore_path", window.location.pathname);
-  window.location.assign(`product-preview.html?id=${id}&category=${category}`);
+  window.location.assign(`product-preview?id=${id}&category=${category}`);
 };
 
 // ===== PRODUCT SECTION =====
@@ -867,7 +868,7 @@ function renderLoadMoreButton(show) {
     if (btn) {
       btn.addEventListener("click", () => {
         if (isFeaturesPage) {
-          window.location.href = "jewelrify.html";
+          window.location.href = "jewelrify";
           return;
         }
         currentPage += 1;
@@ -942,7 +943,7 @@ function applySearchTerm(term) {
   }
 
   if (!productList || !pageName) {
-    const target = `jewelrify.html?search=${encodeURIComponent(normalizedTerm)}`;
+    const target = `jewelrify?search=${encodeURIComponent(normalizedTerm)}`;
     window.location.assign(target);
     return;
   }
@@ -974,7 +975,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (!isJewelrifyPage) {
-      window.location.assign(`jewelrify.html?search=${encodeURIComponent(term)}`);
+      window.location.assign(`jewelrify?search=${encodeURIComponent(term)}`);
       return;
     }
 

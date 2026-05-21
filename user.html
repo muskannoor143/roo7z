@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-67BPKDFR46"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-67BPKDFR46');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow,noarchive">
@@ -247,34 +255,34 @@
 
  <!-- JEWELRIFY -->
             <li class="nav-item dropdown d-flex align-items-center">
-             <a class="nav-link" href="jewelrify.html" style="padding-right: 0;">
+             <a class="nav-link" href="jewelrify" style="padding-right: 0;">
                    Jewelrify
                     </a>
                    
                       </li>
 
                   <li class="nav-item">
-                    <a class="nav-link" href="jewelrify.html">Features</a>
+                    <a class="nav-link" href="jewelrify">Features</a>
                   </li>
 
                   <li class="nav-item">
-                    <a class="nav-link" href="blog.html">Journal</a>
+                    <a class="nav-link" href="blog">Journal</a>
                   </li>
 
                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html?home=1">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index?home=1">Home</a>
                   </li>
                  
                  
   <!-- Left button: navigates to another page -->
-  <a class="nav-link" href="men.html" style="padding-right: 0;">
+  <a class="nav-link" href="men" style="padding-right: 0;">
     He/His
   </a>
 
  
                   <!-- SHE/HER -->
 <li class="nav-item dropdown d-flex align-items-center">
-  <a class="nav-link" href="women.html" style="padding-right: 0;">
+  <a class="nav-link" href="women" style="padding-right: 0;">
     She/Her
   </a>
   
@@ -366,7 +374,7 @@
   <!-- Sidebar -->
   <aside class="user-sidebar">
     <h2>My Account</h2>
-    <a href="user.html">Profile</a>
+    <a href="user">Profile</a>
     <a href="#orders">Orders</a>
   </aside>
 
@@ -374,7 +382,7 @@
   <main class="user-main">
     <div class="profile-card" id="user-info"></div>
     <div class="orders-card" id="orderHistory"></div>
-    <a href="index.html?home=1" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Website</a>
+    <a href="index?home=1" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Website</a>
   </main>
 </div>
 
@@ -502,7 +510,7 @@ onAuthStateChanged(auth, async (user) => {
 
     document.getElementById("logoutBtn")?.addEventListener("click", async () => {
       await signOut(auth);
-      window.location.href = "index.html?home=1";
+      window.location.href = "index?home=1";
     });
   } else {
     const overlay = document.getElementById("univ-auth-overlay");

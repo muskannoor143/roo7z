@@ -39,7 +39,7 @@ function renderProductList() {
         const params = new URLSearchParams();
         params.set("id", product.id);
         if (product.category) params.set("category", product.category);
-        window.location.href = `product-preview.html?${params.toString()}`;
+        window.location.href = `product-preview?${params.toString()}`;
       });
 
       container.appendChild(card);

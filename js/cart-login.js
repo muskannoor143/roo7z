@@ -420,12 +420,12 @@ function closeAuth() { if (els.auth.overlay) els.auth.overlay.classList.remove("
 function redirectToProfileIfRequested() {
   if (sessionStorage.getItem(PROFILE_REDIRECT_FLAG) !== "1") return false;
   const path = (window.location.pathname || "").toLowerCase();
-  if (path.endsWith("/user.html") || path.endsWith("user.html")) {
+  if (path.endsWith("/user") || path.endsWith("/user.html") || path.endsWith("user") || path.endsWith("user.html")) {
     sessionStorage.removeItem(PROFILE_REDIRECT_FLAG);
     return false;
   }
   sessionStorage.removeItem(PROFILE_REDIRECT_FLAG);
-  window.location.href = "user.html";
+  window.location.href = "user";
   return true;
 }
 
@@ -764,7 +764,7 @@ function initEventListeners() {
         sessionStorage.setItem(PROFILE_REDIRECT_FLAG, "1");
         showAuth("login");
       } else {
-        window.location.href = "user.html";
+        window.location.href = "user";
       }
     });
   }

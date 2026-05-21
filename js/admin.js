@@ -43,6 +43,7 @@ const productTitleCache = new Map();
 const selectedOrderKeys = new Set();
 let productsCache = [];
 let reviewsListenerStarted = false;
+let ordersUiRefreshScheduled = false;
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -61,10 +62,10 @@ async function initializeAdmin() {
                 initializeDashboard();
             } else {
                 showAlert('Access denied. Admin privileges required.', 'danger');
-                window.location.href = 'admin-login.html';
+                window.location.href = 'admin-login';
             }
         } else {
-            window.location.href = 'admin-login.html';
+            window.location.href = 'admin-login';
         }
     });
 
@@ -166,6 +167,12 @@ function setupEventListeners() {
         });
     }
 
+    const ordersTable = document.getElementById('ordersTable');
+    if (ordersTable) {
+        ordersTable.addEventListener('change', handleOrdersTableChange);
+        ordersTable.addEventListener('click', handleOrdersTableClick);
+    }
+
     const deleteSelectedOrdersBtn = document.getElementById('deleteSelectedOrders');
     if (deleteSelectedOrdersBtn) {
         deleteSelectedOrdersBtn.addEventListener('click', handleDeleteSelectedOrders);
@@ -255,7 +262,7 @@ function showSection(section) {
             loadProducts();
             break;
         case 'orders':
-            renderOrdersTable();
+            syncOrdersUi(true);
             break;
         case 'reviews':
             ensureReviewsRealtime();
@@ -286,7 +293,7 @@ function toggleSidebar() {
 async function handleLogout() {
     try {
         await signOut(auth);
-        window.location.href = 'admin-login.html';
+        window.location.href = 'admin-login';
     } catch (error) {
         console.error('Logout error:', error);
         showAlert('Error logging out. Please try again.', 'danger');
@@ -312,8 +319,7 @@ function showAlert(message, type = 'info') {
 // Load Dashboard Stats
 async function loadDashboardStats() {
     try {
-        updateOrderStats();
-        renderRecentOrders();
+        syncOrdersUi(false);
     } catch (error) {
         console.error('Error loading dashboard stats:', error);
         showAlert('Error loading dashboard statistics.', 'danger');
@@ -325,9 +331,7 @@ function renderRecentOrders() {
     const recentOrdersTable = document.getElementById('recentOrdersTable');
     if (!recentOrdersTable) return;
 
-    const recentOrders = [...ordersCache]
-        .sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a))
-        .slice(0, 5);
+    const recentOrders = ordersCache.slice(0, 5);
 
     recentOrdersTable.innerHTML = '';
 
@@ -336,26 +340,25 @@ function renderRecentOrders() {
         return;
     }
 
-    recentOrders.forEach(order => {
-        const row = document.createElement('tr');
+    recentOrdersTable.innerHTML = recentOrders.map((order) => {
         const displayStatus = normalizeStatus(order.status);
         const statusClass = `status-${displayStatus}`;
         const statusText = formatStatus(displayStatus);
         const currencySymbol = order.currency === 'GBP' ? '£' : 'Rs.';
 
-        row.innerHTML = `
-            <td>${order.id}</td>
-            <td>${order.name || 'N/A'}</td>
-            <td>${formatDate(order)}</td>
-            <td>${currencySymbol}${order.total || 0}</td>
-            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-            <td>
-                <button class="action-btn btn-edit" onclick="viewOrder('${order.userId}', '${order.id}', '${order.source || 'user'}')">View</button>
-            </td>
+        return `
+            <tr>
+                <td>${escapeHtml(order.id)}</td>
+                <td>${escapeHtml(order.name || 'N/A')}</td>
+                <td>${escapeHtml(formatDate(order))}</td>
+                <td>${currencySymbol}${escapeHtml(order.total || 0)}</td>
+                <td><span class="status-badge ${statusClass}">${escapeHtml(statusText)}</span></td>
+                <td>
+                    <button class="action-btn btn-edit" data-order-action="view" data-user="${escapeHtml(order.userId || '')}" data-order="${escapeHtml(order.id || '')}" data-source="${escapeHtml(order.source || 'user')}">View</button>
+                </td>
+            </tr>
         `;
-
-        recentOrdersTable.appendChild(row);
-    });
+    }).join('');
 }
 
 // Set up real-time listener for orders
@@ -399,7 +402,7 @@ function subscribeOrdersRealtime() {
         });
 
         userOrdersCache = incoming;
-        rebuildOrdersCache();
+        scheduleOrdersUiRefresh();
 
         if (addedNewCount > 0) {
             showNewOrderNotification(addedNewCount);
@@ -440,7 +443,7 @@ function subscribeOrdersRealtime() {
         });
 
         guestOrdersCache = incoming;
-        rebuildOrdersCache();
+        scheduleOrdersUiRefresh();
 
         if (addedNewCount > 0) {
             showNewOrderNotification(addedNewCount);
@@ -451,12 +454,36 @@ function subscribeOrdersRealtime() {
     });
 }
 
-function rebuildOrdersCache() {
+function scheduleOrdersUiRefresh(forceOrdersTable = false) {
+    if (forceOrdersTable) {
+        ordersUiRefreshScheduled = false;
+        syncOrdersUi(currentSection === 'orders' || forceOrdersTable);
+        return;
+    }
+
+    if (ordersUiRefreshScheduled) return;
+    ordersUiRefreshScheduled = true;
+
+    const flushRefresh = () => {
+        ordersUiRefreshScheduled = false;
+        syncOrdersUi(currentSection === 'orders');
+    };
+
+    if (typeof window.requestAnimationFrame === 'function') {
+        window.requestAnimationFrame(flushRefresh);
+    } else {
+        window.setTimeout(flushRefresh, 16);
+    }
+}
+
+function syncOrdersUi(includeOrdersTable = false) {
     ordersCache = [...userOrdersCache, ...guestOrdersCache]
         .sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
     updateOrderStats();
     renderRecentOrders();
-    renderOrdersTable();
+    if (includeOrdersTable) {
+        renderOrdersTable();
+    }
     updateBellCount();
 }
 
@@ -1171,9 +1198,7 @@ function updateBellCount() {
 }
 
 function openLatestNewOrder() {
-    const latestNew = ordersCache
-        .filter(order => isOrderNew(order))
-        .sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a))[0];
+    const latestNew = ordersCache.find((order) => isOrderNew(order));
     if (latestNew) {
         showSection('orders');
         viewOrder(latestNew.userId, latestNew.id, latestNew.source || 'user');
@@ -1196,46 +1221,14 @@ function renderOrdersTable() {
         return;
     }
 
-    filteredOrders.forEach(order => {
-        const row = createOrderRow(order);
-        ordersContainer.appendChild(row);
-    });
-
-    ordersContainer.querySelectorAll('.status-select').forEach(select => {
-        select.addEventListener('change', (e) => {
-            const userId = e.currentTarget.getAttribute('data-user');
-            const orderId = e.currentTarget.getAttribute('data-order');
-            const source = e.currentTarget.getAttribute('data-source') || 'user';
-            const nextStatus = e.currentTarget.value;
-            if (orderId) {
-                updateOrderStatus(userId, orderId, nextStatus, source);
-            }
-        });
-    });
-
-    ordersContainer.querySelectorAll('.order-select-input').forEach((checkbox) => {
-        checkbox.addEventListener('change', (e) => {
-            const key = e.currentTarget.getAttribute('data-order-key');
-            if (!key) return;
-            if (e.currentTarget.checked) {
-                selectedOrderKeys.add(key);
-            } else {
-                selectedOrderKeys.delete(key);
-            }
-            updateOrdersSelectionUi(filteredOrders);
-        });
-    });
-
+    ordersContainer.innerHTML = filteredOrders.map((order) => createOrderRowHtml(order)).join('');
     updateOrdersSelectionUi(filteredOrders);
 }
 
 // Create Order Row
-function createOrderRow(order) {
-    const row = document.createElement('tr');
-
+function createOrderRowHtml(order) {
     const displayStatus = normalizeStatus(order.status);
     const statusClass = `status-${displayStatus}`;
-    const statusText = formatStatus(displayStatus);
     const isNew = isOrderNew(order);
     const currencySymbol = order.currency === 'GBP' ? '£' : 'Rs.';
     const items = Array.isArray(order.items) ? order.items : [];
@@ -1243,61 +1236,57 @@ function createOrderRow(order) {
     const isChecked = selectedOrderKeys.has(orderKey);
     const thumbnails = items.slice(0, 4).map(item => {
         const img = item.img || item.image || 'images/placeholder.jpg';
-        return `<img src="${img}" alt="${item.title || 'Item'}" class="item-thumb">`;
+        return `<img src="${escapeHtml(img)}" alt="${escapeHtml(item.title || 'Item')}" class="item-thumb">`;
     }).join('');
     const extraCount = items.length > 4 ? `<span class="item-more">+${items.length - 4}</span>` : '';
     const orderDate = formatDate(order);
+    const rowClass = isNew ? 'order-row new-order' : 'order-row';
 
-    if (isNew) {
-        row.classList.add('order-row', 'new-order');
-    } else {
-        row.classList.add('order-row');
-    }
-
-    row.innerHTML = `
-        <td class="order-select-col">
-            <input
-                type="checkbox"
-                class="order-select-input"
-                data-order-key="${orderKey}"
-                ${isChecked ? 'checked' : ''}
-                aria-label="Select order ${order.id}">
-        </td>
-        <td>
-            <div class="order-meta">
-                <span class="order-id">${order.id}</span>
-                ${isNew ? '<span class="new-badge">NEW</span>' : ''}
-            </div>
-        </td>
-        <td>
-            ${order.name || 'N/A'}
-            <div class="muted-text">${order.phone || ''}</div>
-            ${order.source === 'guest' ? '<span class="badge bg-secondary ms-2">Guest</span>' : ''}
-        </td>
-        <td>
-            <div class="order-items">
-                ${thumbnails || '<span class="muted-text">No items</span>'}
-                ${extraCount}
-            </div>
-        </td>
-        <td>${currencySymbol}${order.total || 0}</td>
-        <td>
-            <select class="status-select ${statusClass}" data-user="${order.userId}" data-order="${order.id}" data-source="${order.source || 'user'}">
-                <option value="new" ${displayStatus === 'new' ? 'selected' : ''}>New</option>
-                <option value="processing" ${displayStatus === 'processing' ? 'selected' : ''}>Processing</option>
-                <option value="shipped" ${displayStatus === 'shipped' ? 'selected' : ''}>Shipped</option>
-                <option value="delivered" ${displayStatus === 'delivered' ? 'selected' : ''}>Delivered</option>
-                <option value="cancelled" ${displayStatus === 'cancelled' ? 'selected' : ''}>Cancelled</option>
-            </select>
-        </td>
-        <td>${orderDate}</td>
-        <td>
-            <button class="action-btn btn-edit" onclick="viewOrder('${order.userId}', '${order.id}', '${order.source || 'user'}')">View</button>
-            <button class="action-btn btn-delete" onclick="deleteOrder('${order.userId}', '${order.id}', '${order.source || 'user'}')">Delete</button>
-        </td>
+    return `
+        <tr class="${rowClass}">
+            <td class="order-select-col">
+                <input
+                    type="checkbox"
+                    class="order-select-input"
+                    data-role="order-select"
+                    data-order-key="${escapeHtml(orderKey)}"
+                    ${isChecked ? 'checked' : ''}
+                    aria-label="Select order ${escapeHtml(order.id || '')}">
+            </td>
+            <td>
+                <div class="order-meta">
+                    <span class="order-id">${escapeHtml(order.id || '')}</span>
+                    ${isNew ? '<span class="new-badge">NEW</span>' : ''}
+                </div>
+            </td>
+            <td>
+                ${escapeHtml(order.name || 'N/A')}
+                <div class="muted-text">${escapeHtml(order.phone || '')}</div>
+                ${order.source === 'guest' ? '<span class="badge bg-secondary ms-2">Guest</span>' : ''}
+            </td>
+            <td>
+                <div class="order-items">
+                    ${thumbnails || '<span class="muted-text">No items</span>'}
+                    ${extraCount}
+                </div>
+            </td>
+            <td>${currencySymbol}${escapeHtml(order.total || 0)}</td>
+            <td>
+                <select class="status-select ${statusClass}" data-role="order-status-select" data-user="${escapeHtml(order.userId || '')}" data-order="${escapeHtml(order.id || '')}" data-source="${escapeHtml(order.source || 'user')}">
+                    <option value="new" ${displayStatus === 'new' ? 'selected' : ''}>New</option>
+                    <option value="processing" ${displayStatus === 'processing' ? 'selected' : ''}>Processing</option>
+                    <option value="shipped" ${displayStatus === 'shipped' ? 'selected' : ''}>Shipped</option>
+                    <option value="delivered" ${displayStatus === 'delivered' ? 'selected' : ''}>Delivered</option>
+                    <option value="cancelled" ${displayStatus === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                </select>
+            </td>
+            <td>${escapeHtml(orderDate)}</td>
+            <td>
+                <button class="action-btn btn-edit" data-order-action="view" data-user="${escapeHtml(order.userId || '')}" data-order="${escapeHtml(order.id || '')}" data-source="${escapeHtml(order.source || 'user')}">View</button>
+                <button class="action-btn btn-delete" data-order-action="delete" data-user="${escapeHtml(order.userId || '')}" data-order="${escapeHtml(order.id || '')}" data-source="${escapeHtml(order.source || 'user')}">Delete</button>
+            </td>
+        </tr>
     `;
-
-    return row;
 }
 
 function getOrderSelectionKey(userId, orderId, source = 'user') {
@@ -1940,8 +1929,7 @@ window.updateOrderStatus = async function(userId, orderId, status, source = 'use
         }, { merge: true });
 
         showAlert(`Order marked as ${status}!`, 'success');
-        renderOrdersTable();
-        updateOrderStats();
+        scheduleOrdersUiRefresh(true);
     } catch (error) {
         console.error('Error updating order status:', error);
         showAlert('Error updating order status.', 'danger');
@@ -1958,7 +1946,7 @@ window.deleteOrder = async function(userId, orderId, source = 'user') {
         await deleteDoc(getOrderDocRef(userId, orderId, source));
         selectedOrderKeys.delete(getOrderSelectionKey(userId, orderId, source));
         showAlert('Order deleted successfully.', 'success');
-        renderOrdersTable();
+        scheduleOrdersUiRefresh(true);
     } catch (error) {
         console.error('Error deleting order:', error);
         showAlert('Error deleting order.', 'danger');
@@ -1977,6 +1965,50 @@ async function markOrderSeen(userId, orderId, source = 'user') {
         }, { merge: true });
     } catch (error) {
         console.error('Error marking order as seen:', error);
+    }
+}
+
+function handleOrdersTableChange(event) {
+    const statusSelect = event.target.closest('[data-role="order-status-select"]');
+    if (statusSelect) {
+        const userId = statusSelect.getAttribute('data-user');
+        const orderId = statusSelect.getAttribute('data-order');
+        const source = statusSelect.getAttribute('data-source') || 'user';
+        const nextStatus = statusSelect.value;
+        if (orderId) {
+            updateOrderStatus(userId, orderId, nextStatus, source);
+        }
+        return;
+    }
+
+    const orderSelect = event.target.closest('[data-role="order-select"]');
+    if (orderSelect) {
+        const key = orderSelect.getAttribute('data-order-key');
+        if (!key) return;
+        if (orderSelect.checked) {
+            selectedOrderKeys.add(key);
+        } else {
+            selectedOrderKeys.delete(key);
+        }
+        updateOrdersSelectionUi();
+    }
+}
+
+function handleOrdersTableClick(event) {
+    const actionButton = event.target.closest('[data-order-action]');
+    if (!actionButton) return;
+
+    const action = actionButton.getAttribute('data-order-action');
+    const userId = actionButton.getAttribute('data-user');
+    const orderId = actionButton.getAttribute('data-order');
+    const source = actionButton.getAttribute('data-source') || 'user';
+
+    if (!orderId) return;
+
+    if (action === 'view') {
+        window.viewOrder(userId, orderId, source);
+    } else if (action === 'delete') {
+        window.deleteOrder(userId, orderId, source);
     }
 }
 
