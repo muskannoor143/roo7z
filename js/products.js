@@ -666,17 +666,31 @@ title: "Wing Statement Ring",
 
 
   {id: 287,
-  title: "Obsidian Glow Cuff",
+  title: "ROMA",
   pricePKR: 1049,
   priceGBP: 25.99,
   discount: 10,
   isNew: true,
   variants: ["afterpin"],
-  img: "images/bracelets/ObsidianGlowCuff.jpeg",
-  images: ["images/bracelets/ObsidianGlowCuff.jpeg","images/bracelets/ObsidianGlowCuff1.jpeg","images/bracelets/ObsidianGlowCuff2.jpeg","images/bracelets/ObsidianGlowCuff3.jpeg","images/bracelets/ObsidianGlowCuff4.jpeg"],
+  img: "images/bracelets/roma.jpeg",
+  images: ["images/bracelets/roma.jpeg","images/bracelets/roma1.jpeg","images/bracelets/roma2.jpeg","images/bracelets/roma3.jpeg","images/bracelets/roma4.jpeg"],
   category: "bracelets",
   description: "Pakistani's womens choice! A timeless gold-tone bracelet designed with sleek black enamel circles and elegant Roman numeral detailing for that effortlessly luxurious vibe ✨Minimal, classy, and powerful — the perfect piece for girls who love quiet luxury and clean aesthetics. Wear it solo for a chic look or stack it for full IT-girl energy 🤍"
 },
+
+{ id: 288,
+   title: "Moonlit Blue Drops",
+  pricePKR: 999,
+  priceGBP: 24.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/MoonlitBlueDrops.jpeg",
+  images: ["images/earring/MoonlitBlueDrops.jpeg", "images/earring/MoonlitBlueDrops1.jpeg","images/earring/MoonlitBlueDrops2.jpeg","images/earring/MoonlitBlueDrops3.jpeg","images/earring/MoonlitBlueDrops4.jpeg"],
+  category: "earrings",
+  description: "A stunning pair of silver jhumkas featuring intricate detailing, royal sapphire-blue stones, and delicate blue bead drops for the perfect blend of traditional beauty and modern elegance ✨These statement earrings instantly elevate festive looks, mehndi outfits, sarees, kurtis, and even minimalist black fits 💙"
+  },
+
 
 
 ],
