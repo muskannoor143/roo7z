@@ -26,8 +26,12 @@ const LS_CART = "roo7z_cart";
 const LS_GUEST = "roo7z_guest";
 const LS_GUEST_ID = "roo7z_guest_id";
 const LS_LAST_VISIT_AT = "roo7z_last_visit_at";
+const SS_VOUCHER_PROMO_SEEN = "roo7z_voucher_promo_seen";
 const AUTO_RELOAD_AFTER_MS = 24 * 60 * 60 * 1000; // 24 hours
 const AUTO_RELOAD_PARAM = "roo_refresh";
+const VOUCHER_CODE = "ROO7Z10";
+const VOUCHER_DISCOUNT_PERCENT = 10;
+const VOUCHER_EXPIRES_AT = new Date("2026-06-30T23:59:59Z").getTime();
 
 let cart = [];
 let currentUser = null;
@@ -103,6 +107,435 @@ function getDeliveryRules(cityOverride = "") {
     fee: currency === "GBP" ? DELIVERY_FEE_GBP : pkrFee,
     freeThreshold: currency === "GBP" ? FREE_THRESHOLD_GBP : FREE_THRESHOLD_PKR
   };
+}
+
+function isVoucherActive() {
+  return Date.now() <= VOUCHER_EXPIRES_AT;
+}
+
+function getVoucherExpiryLabel() {
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  }).format(new Date(VOUCHER_EXPIRES_AT));
+}
+
+function normalizeVoucherCode(value) {
+  return String(value || "").trim().replace(/\s+/g, "").toUpperCase();
+}
+
+function getCheckoutVoucherInput() {
+  return document.getElementById("checkout-voucher");
+}
+
+function getSelectedVoucherCode() {
+  return normalizeVoucherCode(getCheckoutVoucherInput()?.value);
+}
+
+function getVoucherDiscountAmount(subtotalValue) {
+  if (!isVoucherActive()) return 0;
+  if (getSelectedVoucherCode() !== VOUCHER_CODE) return 0;
+  return Math.min(subtotalValue, Math.round(subtotalValue * (VOUCHER_DISCOUNT_PERCENT / 100)));
+}
+
+function getCartTotals() {
+  const subtotalValue = getSubtotal();
+  const rules = getDeliveryRules(getActiveCheckoutCity());
+  const showDelivery = hasDeliveryContext();
+  const delivery = subtotalValue >= rules.freeThreshold ? 0 : rules.fee;
+  const discount = getVoucherDiscountAmount(subtotalValue);
+  const total = Math.max(0, subtotalValue - discount + (showDelivery ? delivery : 0));
+
+  return {
+    subtotalValue,
+    discount,
+    delivery,
+    showDelivery,
+    total
+  };
+}
+
+function updateVoucherFeedback() {
+  const feedback = document.getElementById("voucher-feedback");
+  if (!feedback) return;
+
+  const code = getSelectedVoucherCode();
+  feedback.classList.remove("is-success", "is-error", "is-muted");
+
+  if (!isVoucherActive()) {
+    feedback.classList.add("is-error");
+    feedback.textContent = `This voucher expired on ${getVoucherExpiryLabel()}.`;
+    return;
+  }
+
+  if (!code) {
+    feedback.classList.add("is-muted");
+    feedback.textContent = `Use code ${VOUCHER_CODE} for ${VOUCHER_DISCOUNT_PERCENT}% off before ${getVoucherExpiryLabel()}.`;
+    return;
+  }
+
+  if (code === VOUCHER_CODE) {
+    feedback.classList.add("is-success");
+    feedback.textContent = `${VOUCHER_DISCOUNT_PERCENT}% discount applied to your subtotal.`;
+    return;
+  }
+
+  feedback.classList.add("is-error");
+  feedback.textContent = `Invalid code. Use ${VOUCHER_CODE} for the limited-time offer.`;
+}
+
+function ensureVoucherCheckoutSection() {
+  const form = document.getElementById("checkout-form");
+  if (!form || document.getElementById("checkout-voucher")) return;
+
+  const formActions = form.querySelector(".form-actions");
+  const section = document.createElement("div");
+  section.className = "form-section voucher-section";
+  section.innerHTML = `
+    <div class="voucher-entry">
+      <div class="form-group">
+        <label for="checkout-voucher">Voucher code</label>
+        <input type="text" id="checkout-voucher" placeholder="Enter voucher code" autocomplete="off" inputmode="latin">
+      </div>
+      <button type="button" id="voucher-apply-btn" class="btn-secondary voucher-apply-btn">Apply code</button>
+    </div>
+    <div id="voucher-feedback" class="voucher-feedback" aria-live="polite"></div>
+  `;
+
+  if (formActions) {
+    form.insertBefore(section, formActions);
+  } else {
+    form.appendChild(section);
+  }
+
+  const voucherInput = section.querySelector("#checkout-voucher");
+  if (voucherInput) {
+    voucherInput.value = "";
+    voucherInput.addEventListener("input", () => {
+      setApplyButtonState(false);
+      renderCart();
+      updateVoucherFeedback();
+    });
+    voucherInput.addEventListener("change", () => {
+      setApplyButtonState(false);
+      renderCart();
+      updateVoucherFeedback();
+    });
+  }
+
+  const applyBtn = section.querySelector("#voucher-apply-btn");
+  const setApplyButtonState = (applied = false) => {
+    if (!applyBtn) return;
+    applyBtn.classList.toggle("is-applied", applied);
+    applyBtn.innerHTML = applied ? `<span class="roo7z-voucher-check">✓</span>` : "Apply code";
+    applyBtn.setAttribute("aria-label", applied ? "Voucher applied" : "Apply code");
+    applyBtn.setAttribute("title", applied ? "Voucher applied" : "Apply code");
+  };
+  setApplyButtonState(normalizeVoucherCode(voucherInput?.value) === VOUCHER_CODE);
+
+  if (applyBtn && voucherInput) {
+    applyBtn.addEventListener("click", () => {
+      const code = normalizeVoucherCode(voucherInput.value);
+      setApplyButtonState(code === VOUCHER_CODE);
+      renderCart();
+      updateVoucherFeedback();
+    });
+  }
+
+  updateVoucherFeedback();
+}
+
+function ensureVoucherPromo() {
+  if (document.getElementById("roo7z-voucher-promo")) return;
+  if (!isVoucherActive()) return;
+
+  const style = document.createElement("style");
+  style.id = "roo7z-voucher-promo-styles";
+  style.textContent = `
+    .roo7z-voucher-promo {
+      position: fixed;
+      inset: 0;
+      z-index: 2600;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(9, 12, 18, 0.62);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease;
+    }
+    .roo7z-voucher-promo.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .roo7z-voucher-card {
+      width: min(100%, 380px);
+      border-radius: 20px;
+      padding: 20px 18px 18px;
+      color: #f8fafc;
+      background:
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.26), transparent 36%),
+        linear-gradient(160deg, #101828 0%, #0f172a 58%, #0b1220 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+      transform: translateY(14px) scale(.98);
+      transition: transform .22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .roo7z-voucher-promo.open .roo7z-voucher-card {
+      transform: translateY(0) scale(1);
+    }
+    .roo7z-voucher-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #fde68a;
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      margin-bottom: 10px;
+    }
+    .roo7z-voucher-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      line-height: 1.18;
+      color: #ffffff;
+    }
+    .roo7z-voucher-card p {
+      margin: 0;
+      color: #cbd5e1;
+      line-height: 1.45;
+      font-size: .95rem;
+    }
+    .roo7z-voucher-code {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+    }
+    .roo7z-voucher-code strong {
+      font-size: 1rem;
+      letter-spacing: .16em;
+      color: #ffffff;
+    }
+    .roo7z-voucher-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .roo7z-voucher-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-weight: 700;
+      font-size: .92rem;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+    }
+    .roo7z-voucher-btn:hover {
+      transform: translateY(-1px);
+    }
+    .roo7z-voucher-btn.primary {
+      color: #09111f;
+      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
+      box-shadow: 0 14px 26px rgba(245, 158, 11, 0.28);
+    }
+    .roo7z-voucher-btn.primary.is-copied {
+      min-width: 52px;
+      padding-inline: 16px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #16a34a 0%, #0f766e 100%);
+      box-shadow: 0 14px 26px rgba(22, 163, 74, 0.26);
+    }
+    .roo7z-voucher-btn.secondary {
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .roo7z-voucher-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      line-height: 1;
+      font-weight: 900;
+    }
+    .roo7z-voucher-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 0;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .voucher-section {
+      margin-top: 8px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.07), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(245, 158, 11, 0.18);
+    }
+    .voucher-apply-btn.btn-secondary {
+      padding: 9px 14px;
+      min-height: 0;
+      font-size: .92rem;
+      line-height: 1.2;
+      border-radius: 999px;
+    }
+    .voucher-apply-btn.is-applied {
+      color: #ffffff;
+      background: linear-gradient(135deg, #16a34a 0%, #0f766e 100%);
+      border-color: transparent;
+      box-shadow: 0 12px 24px rgba(22, 163, 74, 0.22);
+    }
+    .voucher-entry {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: end;
+    }
+    .voucher-entry .form-group {
+      margin: 0;
+    }
+    .voucher-entry label {
+      color: #111827;
+      font-weight: 700;
+      font-size: .86rem;
+    }
+    .voucher-entry input {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(15, 23, 42, 0.16);
+      background: #fff;
+      color: #111827;
+      padding: 10px 12px;
+      font-size: .92rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .voucher-feedback {
+      margin-top: 8px;
+      font-size: .84rem;
+      line-height: 1.45;
+      color: #475569;
+    }
+    .voucher-feedback.is-success { color: #15803d; }
+    .voucher-feedback.is-error { color: #b91c1c; }
+    .voucher-feedback.is-muted { color: #475569; }
+    @media (max-width: 640px) {
+      .roo7z-voucher-card { padding: 18px 16px 16px; }
+      .voucher-entry { grid-template-columns: 1fr; align-items: stretch; }
+      .voucher-apply-btn { width: 100%; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  const wrap = document.createElement("div");
+  wrap.id = "roo7z-voucher-promo";
+  wrap.className = "roo7z-voucher-promo";
+  wrap.innerHTML = `
+    <div class="roo7z-voucher-card" role="dialog" aria-modal="true" aria-labelledby="roo7z-voucher-title">
+      <button type="button" class="roo7z-voucher-close" id="roo7z-voucher-close" aria-label="Close voucher popup">×</button>
+      <div class="roo7z-voucher-pill">Limited time offer</div>
+      <h3 id="roo7z-voucher-title">Get ${VOUCHER_DISCOUNT_PERCENT}% off your order</h3>
+      <p>Copy the code below and use it at checkout before ${getVoucherExpiryLabel()}.</p>
+      <div class="roo7z-voucher-code">
+        <strong>${VOUCHER_CODE}</strong>
+        <span>Apply at checkout</span>
+      </div>
+      <div class="roo7z-voucher-actions">
+        <button type="button" class="roo7z-voucher-btn primary" id="roo7z-voucher-copy">Copy code</button>
+        <button type="button" class="roo7z-voucher-btn secondary" id="roo7z-voucher-dismiss">Maybe later</button>
+      </div>
+    </div>
+  `;
+
+  const closePromo = () => {
+    wrap.classList.remove("open");
+    try {
+      sessionStorage.setItem(SS_VOUCHER_PROMO_SEEN, "1");
+    } catch {
+      // Ignore storage failures.
+    }
+  };
+
+  wrap.querySelector("#roo7z-voucher-close")?.addEventListener("click", closePromo);
+  wrap.querySelector("#roo7z-voucher-dismiss")?.addEventListener("click", closePromo);
+  wrap.addEventListener("click", (e) => {
+    if (e.target === wrap) closePromo();
+  });
+  const copyBtn = wrap.querySelector("#roo7z-voucher-copy");
+  let copyResetTimer = null;
+  const setCopyButtonState = (copied = false) => {
+    if (!copyBtn) return;
+    copyBtn.classList.toggle("is-copied", copied);
+    copyBtn.innerHTML = copied ? `<span class="roo7z-voucher-check">✓</span>` : "Copy code";
+    copyBtn.setAttribute("aria-label", copied ? "Copied" : "Copy code");
+    copyBtn.setAttribute("title", copied ? "Copied" : "Copy code");
+  };
+  setCopyButtonState(false);
+
+  copyBtn?.addEventListener("click", async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(VOUCHER_CODE);
+      } else {
+        throw new Error("clipboard unavailable");
+      }
+    } catch {
+      const temp = document.createElement("textarea");
+      temp.value = VOUCHER_CODE;
+      temp.setAttribute("readonly", "true");
+      temp.style.position = "absolute";
+      temp.style.left = "-9999px";
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      temp.remove();
+    }
+
+    renderCart();
+
+    setCopyButtonState(true);
+    if (copyResetTimer) window.clearTimeout(copyResetTimer);
+    copyResetTimer = window.setTimeout(() => {
+      closePromo();
+      setCopyButtonState(false);
+    }, 1100);
+  });
+
+  document.body.appendChild(wrap);
+
+  const shouldDelayShow = !sessionStorage.getItem(SS_VOUCHER_PROMO_SEEN);
+  if (shouldDelayShow) {
+    window.setTimeout(() => {
+      if (!document.body.contains(wrap)) return;
+      try {
+        sessionStorage.setItem(SS_VOUCHER_PROMO_SEEN, "1");
+      } catch {
+        // Ignore storage failures.
+      }
+      wrap.classList.add("open");
+    }, 1800);
+  }
 }
 
 // === DOM elements (will be initialized when DOM is ready) ===
@@ -185,6 +618,7 @@ function renderCart() {
       els.subtotal.textContent = formatCurrency(0);
     }
     if (els.itemsCount) els.itemsCount.textContent = "0 items";
+    updateVoucherFeedback();
     return;
   }
   const currency = localStorage.getItem("roo7z_currency") || "PKR";
@@ -216,15 +650,13 @@ function renderCart() {
       </div>`;
     node.appendChild(div);
   });
-  const subtotalValue = getSubtotal();
-  const rules = getDeliveryRules(getActiveCheckoutCity());
-  const showDelivery = hasDeliveryContext();
-  const delivery = subtotalValue >= rules.freeThreshold ? 0 : rules.fee;
-  const finalTotal = subtotalValue + (showDelivery ? delivery : 0);
+  const totals = getCartTotals();
+  const { subtotalValue, discount, delivery, showDelivery, total: finalTotal } = totals;
 
   // Update sidebar subtotal container with breakdown
   if (els.subtotalContainer) {
     els.subtotalContainer.innerHTML = `Subtotal: <strong id="univ-cart-subtotal">${formatCurrency(subtotalValue)}</strong>` +
+      `${discount > 0 ? `<div class="muted small" id="univ-cart-discount" style="color:#15803d;font-weight:700">Voucher discount: -${formatCurrency(discount)}</div>` : ''}` +
       `${showDelivery ? `<div class="muted small" id="univ-cart-delivery">${delivery === 0 ? 'Free Delivery' : 'Delivery Charges: ' + formatCurrency(delivery)}</div>` : ''}` +
       `<div style="font-weight:700;margin-top:6px">Total: <strong id="univ-cart-total">${formatCurrency(finalTotal)}</strong></div>`;
     // update element reference
@@ -239,10 +671,13 @@ function renderCart() {
   if (checkoutSummary) {
     checkoutSummary.innerHTML = `
       <div style="display:flex;justify-content:space-between"><div>Subtotal</div><div>${formatCurrency(subtotalValue)}</div></div>
+      ${discount > 0 ? `<div style="display:flex;justify-content:space-between;margin-top:6px;color:#15803d"><div>Voucher discount</div><div>-${formatCurrency(discount)}</div></div>` : ''}
       ${showDelivery ? `<div style="display:flex;justify-content:space-between;margin-top:6px"><div>Delivery</div><div>${delivery === 0 ? 'Free Delivery' : formatCurrency(delivery)}</div></div>` : ''}
       <div style="display:flex;justify-content:space-between;margin-top:10px;font-weight:700"><div>Total</div><div>${formatCurrency(finalTotal)}</div></div>
     `;
   }
+
+  updateVoucherFeedback();
 }
 
 // ===== Currency + Toast =====
@@ -746,6 +1181,8 @@ function initEventListeners() {
   ensureAuthExtras();
   refreshAuthElements();
   setupAuthExtrasListeners();
+  ensureVoucherCheckoutSection();
+  ensureVoucherPromo();
   // persistence already initialized at module load
 
   console.log("Initializing cart elements:", {
@@ -924,6 +1361,7 @@ function initEventListeners() {
   // Load cart state and sync count after initialization
   loadState();
   syncCount();
+  renderCart();
   placeMobileQuickActions();
 
 }
@@ -1158,11 +1596,14 @@ async function createOrder({ paymentMethod, paymentStatus, paymentData, alertMes
     const ordersRef = currentUser
       ? collection(db, "users", currentUser.uid, "orders")
       : collection(db, "guest_orders");
-    const subtotalValue = getSubtotal();
+    const totals = getCartTotals();
+    const subtotalValue = totals.subtotalValue;
+    const discount = totals.discount;
     const rules = getDeliveryRules(deliveryDetails?.city || "");
     const delivery = subtotalValue >= rules.freeThreshold ? 0 : rules.fee;
-    const finalTotal = subtotalValue + delivery;
+    const finalTotal = Math.max(0, subtotalValue - discount + delivery);
     const orderCurrency = localStorage.getItem("roo7z_currency") || "PKR";
+    const voucherCode = getSelectedVoucherCode();
     const pricedItems = cart.map((item) => {
       const { _cartKey, ...cleanItem } = item;
       const qty = Number(item.qty || item.quantity || 1);
@@ -1185,6 +1626,9 @@ async function createOrder({ paymentMethod, paymentStatus, paymentData, alertMes
       ...deliveryDetails,
       items: pricedItems,
       subtotal: subtotalValue,
+      voucher_code: voucherCode === VOUCHER_CODE ? voucherCode : null,
+      voucher_discount_percent: voucherCode === VOUCHER_CODE ? VOUCHER_DISCOUNT_PERCENT : 0,
+      voucher_discount_amount: discount,
       delivery_charges: delivery,
       delivery_label: delivery === 0 ? 'Free Delivery' : `Delivery Charges: ${formatCurrency(delivery)}`,
       total: finalTotal,

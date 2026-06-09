@@ -173,6 +173,11 @@ function setupEventListeners() {
         ordersTable.addEventListener('click', handleOrdersTableClick);
     }
 
+    const recentOrdersTable = document.getElementById('recentOrdersTable');
+    if (recentOrdersTable) {
+        recentOrdersTable.addEventListener('click', handleOrdersTableClick);
+    }
+
     const deleteSelectedOrdersBtn = document.getElementById('deleteSelectedOrders');
     if (deleteSelectedOrdersBtn) {
         deleteSelectedOrdersBtn.addEventListener('click', handleDeleteSelectedOrders);
@@ -1901,15 +1906,32 @@ window.deleteProduct = async function(productId) {
 
 window.viewOrder = async function(userId, orderId, source = 'user') {
     try {
+        const cachedOrder = ordersCache.find((order) => {
+            const matchesId = String(order?.id || '') === String(orderId || '');
+            const matchesUser = String(order?.userId || '') === String(userId || '');
+            const matchesSource = String(order?.source || 'user') === String(source || 'user');
+            return matchesId && matchesUser && matchesSource;
+        });
+
+        if (cachedOrder) {
+            showOrderDetails(cachedOrder);
+            markOrderSeen(userId, orderId, source).catch((error) => {
+                console.error('Error marking order as seen:', error);
+            });
+            return;
+        }
+
         const orderRef = source === 'guest' || !userId
             ? doc(db, 'guest_orders', orderId)
             : doc(db, 'users', userId, 'orders', orderId);
         const orderDoc = await getDoc(orderRef);
         if (orderDoc.exists()) {
             const order = { id: orderDoc.id, ...orderDoc.data() };
-            await markOrderSeen(userId, orderId, source);
             // Show order details modal
             showOrderDetails(order);
+            markOrderSeen(userId, orderId, source).catch((error) => {
+                console.error('Error marking order as seen:', error);
+            });
         }
     } catch (error) {
         console.error('Error loading order details:', error);
@@ -1997,6 +2019,8 @@ function handleOrdersTableChange(event) {
 function handleOrdersTableClick(event) {
     const actionButton = event.target.closest('[data-order-action]');
     if (!actionButton) return;
+
+    event.preventDefault();
 
     const action = actionButton.getAttribute('data-order-action');
     const userId = actionButton.getAttribute('data-user');
@@ -2171,6 +2195,11 @@ function showOrderDetails(order) {
     // Remove existing modal if any
     const existingModal = document.getElementById('orderDetailsModal');
     if (existingModal) {
+        const existingInstance = bootstrap?.Modal?.getInstance?.(existingModal);
+        if (existingInstance) {
+            existingInstance.hide();
+            existingInstance.dispose();
+        }
         existingModal.remove();
     }
 
@@ -2178,6 +2207,12 @@ function showOrderDetails(order) {
     document.body.insertAdjacentHTML('beforeend', modalContent);
 
     // Show modal
-    const modal = new bootstrap.Modal(document.getElementById('orderDetailsModal'));
+    const modalElement = document.getElementById('orderDetailsModal');
+    if (!modalElement || !bootstrap?.Modal) {
+        showAlert('Order details modal could not be opened.', 'danger');
+        return;
+    }
+
+    const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
     modal.show();
 }

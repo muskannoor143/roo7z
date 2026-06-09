@@ -686,7 +686,7 @@ title: "Wing Statement Ring",
    isNew: true,
   variants: ["afterpin"],
   img: "images/earring/MoonlitBlueDrops.jpeg",
-  images: ["images/earring/MoonlitBlueDrops.jpeg", "images/earring/MoonlitBlueDrops1.jpeg","images/earring/MoonlitBlueDrops2.jpeg","images/earring/MoonlitBlueDrops3.jpeg","images/earring/MoonlitBlueDrops4.jpeg"],
+  images: ["images/earring/MoonlitBlueDrops.jpeg", "images/earring/MoonlitBlueDrops1.jpeg","images/earring/MoonlitBlueDrops2.jpeg","images/earring/MoonlitBlueDrops3.jpeg"],
   category: "earrings",
   description: "A stunning pair of silver jhumkas featuring intricate detailing, royal sapphire-blue stones, and delicate blue bead drops for the perfect blend of traditional beauty and modern elegance ✨These statement earrings instantly elevate festive looks, mehndi outfits, sarees, kurtis, and even minimalist black fits 💙"
   },
