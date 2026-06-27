@@ -6,7 +6,7 @@ export const allProducts = {
         "images/Pendants/p-8.jpeg","images/Pendants/p-8.1.jpeg"] ,category: "pendants", description: "Elegent stainless pendant featuring a heart with white stone.Perfect for everyday styling or as a thoughtful gift." },
        
   
-        { id: 202, title: "Silver Eternal Heart", pricePKR: 399, priceGBP: 19.99, img:"images/rings/r-1.jpeg", "images": [
+        { id: 202, title: "Silver Eternal Heart", pricePKR: 699, priceGBP: 19.99, img:"images/rings/r-1.jpeg", "images": [
         "images/rings/r-1.jpeg","images/rings/r-1.2.jpeg","images/rings/r-1.1.jpeg"],category: "rings", description: "when stenght meets sophistication." },
 
         { id: 203, title: "GOLDEN HAMMERED CUFF", pricePKR: 699, priceGBP: 15, discount: 5, img: "images/bracelets/b-1.jpeg", "images": ["images/bracelets/b-1.jpeg","images/bracelets/b-1.1.jpeg"],
@@ -24,31 +24,31 @@ export const allProducts = {
         { id: 207, title: "EARRING", pricePKR: 350, priceGBP: 19.99, discount: 0, stock: 0, img: "images/earring/elephant-earring.jpg", "images": ["images/earring/elephant-earring.jpg","images/earring/elephant-earring1.1.jpg"],category: "Earrings",
              description: "Add a touch of whimsical charm and ethnic grace to your look with our Gaja Heritage Elephant Earrings. These beautiful drop earrings feature a finely detailed elephant motif, a symbol of strength and wisdom, crafted with an oxidised silver finish. The antique textures and intricate engravings on the elephant’s saddle provide a vintage bohemian vibe that stands out.Lightweight and comfortable, these earrings are designed for the modern woman who loves to carry a piece of heritage with her." },
         
-        { id: 208, title: "Chic Pendant", pricePKR: 450, priceGBP: 9.99, discount: 0, img: "images/Pendants/id-8.jfif", "images": ["images/Pendants/id-8.jfif","images/Pendants/id-8.1.jpeg"],category: "pendants", description: "The perfect blend of simple and chic. This Golden Heart Necklace is designed to sit beautifully on the collarbone, making it the ultimate accessory for both casual tees and evening dresses. Lightweight, durable, and finished with a high-shine polish, it’s the piece your collection has been missing." },
+        { id: 208, title: "Chic Pendant", pricePKR: 650, priceGBP: 9.99, discount: 0, img: "images/Pendants/id-8.jfif", "images": ["images/Pendants/id-8.jfif","images/Pendants/id-8.1.jpeg"],category: "pendants", description: "The perfect blend of simple and chic. This Golden Heart Necklace is designed to sit beautifully on the collarbone, making it the ultimate accessory for both casual tees and evening dresses. Lightweight, durable, and finished with a high-shine polish, it’s the piece your collection has been missing." },
         
         
-        { id: 209, title: "The Royal Emerald", pricePKR: 550, priceGBP: 18.99, discount: 5, img: "images/rings/r-2.jpeg",  "images": ["images/rings/r-2.jpeg","images/rings/r-2.1.png"],category: "rings", 
+        { id: 209, title: "The Royal Emerald", pricePKR: 1050, priceGBP: 18.99, discount: 5, img: "images/rings/r-2.jpeg",  "images": ["images/rings/r-2.jpeg","images/rings/r-2.1.png"],category: "rings", 
             description: "Regal Aesthetic: A bold emerald-green center stone that commands attention.Pre-Stacked Style: Three integrated bands that create a full, layered look without the hassle of multiple rings.Craftsmanship:Precision-cut rectangular stone paired with clear brilliant-cut accents.Beautifully complements every look for maximum impact." },
         
-        { id: 210, title: "Triple-Layer Bracelet", pricePKR: 799, priceGBP: 7, discount: 6, img: "images/bracelets/b-6.jfif", "images": ["images/bracelets/b-6.jfif","images/bracelets/b-6.2.jfif","images/bracelets/b-6.1.jfif"], category: "bracelets", 
+        { id: 210, title: "Triple-Layer Bracelet", pricePKR: 999, priceGBP: 7, discount: 6, img: "images/bracelets/b-6.jfif", "images": ["images/bracelets/b-6.jfif","images/bracelets/b-6.2.jfif","images/bracelets/b-6.1.jfif"], category: "bracelets", 
             description: "Premium Stainless Steel: Crafted from durable, water-resistant, and tarnish-proof stainless steel—ideal for daily wear. Pre-Stacked Look: A single bangle that creates the illusion of three perfectly layered bracelets. Exquisite Emerald Center: Features a vibrant, rectangular green stone that serves as a sophisticated focal point. Brilliant Crystal Detailing: Precision-cut micro-crystals that provide a continuous sparkle from every angle. Hypoallergenic & Comfortable: Gentle on the skin with a smooth interior finish and a secure, easy-to-use clasp.." },
         
-        { id: 211, title: "ROYAL HAMMERED MEDALLION CUFF", pricePKR: 799, priceGBP: 19.99, discount: 3, img: "images/bracelets/b-4.jpeg", "images": ["images/bracelets/b-4.jpeg","images/bracelets/b-4.1.jpeg"],category:"bracelets", 
+        { id: 211, title: "ROYAL HAMMERED MEDALLION CUFF", pricePKR: 899, priceGBP: 19.99, discount: 3, img: "images/bracelets/b-4.jpeg", "images": ["images/bracelets/b-4.jpeg","images/bracelets/b-4.1.jpeg"],category:"bracelets", 
             description: "A bold golden stainless cuff featuring textured medallion panels that create a powerful,luxurious statement with timeless appeal." },
        
-        { id: 212, title: "silver leaf Ring", pricePKR: 350, priceGBP: 9.99, discount: 0, img: "images/rings/r-4.2.jpeg","images": ["images/rings/r-4.2.jpeg","images/rings/r-4.1.jpeg","images/rings/r-4.jpeg"], category: "rings", 
+        { id: 212, title: "silver leaf Ring", pricePKR: 850, priceGBP: 9.99, discount: 0, img: "images/rings/r-4.2.jpeg","images": ["images/rings/r-4.2.jpeg","images/rings/r-4.1.jpeg","images/rings/r-4.jpeg"], category: "rings", 
             description: "silver stainless steel ring." },
        
         { id: 213, title: "Royal Pearl-Laden Heritage Chandbalis", pricePKR: 1650, priceGBP: 34.99, discount: 0, img: "images/earring/e-1.png", "images": ["images/earring/e-1.png","images/earring/e-1.1.png","images/earring/e-1.2.jpeg"],category: "oxidize",
              description: "Step into the spotlight with our Royal Pearl-Laden Heritage Chandbalis. These breathtaking statement earrings are a tribute to grand ethnic craftsmanship. The design features a majestic heart-shaped filigree stud with traditional peacock or floral engravings, finished in a rich antique gold tone." },
         
-        { id: 214, title: "rings", pricePKR: 550, priceGBP: 19.99, img: "images/rings/r-3.jpeg", "images": ["images/rings/r-3.jpeg","images/rings/r-3.1.png"],category: "rings", description: "Premium gold plated jewelry." },
+        { id: 214, title: "rings", pricePKR: 650, priceGBP: 19.99, img: "images/rings/r-3.jpeg", "images": ["images/rings/r-3.jpeg","images/rings/r-3.1.png"],category: "rings", description: "Premium gold plated jewelry." },
         
-        { id: 215, title: "Timeless Bow Pendant", pricePKR: 449, priceGBP: 22.99, discount: 4, img: "images/Pendants/p-9.1.jfif", "images": ["images/Pendants/p-9.1.jfif","images/Pendants/p-9.jfif","images/Pendants/p-9.2.jfif"],category: "pendants", description: "Add a touch of feminine charm to your everyday style with our Timeless Bow Pendant. Inspired by the timeless elegance of a perfectly tied ribbon, this pendant is crafted with exquisite detail to capture a soft, fluid silhouette. Whether you're dressing up for a brunch date or adding a coquette touch to your office attire, this piece is the ultimate symbol of dainty sophistication." },
+        { id: 215, title: "Timeless Bow Pendant", pricePKR: 649, priceGBP: 22.99, discount: 4, img: "images/Pendants/p-9.1.jfif", "images": ["images/Pendants/p-9.1.jfif","images/Pendants/p-9.jfif","images/Pendants/p-9.2.jfif"],category: "pendants", description: "Add a touch of feminine charm to your everyday style with our Timeless Bow Pendant. Inspired by the timeless elegance of a perfectly tied ribbon, this pendant is crafted with exquisite detail to capture a soft, fluid silhouette. Whether you're dressing up for a brunch date or adding a coquette touch to your office attire, this piece is the ultimate symbol of dainty sophistication." },
         
 
 
-        { id: 217, title: "earring", pricePKR: 450, priceGBP: 16.99, discount: 0, img: "images/earring/e-9.jpeg", "images": ["images/earring/e-9.jpeg","images/earring/e-9.1.jpeg"],category: "Earrings", description: "Elegant rings." },
+        { id: 217, title: "earring", pricePKR: 650, priceGBP: 16.99, discount: 0, img: "images/earring/e-9.jpeg", "images": ["images/earring/e-9.jpeg","images/earring/e-9.1.jpeg"],category: "Earrings", description: "Elegant rings." },
         
         { id: 218, title: "CLASSIC HAMMERED DISC CUFF", pricePKR: 799, priceGBP: 19.99, discount: 7, img: "images/bracelets/b-3.jpeg", "images": ["images/bracelets/b-3.jpeg","images/bracelets/b-3.1.png","images/bracelets/b-3.2.png"],category: "bracelets", description: "An elegent hammered golden stainless steel cuff with smooth disc detailing, designed to reflect understated sophistication and modern charm." },
        
@@ -63,7 +63,7 @@ export const allProducts = {
         { id: 222, title: "Stainless Beauty ", pricePKR: 699, priceGBP: 18.99, discount: 0, img: "images/earring/e-8.jpeg",  "images": ["images/earring/e-8.jpeg","images/earring/e-8.1.png"],category: "Earrings", description: "Premium earring." },
         { id: 223, title: "earring ", pricePKR: 350, priceGBP: 9.99, discount: 3, img: "images/earring/e-6.jpeg", "images": ["images/earring/e-6.jpeg","images/earring/e-6.1.jpeg"],category: "Earrings", description: "Designer rings." },
          
-        { id: 224, title: "cute bow Studs ", pricePKR: 550, priceGBP: 16.99, discount: 0, img: "images/earring/e-3.jpeg",  "images": ["images/earring/e-3.jpeg","images/earring/e-3.1.jpg","images/earring/e-3.2.jpg"],category: "Earrings", description: "cute bow earrings." },
+        { id: 224, title: "cute bow Studs ", pricePKR: 750, priceGBP: 16.99, discount: 0, img: "images/earring/e-3.jpeg",  "images": ["images/earring/e-3.jpeg","images/earring/e-3.1.jpg","images/earring/e-3.2.jpg"],category: "Earrings", description: "cute bow earrings." },
         { id: 225, title: "pendant", pricePKR: 850, priceGBP: 16.99, discount: 3, img: "images/Pendants/p-6.jpeg","images": ["images/Pendants/p-6.jpeg","images/Pendants/p-6.1.jpeg","images/Pendants/p6.jpeg","images/Pendants/p-6.2.jpeg"], category: "pendants", description: "pendant " },
         { id: 226, title: "CLASSIC GOLDEN CHARM", pricePKR: 999, priceGBP: 22.99, discount: 8, img: "images/bracelets/b-5.jpeg", "images": ["images/bracelets/b-5.jpeg","images/bracelets/b-5.1.jpeg","images/bracelets/b-5.2.jpeg"],category: "bracelets", description: "An elegent hammered golden stainless steel cuff with smooth disc detailing, designed to reflect understated sophistication and modern charm." },
         { id: 227, title: "SLEEK DROP EDIT", pricePKR: 899, priceGBP: 16.99, discount: 6, category:"Pendants", img:"images/Pendants/P.jpeg" , images:["images/Pendants/P.jpeg","images/Pendants/P-1.png"], description: "stainless steel elegent sleek drop design pendent that will enhance your look!" },
@@ -73,7 +73,9 @@ export const allProducts = {
         
         { id: 229, title: "Muse Minimalist Studs", pricePKR: 850, priceGBP: 21.99, discount: 0,img: "images/earring/e-5.jpeg", "images":["images/earring/e-5.jpeg","images/earring/e-5.1.jpeg"],category: "Earrings", description: "Sleek, sculpted, and effortlessly chic — these brushed gold statement studs redefine modern elegance 💛. Featuring a smooth organic shape with a soft satin finish, they strike the perfect balance between bold and minimal.Lightweight yet impactful, these earrings are designed to elevate everyday outfits and add a refined touch to evening looks 🌟. A timeless essential for lovers of clean, contemporary style." },
             
-        { id: 230, title: "Floral Pearl Pendants", pricePKR: 799, priceGBP: 19.99, discount: 0,isNew: true, category:"Pendants", img:"images/Pendants/pcollage.jpeg" , designs: [{ label: "Design 1", images: ["images/Pendants/P-C.jpeg","images/Pendants/P-C1.jpeg"] }, { label: "Design 2", images: ["images/Pendants/P-C2.jpeg","images/Pendants/P-C2.1.jpeg"] }, { label: "Design 3", images: ["images/Pendants/P-C3.jpeg","images/Pendants/P-C3.1.jpeg"] }, { label: "Design 4", images: ["images/Pendants/p-c4.jpeg","images/Pendants/p-c4.1.jpeg","images/Pendants/p-c4.2.jpeg"] },{ label: "Design 5", images: ["images/Pendants/p-c5.1.jpeg","images/Pendants/p-c5.jpeg"] }],  description: "Delicate, feminine, and effortlessly elegant — this Floral Pearl Pendant adds a graceful touch to any look. Designed with a beautifully crafted floral pattern, it features a luminous pearl at the center that radiates a soft, natural glow. The combination of the intricate flower detailing and the timeless charm of the pearl creates a piece that feels both classic and modern.Lightweight and comfortable to wear, this pendant is perfect for everyday elegance as well as special occasions. Whether paired with a casual outfit or a formal ensemble, it enhances your style with subtle sophistication." },
+        { id: 230, title: "Floral Pearl Pendants", pricePKR: 799, priceGBP: 19.99, discount: 0,isNew: true, category:"Pendants", img:"images/Pendants/pcollage.jpeg" , 
+
+          designs: [{ label: "Design 1", images: ["images/Pendants/P-C.jpeg","images/Pendants/P-C1.jpeg"] }, { label: "Design 2", images: ["images/Pendants/P-C2.jpeg","images/Pendants/P-C2.1.jpeg"] }, { label: "Design 3", images: ["images/Pendants/P-C3.jpeg","images/Pendants/P-C3.1.jpeg"] }, { label: "Design 4", images: ["images/Pendants/p-c4.jpeg","images/Pendants/p-c4.1.jpeg","images/Pendants/p-c4.2.jpeg"] },{ label: "Design 5", images: ["images/Pendants/p-c5.1.jpeg","images/Pendants/p-c5.jpeg"] }],  description: "Delicate, feminine, and effortlessly elegant — this Floral Pearl Pendant adds a graceful touch to any look. Designed with a beautifully crafted floral pattern, it features a luminous pearl at the center that radiates a soft, natural glow. The combination of the intricate flower detailing and the timeless charm of the pearl creates a piece that feels both classic and modern.Lightweight and comfortable to wear, this pendant is perfect for everyday elegance as well as special occasions. Whether paired with a casual outfit or a formal ensemble, it enhances your style with subtle sophistication." },
       
 
 
@@ -691,7 +693,46 @@ title: "Wing Statement Ring",
   description: "A stunning pair of silver jhumkas featuring intricate detailing, royal sapphire-blue stones, and delicate blue bead drops for the perfect blend of traditional beauty and modern elegance ✨These statement earrings instantly elevate festive looks, mehndi outfits, sarees, kurtis, and even minimalist black fits 💙"
   },
 
+{ id: 289,
+   title: "REPUNZEL TULIP BRACELET",
+   pricePKR: 899,
+  priceGBP: 23.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+   designs: [{ label: "CHERRY KISS", images: ["images/bracelets/Tulip1.jpeg","images/bracelets/Tulip1.1.jpg","images/bracelets/Tulip1.2.jpeg"] }, { label: "ROSE VINE", images: ["images/bracelets/Tulip2.1.jpeg","images/bracelets/Tulip2.jpeg","images/bracelets/Tulip2.3.jpeg"] }, { label: "OCEAN WISPER", images: ["images/bracelets/Tulip4.jpeg","images/bracelets/Tulip4.1.jpeg"] },{ label: "LAVENDER BLUSH", images: ["images/bracelets/LAVENDER-BLUSH.jpeg","images/bracelets/LAVENDER-BLUSH1.jpeg"] },{ label: "SNOW PETAL", images: ["images/bracelets/snow-petal1.jpeg","images/bracelets/snow-petal.jpeg"] }],
+   img: "images/bracelets/Tulip-bracelet🌷.jpeg",
+  category: "bracelets",
+  description: "Soft as a fairytale, pretty as a tulip bloom. 🌷💜This Rapunzel-inspired Tulip Bracelet is made for the girls who carry sunshine, dreams, and a little bit of magic everywhere they go. ✨Delicate details, dreamy vibes, and a touch of princess energy—because your jewelry should feel as special as you are. 💫"
+  
+},
 
+{ id: 290,
+   title: "Luna Sculpt Silver Statement Ring",
+   pricePKR: 499,
+  priceGBP: 11.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+   img: "images/rings/LunaSculptSilverStatementRing4.jpeg",
+  images: ["images/rings/LunaSculptSilverStatementRing.jpeg","images/rings/LunaSculptSilverStatementRing1.jpeg","images/rings/LunaSculptSilverStatementRing2.jpeg","images/rings/LunaSculptSilverStatementRing3.jpeg"],
+  category: "rings",
+  description: "Make every gesture unforgettable with the Luna Sculpt Silver Statement Ring. Featuring a bold organic silhouette with a mirror-polished silver finish and soft white enamel accent, this ring blends contemporary art with everyday elegance. Its adjustable stainless steel band offers a comfortable fit while remaining waterproof, tarnish-resistant, and perfect for daily wear. Whether styled alone or stacked with your favorite rings, it's a statement piece designed to elevate every outfit your jewelry should feel as special as you are. 💫"
+  
+},
+
+{ id: 291,
+   title: "Noor-e-Gul Earrings",
+  pricePKR: 899,
+  priceGBP: 22.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/Noor-e-Gulearrings2.jpeg",
+  images: ["images/earring/Noor-e-Gulearrings2.jpeg", "images/earring/Noor-e-Gulearrings1.jpeg","images/earring/Noor-e-Gulearrings3.jpeg","images/earring/Noor-e-Gulearrings4.jpeg","images/earring/Noor-e-Gulearrings5.jpeg"],
+  category: "earrings",
+  description: "Inspired by blooming gardens and timeless traditions, Noor-e-Gul Earrings feature vibrant floral motifs, intricate oxidized craftsmanship, and delicate bead accents. Designed to add a touch of grace and color to festive, wedding, and everyday ethnic looks."
+},
 
 ],
 
