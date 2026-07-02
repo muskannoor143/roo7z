@@ -734,6 +734,34 @@ title: "Wing Statement Ring",
   description: "Inspired by blooming gardens and timeless traditions, Noor-e-Gul Earrings feature vibrant floral motifs, intricate oxidized craftsmanship, and delicate bead accents. Designed to add a touch of grace and color to festive, wedding, and everyday ethnic looks."
 },
 
+{ id: 292,
+   title: "Palestine Muse Necklace",
+  pricePKR: 799,
+  priceGBP: 21.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/Pendants/pelastine.jpeg",
+  "images": ["images/Pendants/pelastine.jpeg","images/Pendants/pelastine1.jpeg","images/Pendants/pelastine2.jpeg","images/Pendants/pelastine3.jpeg"] ,
+    category: "pendants", 
+    description: "Inspired by heritage, resilience, and identity, this handcrafted beaded necklace features the symbolic colors of Palestine beautifully arranged with elegant silver tassel details. Designed for those who wear their roots with pride, this piece blends tradition with modern aesthetics.Whether styled casually or layered for a statement look, it serves as a meaningful reminder of culture, strength, and belonging"
+  
+  },
+
+  { id: 293,
+   title: "Heart Drop Anklet",
+   pricePKR: 599,
+  priceGBP: 18.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+   img: "images/bracelets/heart-drop.jpeg",
+  "images": ["images/bracelets/heart-drop.jpeg","images/bracelets/heart-drop1.jpeg"] ,
+    category: "bracelets",
+  description: "Designed for the soft girls, hopeless romantics, and lovers of delicate details. This elegant gold anklet features a dainty heart charm paired with sparkling crystal accents, creating the perfect balance between minimalism and femininity.Lightweight, timeless, and effortlessly chic, it's the kind of piece that elevates your everyday look—from beach days to coffee dates and sunset walks."
+},
+
+
 ],
 
 
