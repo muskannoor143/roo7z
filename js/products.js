@@ -68,8 +68,14 @@ export const allProducts = {
         { id: 226, title: "CLASSIC GOLDEN CHARM", pricePKR: 999, priceGBP: 22.99, discount: 8, img: "images/bracelets/b-5.jpeg", "images": ["images/bracelets/b-5.jpeg","images/bracelets/b-5.1.jpeg","images/bracelets/b-5.2.jpeg"],category: "bracelets", description: "An elegent hammered golden stainless steel cuff with smooth disc detailing, designed to reflect understated sophistication and modern charm." },
         { id: 227, title: "SLEEK DROP EDIT", pricePKR: 899, priceGBP: 16.99, discount: 6, category:"Pendants", img:"images/Pendants/P.jpeg" , images:["images/Pendants/P.jpeg","images/Pendants/P-1.png"], description: "stainless steel elegent sleek drop design pendent that will enhance your look!" },
         
-        { id: 228, title: "ADD SOME VINTAGE", pricePKR: 899, priceGBP: 19.99, discount:5, img: "images/rings/r-6.jpeg", "images": ["images/rings/r-6.jpeg","images/rings/r-6.1.jpeg","images/rings/r-6.2.jpeg"],category: "oxidize", 
-            description: "Add a touch of melody to your every step with these ghungroo rings from ROO7Z.✨These ghungroo rings are the perfect accessory to complete your ethnic look, adding a touch of tradition and playful charm.💫🤩They’ll not only make beautiful music, but will also become a treasured reminder of your most joyful celebrations.😍🌟SHOP NOW!" },
+        { id: 228,
+          title: "Chandni Charm",
+          pricePKR: 799,
+          priceGBP: 19.99, 
+          discount:5,
+          img: "images/rings/chandni-charm.jpeg",
+          "images": ["images/rings/chandni-charm.jpeg","images/rings/chandni-charm2.jpeg","images/rings/chandni-charm1.jpeg"],category: "oxidize", 
+          description: "Add a touch of melody to your every step with these ghungroo  chandni charm ring from ROO7Z.✨These ghungroo ring are the perfect accessory to complete your ethnic look, adding a touch of tradition and playful charm.💫🤩They’ll not only make beautiful music, but will also become a treasured reminder of your most joyful celebrations.😍🌟SHOP NOW!" },
         
         { id: 229, title: "Muse Minimalist Studs", pricePKR: 850, priceGBP: 21.99, discount: 0,img: "images/earring/e-5.jpeg", "images":["images/earring/e-5.jpeg","images/earring/e-5.1.jpeg"],category: "Earrings", description: "Sleek, sculpted, and effortlessly chic — these brushed gold statement studs redefine modern elegance 💛. Featuring a smooth organic shape with a soft satin finish, they strike the perfect balance between bold and minimal.Lightweight yet impactful, these earrings are designed to elevate everyday outfits and add a refined touch to evening looks 🌟. A timeless essential for lovers of clean, contemporary style." },
             
@@ -135,7 +141,7 @@ export const allProducts = {
         
         { id: 243, title: "Golden Aura Cuff Bracelet", pricePKR: 1299, priceGBP: 22.99, discount: 0,isNew: true, img: "images/bracelets/b-8.png", "images": ["images/bracelets/b-8.png","images/bracelets/b-8.1.png"],category: "bracelets", description: "This elegant gold-tone cuff bracelet features a modern layered design with a beautiful central stone and crystal detailing for a premium luxury look. The open cuff style makes it easy to wear and comfortable for daily use and special occasions.Its sleek and classy design makes it perfect for parties, weddings, and everyday fashion. A must-have statement bracelet for modern women who love elegant jewelry."},
         
-        { id: 244, title: "Spark Bow Earrings", pricePKR: 750, priceGBP: 19.99, discount: 0,img: "images/earring/e.jpeg", "images":["images/earring/e.jpeg","images/earring/e.1.png","images/earring/e.2.png","images/earring/e.3.jpg"],category: "Earrings", description: "Add a touch of charm and sophistication to your look with these elegant spark bow earrings. Designed with a delicate bow shape and sparkling finish, these earrings bring a perfect balance of cute and classy style. Lightweight and comfortable for daily wear, they are ideal for parties, casual outings, or gifting someone special. Shine with elegance wherever you go!" },
+        { id: 244, title: "Spark Bow Earrings", pricePKR: 650, priceGBP: 19.99, discount: 0,img: "images/earring/e.jpeg", "images":["images/earring/e.jpeg","images/earring/e.1.png","images/earring/e.2.png","images/earring/e.3.jpg"],category: "Earrings", description: "Add a touch of charm and sophistication to your look with these elegant spark bow earrings. Designed with a delicate bow shape and sparkling finish, these earrings bring a perfect balance of cute and classy style. Lightweight and comfortable for daily wear, they are ideal for parties, casual outings, or gifting someone special. Shine with elegance wherever you go!" },
         
         {id: 245,
   title: "Elegant Kashmiri Bangles",
@@ -748,7 +754,20 @@ title: "Wing Statement Ring",
   
   },
 
+
   { id: 293,
+   title: "Aura-Ribbed-Hoops",
+  pricePKR: 499,
+  priceGBP: 17.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/aura-ribbed-hoops.jpeg",
+  images: ["images/earring/aura-ribbed-hoops.jpeg", "images/earring/aura-ribbed-hoops1.jpeg","images/earring/aura-ribbed-hoops2.jpeg","images/earring/aura-ribbed-hoops3.jpeg","images/earring/aura-ribbed-hoops4.jpeg"],
+  category: "earrings",
+  description: "Inspired by blooming gardens and timeless traditions, Noor-e-Gul Earrings feature vibrant floral motifs, intricate oxidized craftsmanship, and delicate bead accents. Designed to add a touch of grace and color to festive, wedding, and everyday ethnic looks."
+},
+  { id: 294,
    title: "Heart Drop Anklet",
    pricePKR: 599,
   priceGBP: 18.99,
@@ -761,6 +780,174 @@ title: "Wing Statement Ring",
   description: "Designed for the soft girls, hopeless romantics, and lovers of delicate details. This elegant gold anklet features a dainty heart charm paired with sparkling crystal accents, creating the perfect balance between minimalism and femininity.Lightweight, timeless, and effortlessly chic, it's the kind of piece that elevates your everyday look—from beach days to coffee dates and sunset walks."
 },
 
+
+
+{id: 295,
+  title: "Noor Lattice Bracelet",
+  pricePKR: 999,
+  priceGBP: 23.99,
+  discount: 20,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/Noor-Lattice-Bracelet.jpeg",
+  images: ["images/bracelets/Noor-Lattice-Bracelet.jpeg","images/bracelets/Noor-Lattice-Bracelet2.jpeg","images/bracelets/Noor-Lattice-Bracelet1.jpeg"],
+  category: "bracelets",
+  description: "the beauty of timeless Arabesque artistry, the Noor Lattice Bracelet blends intricate geometric detailing with a luxurious gold finish. Delicate crystal accents add just the right amount of sparkle, creating a statement piece that's both elegant and effortlessly modern.Designed for women who appreciate refined craftsmanship and quiet luxury, this bracelet transitions seamlessly from everyday sophistication to special occasions."
+},
+
+{ id: 296,
+   title: "Cherry Pearl Earrings",
+  pricePKR: 699,
+  priceGBP: 7.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/Cherry-Pearl-Earrings.jpeg",
+  images: ["images/earring/Cherry-Pearl-Earrings.jpeg", "images/earring/Cherry-Pearl-Earrings1.jpeg","images/earring/Cherry-Pearl-Earrings3.jpeg","images/earring/Cherry-Pearl-Earrings2.jpeg"],
+  category: "earrings",
+  description: "Bold, feminine, and effortlessly chic, the Cherry Pearl Earrings combine faceted ruby-red stones with luminous pearl drops for a look that's equal parts playful and luxurious.Inspired by vintage glamour and modern coquette aesthetics, these earrings are designed to elevate everything from brunch outfits to evening looks. The rich crimson hue paired with timeless pearls creates a statement piece that feels romantic, elegant, and undeniably eye-catching.For the girls who love soft luxury with a little drama."
+},
+
+{ id: 297,
+   title: "Cloud-Nine-Ring",
+   pricePKR: 699,
+  priceGBP: 12.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+   img: "images/rings/Cloud-Nine-Ring.jpeg",
+  images: ["images/rings/Cloud-Nine-Ring.jpeg","images/rings/Cloud-Nine-Ring1.jpeg","images/rings/Cloud-Nine-Ring2.jpeg","images/rings/Cloud-Nine-Ring3.jpeg"],
+  category: "rings",
+  description: "A bold yet effortless statement piece designed for the girls who love understated luxury. Featuring a smooth molten silhouette with a contemporary sculptural finish, this ring adds instant elegance to every outfit. Perfect for everyday styling, coffee dates, vacations, and Pinterest-inspired looks."
+},
+
+{id: 298,
+  title: "Black Bloom Charm Bracelet",
+  pricePKR: 699,
+  priceGBP: 19.99,
+  discount: 0,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/Black-Bloom-Charm-Bracelet.jpeg",
+  images: ["images/bracelets/Black-Bloom-Charm-Bracelet.jpeg","images/bracelets/Black-Bloom-Charm-Bracelet1.jpeg","images/bracelets/Black-Bloom-Charm-Bracelet2.jpeg"],
+  category: "bracelets",
+  description: "Add a touch of timeless elegance to your look with the *Noir Clover Luxe Bracelet*. Featuring delicate black clover charms beautifully set on a premium gold-plated chain, this bracelet is perfect for everyday wear as well as special occasions. Its minimalist luxury design complements both western and eastern outfits, making it a must-have accessory for every jewelry lover."
+
+},
+
+
+{ id: 299,
+   title: "Nova Ball Earrings",
+  pricePKR: 749,
+  priceGBP: 8.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/NovaBallEarrings.jpeg",
+  images: ["images/earring/NovaBallEarrings.jpeg", "images/earring/NovaBallEarrings1.jpeg","images/earring/NovaBallEarrings2.jpeg","images/earring/NovaBallEarrings3.jpeg"],
+  category: "earrings",
+  description: "Nova Ball Earrings are crafted for girls who love clean, modern elegance. Featuring a sleek curved hoop design finished with polished gold spheres, these earrings add a bold yet sophisticated touch to any outfit. Lightweight, versatile, and effortlessly chic, they are perfect for both everyday styling and special occasions.Modern sphere-drop hoop design.Lightweight & comfortable to wear,Minimal yet statement-making look,Perfect for casual, party & festive outfit,Ideal gift for birthdays & celebrations."
+
+},
+
+{ id: 300,
+   title: "Emerald Whisper Ring",
+   pricePKR: 449,
+  priceGBP: 9.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+   img: "images/rings/EmeraldWhisperRing.jpeg",
+  images: ["images/rings/EmeraldWhisperRing.jpeg","images/rings/EmeraldWhisperRing1.jpeg","images/rings/EmeraldWhisperRing2.jpeg"],
+  category: "rings",
+  description: "Emerald Whisper Ring is designed for those who love timeless elegance with a modern touch. Featuring a brilliant emerald-green centerpiece accented by delicate crystal details, this ring adds effortless sophistication to every outfit. Whether you're dressing up for a special occasion or elevating your everyday style, its minimal yet luxurious design makes it the perfect statement piece."
+  
+},
+
+{id: 301,
+  title: "Pearl Cascade Hand Chain",
+  pricePKR: 899,
+  priceGBP: 18.99,
+  discount: 0,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/PearlCascadeHandchain3.jpeg",
+  images: ["images/bracelets/PearlCascadeHandchain3.jpeg","images/bracelets/PearlCascadeHandchain2.jpeg","images/bracelets/PearlCascadeHandchain.jpeg","images/bracelets/PearlCascadeHandchain1.jpeg"],
+  category: "bracelets",
+  description: "Pearl Cascade Hand Chain is a timeless blend of elegance and modern femininity. Designed with delicate gold-tone chains and luminous pearl accents, this hand chain gracefully drapes across the wrist and finger, creating a sophisticated statement for every occasion."
+
+},
+
+
+{ id: 302,
+   title: "Belle Bow Earrings",
+  pricePKR: 649,
+  priceGBP: 9.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/BelleBowEarrings.jpeg",
+  images: ["images/earring/BelleBowEarrings.jpeg", "images/earring/BelleBowEarrings1.jpeg","images/earring/BelleBowEarrings2.jpeg"],
+  category: "earrings",
+  description: "Golden Bow Charm Earrings are the perfect blend of elegance and femininity. Designed with a beautifully textured bow silhouette and a radiant gold finish, these earrings add a timeless charm to any look. Their lightweight design makes them comfortable for all-day wear, while the chic bow detail brings a graceful, coquette-inspired touch to your jewelry collection.Premium gold-tone finish,Lightweight and comfortable for all-day wear,Timeless bow design for a feminine touch,Lightweight & comfortable,Tarnish-resistant finish."
+
+},
+{id: 303,
+  title: "Emerald Glow Cuff",
+  pricePKR: 799,
+  priceGBP: 18.99,
+  discount: 0,
+  isNew: true,
+  variants: ["afterpin"],
+  img: "images/bracelets/Emerald-glow-cuff.jpeg",
+  images: ["images/bracelets/Emerald-glow-cuff.jpeg","images/bracelets/Emerald-glow-cuff1.jpeg","images/bracelets/Emerald-glow-cuff2.jpeg"],
+  category: "bracelets",
+  description: "Emerald glow Cuff Bracelet is crafted to bring timeless elegance to your jewelry collection. Featuring a sleek gold-tone open cuff adorned with dazzling emerald-cut green crystals, this bracelet is the perfect blend of luxury and minimalism."
+
+},
+
+
+{ id: 304,
+   title: "Nova Prism Ring",
+   pricePKR: 599,
+  priceGBP: 9.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+   img: "images/Fancy-ring/Nova-Prism-Ring.jpeg",
+  images: ["images/Fancy-ring/Nova-Prism-Ring.jpeg","images/Fancy-ring/Nova-Prism-Ring1.jpeg","images/Fancy-ring/Nova-Prism-Ring2.jpeg","images/Fancy-ring/Nova-Prism-Ring3.jpeg"],
+  category: ["fancy-rings"],
+  description: "Nova Prism Ring is where modern geometry meets timeless elegance. Featuring a luminous pearl-inspired square centerpiece framed with sparkling crystal accents, this statement ring is designed to elevate every outfit with effortless sophistication.Its sleek silver-tone finish and contemporary silhouette make it the perfect accessory for brunch dates, office wear, evening events, and special occasions. Lightweight yet eye-catching, it's a must-have for every modern jewelry collection."
+  
+},
+
+{ id: 305,
+   title: "Mint Luxe Chain ",
+  pricePKR: 1099,
+  priceGBP: 22.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/Pendants/Mint-Luxe-Chain.jpeg",
+  "images": ["images/Pendants/Mint-Luxe-Chain.jpeg","images/Pendants/Mint-Luxe-Chain1.jpeg","images/Pendants/Mint-Luxe-Chain2.jpeg"] ,
+    category: "pendants", 
+    description: "Mint Luxe Chain is designed for those who love elegant everyday jewelry with a modern touch. Featuring shimmering green opal-inspired stones set on a polished silver-tone chain, this necklace adds effortless sophistication to both casual and formal outfits.Crafted with a lightweight, comfortable design, it's perfect for daily wear, date nights, parties, and gifting. Pair it with your favorite rings or bracelets for a complete minimal luxury look."
+
+  },
+
+  { id: 306,
+   title: "Twisted Pearl Heart Earrings",
+  pricePKR: 549,
+  priceGBP: 9.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/Twisted-Pearl-Heart-Earrings.jpeg",
+  images: ["images/earring/Twisted-Pearl-Heart-Earrings.jpeg", "images/earring/Twisted-Pearl-Heart-Earrings1.jpeg","images/earring/Twisted-Pearl-Heart-Earrings3.jpeg","images/earring/Twisted-Pearl-Heart-Earrings2.jpeg"],
+  category: "earrings",
+  description: "Add a touch of timeless elegance to your jewelry collection with the Pearl Heart Twist Hoops. Featuring a beautifully twisted gold-tone hoop paired with a lustrous heart-shaped pearl charm, these earrings are the perfect blend of romance and modern luxury.Lightweight and comfortable for all-day wear, they're ideal for brunch dates, weddings, parties, or elevating your everyday look. Their versatile design makes them a must-have accessory and a thoughtful gift for someone special."
+
+},
 
 ],
 

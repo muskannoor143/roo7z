@@ -44,6 +44,15 @@ const selectedOrderKeys = new Set();
 let productsCache = [];
 let reviewsListenerStarted = false;
 let ordersUiRefreshScheduled = false;
+const DEFAULT_CATEGORIES = [
+    { name: 'Pendants', description: 'Beautiful pendant jewelry collection' },
+    { name: 'Rings', description: 'Elegant ring designs for every occasion' },
+    { name: 'Fancy Rings', description: 'Fancy and statement ring designs' },
+    { name: 'Bracelets', description: 'Stylish bracelet collection' },
+    { name: 'Earrings', description: 'Trendy earrings for all styles' },
+    { name: 'Oxidizing-jewels', description: 'Unique oxidized jewelry pieces' },
+    { name: 'Sets', description: 'Complete jewelry sets' }
+];
 
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -215,7 +224,17 @@ function setupEventListeners() {
     // Load categories when product modal opens
     const productModal = document.getElementById('productModal');
     if (productModal) {
-        productModal.addEventListener('show.bs.modal', loadCategoriesDropdown);
+        productModal.addEventListener('show.bs.modal', () => {
+            const categoryDropdown = document.getElementById('categorySelect');
+            if (!categoryDropdown || categoryDropdown.options.length <= 1) {
+                loadCategoriesDropdown();
+            }
+        });
+        productModal.addEventListener('hidden.bs.modal', () => {
+            const productForm = document.getElementById('productForm');
+            if (productForm) productForm.reset();
+            uploadedImageUrl = null;
+        });
     }
 
     const exportProductsExcelBtn = document.getElementById('exportProductsExcel');
@@ -705,11 +724,12 @@ async function loadProducts() {
 function createProductRow(product) {
     const row = document.createElement('tr');
     const productImage = product.img || product.imageUrl || (Array.isArray(product.images) ? product.images[0] : '') || 'images/placeholder.jpg';
+    const categoryLabel = getProductCategoryLabels(product);
 
     row.innerHTML = `
         <td><img src="${productImage}" alt="${product.title}" class="product-img" style="width: 50px; height: 50px; object-fit: cover;"></td>
         <td>${product.title || 'N/A'}</td>
-        <td>${getCategoryName(product.category) || 'N/A'}</td>
+        <td>${categoryLabel || 'N/A'}</td>
         <td>£${product.priceGBP || 0}</td>
         <td>Rs.${product.pricePKR || 0}</td>
         <td>${product.stock || 0}</td>
@@ -736,7 +756,7 @@ function getProductsForExport() {
         'Sr #': index + 1,
         'Product ID': product.id || '',
         'Name': product.title || 'N/A',
-        'Category': product.categoryName || product.category || 'N/A',
+        'Category': getProductCategoryLabels(product) || 'N/A',
         'Price GBP': Number(product.priceGBP || 0),
         'Price PKR': Number(product.pricePKR || 0),
         'Stock': Number(product.stock || 0),
@@ -1230,6 +1250,29 @@ function renderOrdersTable() {
     updateOrdersSelectionUi(filteredOrders);
 }
 
+function uniqueList(values) {
+    return [...new Set((values || []).map((value) => String(value || '').trim()).filter(Boolean))];
+}
+
+function getSelectedCategoryData() {
+    const categorySelect = document.getElementById('categorySelect');
+    const selectedOptions = categorySelect
+        ? Array.from(categorySelect.selectedOptions).filter((option) => option.value)
+        : [];
+    const ids = uniqueList(selectedOptions.map((option) => option.value));
+    const names = uniqueList(selectedOptions.map((option) => option.textContent));
+    return { ids, names };
+}
+
+function getProductCategoryLabels(product) {
+    return uniqueList([
+        ...(Array.isArray(product?.categoryNames) ? product.categoryNames : []),
+        ...(Array.isArray(product?.categories) ? product.categories : []),
+        product?.categoryName,
+        product?.category
+    ]).join(', ');
+}
+
 // Create Order Row
 function createOrderRowHtml(order) {
     const displayStatus = normalizeStatus(order.status);
@@ -1433,6 +1476,7 @@ async function loadCategories() {
         const categoriesContainer = document.getElementById('categoriesTableBody');
         if (!categoriesContainer) return;
 
+        await addDefaultCategories({ silent: true });
         const categoriesSnapshot = await getDocs(collection(db, 'categories'));
         categoriesContainer.innerHTML = '';
 
@@ -1487,18 +1531,21 @@ async function getCategoryName(categoryId) {
 }
 
 // Add Default Categories
-async function addDefaultCategories() {
-    const defaultCategories = [
-        { name: 'Pendants', description: 'Beautiful pendant jewelry collection' },
-        { name: 'Rings', description: 'Elegant ring designs for every occasion' },
-        { name: 'Bracelets', description: 'Stylish bracelet collection' },
-        { name: 'Earrings', description: 'Trendy earrings for all styles' },
-        { name: 'Oxidizing-jewels', description: 'Unique oxidized jewelry pieces' },
-        { name: 'Sets', description: 'Complete jewelry sets' }
-    ];
-
+async function addDefaultCategories(options = {}) {
+    const silent = Boolean(options.silent);
     try {
-        for (const category of defaultCategories) {
+        const existingSnapshot = await getDocs(collection(db, 'categories'));
+        const existingNames = new Set();
+        existingSnapshot.forEach((entry) => {
+            const data = entry.data() || {};
+            if (!data.deleted && data.name) {
+                existingNames.add(normalizeBulkKey(data.name));
+            }
+        });
+
+        let addedCount = 0;
+        for (const category of DEFAULT_CATEGORIES) {
+            if (existingNames.has(normalizeBulkKey(category.name))) continue;
             const categoryData = {
                 ...category,
                 productCount: 0,
@@ -1506,11 +1553,16 @@ async function addDefaultCategories() {
                 updatedAt: serverTimestamp()
             };
             await addDoc(collection(db, 'categories'), categoryData);
+            addedCount++;
         }
-        showAlert('Default categories added successfully!', 'success');
+        if (!silent && addedCount > 0) {
+            showAlert('Default categories added successfully!', 'success');
+        }
     } catch (error) {
         console.error('Error adding default categories:', error);
-        showAlert('Error adding default categories.', 'danger');
+        if (!silent) {
+            showAlert('Error adding default categories.', 'danger');
+        }
     }
 }
 
@@ -1624,37 +1676,21 @@ async function loadCategoriesDropdown() {
         const categoryDropdown = document.getElementById('categorySelect');
         if (!categoryDropdown) return;
 
+        await addDefaultCategories({ silent: true });
         const categoriesSnapshot = await getDocs(collection(db, 'categories'));
 
         // Keep the first "Select Category" option
         categoryDropdown.innerHTML = '<option value="">Select Category</option>';
 
-        if (categoriesSnapshot.empty) {
-            // If no categories, add default categories
-            await addDefaultCategories();
-            // Reload categories
-            const newSnapshot = await getDocs(collection(db, 'categories'));
-            newSnapshot.forEach(doc => {
-                const category = { id: doc.id, ...doc.data() };
-                if (!category.deleted) {
-                    const option = document.createElement('option');
-                    option.value = doc.id;
-                    option.textContent = category.name || doc.id;
-                    categoryDropdown.appendChild(option);
-                }
-            });
-        } else {
-            // Add each category as an option
-            categoriesSnapshot.forEach(doc => {
-                const category = { id: doc.id, ...doc.data() };
-                if (!category.deleted) {
-                    const option = document.createElement('option');
-                    option.value = doc.id;
-                    option.textContent = category.name || doc.id;
-                    categoryDropdown.appendChild(option);
-                }
-            });
-        }
+        categoriesSnapshot.forEach(doc => {
+            const category = { id: doc.id, ...doc.data() };
+            if (!category.deleted) {
+                const option = document.createElement('option');
+                option.value = doc.id;
+                option.textContent = category.name || doc.id;
+                categoryDropdown.appendChild(option);
+            }
+        });
 
     } catch (error) {
         console.error('Error loading categories dropdown:', error);
@@ -1716,12 +1752,9 @@ async function handleProductSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const categoryId = formData.get('category');
-    const categorySelect = document.getElementById('categorySelect');
-    const selectedOption = categorySelect
-        ? categorySelect.querySelector(`option[value="${categoryId}"]`)
-        : null;
-    const categoryName = selectedOption ? selectedOption.textContent.trim() : '';
+    const selectedCategories = getSelectedCategoryData();
+    const categoryId = selectedCategories.ids[0] || '';
+    const categoryName = selectedCategories.names[0] || '';
     const imageUrl = String(uploadedImageUrl || formData.get('imageUrl') || '').trim();
     const variantsInput = formData.get('variants')
         ? formData.get('variants').split(',').map(v => v.trim()).filter(Boolean)
@@ -1734,6 +1767,9 @@ async function handleProductSubmit(e) {
         category: categoryName || categoryId,
         categoryId: categoryId || '',
         categoryName: categoryName || '',
+        categoryIds: selectedCategories.ids,
+        categoryNames: selectedCategories.names,
+        categories: selectedCategories.names,
         pricePKR: parseFloat(formData.get('pricePKR')) || 0,
         priceGBP: parseFloat(formData.get('priceGBP')) || 0,
         discount: parseFloat(formData.get('discount')) || 0,
@@ -1864,12 +1900,32 @@ window.editProduct = async function(productId) {
         const productDoc = await getDoc(doc(db, 'products', productId));
         if (productDoc.exists()) {
             const product = productDoc.data();
+            await loadCategoriesDropdown();
 
             // Populate form
             const form = document.getElementById('productForm');
             form.productId.value = productId;
             form.title.value = product.title || '';
-            form.category.value = product.category || '';
+            const categorySelect = form.elements.category;
+            const selectedValues = uniqueList([
+                ...(Array.isArray(product.categoryIds) ? product.categoryIds : []),
+                product.categoryId,
+                product.category
+            ]);
+            const selectedNames = uniqueList([
+                ...(Array.isArray(product.categoryNames) ? product.categoryNames : []),
+                ...(Array.isArray(product.categories) ? product.categories : []),
+                product.categoryName,
+                product.category
+            ]).map((value) => value.toLowerCase());
+            if (categorySelect) {
+                Array.from(categorySelect.options).forEach((option) => {
+                    option.selected = Boolean(option.value) && (
+                        selectedValues.includes(option.value) ||
+                        selectedNames.includes(String(option.textContent || '').trim().toLowerCase())
+                    );
+                });
+            }
             form.pricePKR.value = product.pricePKR || '';
             form.priceGBP.value = product.priceGBP || '';
             form.discount.value = product.discount || '';

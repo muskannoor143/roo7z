@@ -1,7 +1,7 @@
 // product-preview.js
 
 import { db, storage, ref, uploadBytes, getDownloadURL, collection, addDoc, getDocs, getDoc, query, where, doc, setDoc, serverTimestamp } from './firebase.js';
-import { showCheckoutForm } from './cart-login.js?v=20260307a';
+import { showCheckoutForm } from './cart-login.js?v=20260706a';
 import { allProducts as seedProducts } from './products.js?v=20260404a';
 
 const PRODUCT_FALLBACK_IMAGE = "images/roo7z-logo.png";

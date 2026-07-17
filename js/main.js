@@ -335,6 +335,7 @@ function isJewelryCategory(cat) {
   return [
     "pendants",
     "rings",
+    "fancyrings",
     "bracelets",
     "earrings",
     "oxidize",
@@ -907,6 +908,7 @@ function getSearchResults(term) {
     pendant: ["pendants", "necklace", "chain", "pendent", "locket", "pendents"],
     bracelet: ["bracelets", "kara", "bangle", "hand cuff", "baraclet"],
     ring: ["rings", "anguthi", "band", "chala"],
+    fancy: ["fancy ring", "fancy rings", "fancyrings"],
     earring: ["earrings", "bali", "jhumka", "tops"],
     anklet: ["anklets", "payal"],
     set: ["sets", "jewelry set", "combo"],

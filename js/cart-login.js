@@ -29,6 +29,7 @@ const LS_LAST_VISIT_AT = "roo7z_last_visit_at";
 const SS_VOUCHER_PROMO_SEEN = "roo7z_voucher_promo_seen";
 const AUTO_RELOAD_AFTER_MS = 24 * 60 * 60 * 1000; // 24 hours
 const AUTO_RELOAD_PARAM = "roo_refresh";
+const VOUCHER_ENABLED = false;
 const VOUCHER_CODE = "ROO7Z10";
 const VOUCHER_DISCOUNT_PERCENT = 10;
 const VOUCHER_EXPIRES_AT = new Date("2026-06-30T23:59:59Z").getTime();
@@ -110,7 +111,7 @@ function getDeliveryRules(cityOverride = "") {
 }
 
 function isVoucherActive() {
-  return Date.now() <= VOUCHER_EXPIRES_AT;
+  return VOUCHER_ENABLED && Date.now() <= VOUCHER_EXPIRES_AT;
 }
 
 function getVoucherExpiryLabel() {
@@ -130,6 +131,7 @@ function getCheckoutVoucherInput() {
 }
 
 function getSelectedVoucherCode() {
+  if (!VOUCHER_ENABLED) return "";
   return normalizeVoucherCode(getCheckoutVoucherInput()?.value);
 }
 
@@ -160,12 +162,17 @@ function updateVoucherFeedback() {
   const feedback = document.getElementById("voucher-feedback");
   if (!feedback) return;
 
+  if (!VOUCHER_ENABLED) {
+    feedback.textContent = "";
+    feedback.classList.remove("is-success", "is-error", "is-muted");
+    return;
+  }
+
   const code = getSelectedVoucherCode();
   feedback.classList.remove("is-success", "is-error", "is-muted");
 
   if (!isVoucherActive()) {
-    feedback.classList.add("is-error");
-    feedback.textContent = `This voucher expired on ${getVoucherExpiryLabel()}.`;
+    feedback.textContent = "";
     return;
   }
 
@@ -186,6 +193,11 @@ function updateVoucherFeedback() {
 }
 
 function ensureVoucherCheckoutSection() {
+  if (!VOUCHER_ENABLED || !isVoucherActive()) {
+    document.querySelector(".voucher-section")?.remove();
+    return;
+  }
+
   const form = document.getElementById("checkout-form");
   if (!form || document.getElementById("checkout-voucher")) return;
 
@@ -247,6 +259,7 @@ function ensureVoucherCheckoutSection() {
 }
 
 function ensureVoucherPromo() {
+  if (!VOUCHER_ENABLED) return;
   if (document.getElementById("roo7z-voucher-promo")) return;
   if (!isVoucherActive()) return;
 
