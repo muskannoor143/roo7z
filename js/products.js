@@ -52,7 +52,7 @@ export const allProducts = {
         
         { id: 218, title: "CLASSIC HAMMERED DISC CUFF", pricePKR: 799, priceGBP: 19.99, discount: 7, img: "images/bracelets/b-3.jpeg", "images": ["images/bracelets/b-3.jpeg","images/bracelets/b-3.1.png","images/bracelets/b-3.2.png"],category: "bracelets", description: "An elegent hammered golden stainless steel cuff with smooth disc detailing, designed to reflect understated sophistication and modern charm." },
        
-        { id: 219, title: "ROYAL AZURE ZIRCON", pricePKR: 1599, priceGBP: 24.99, discount: 5, img: "images/rings/r5.jpeg", "images": ["images/rings/r5.jpeg","images/rings/r5.1.jpeg"],category: "rings", 
+        { id: 219, title: "ROYAL AZURE ZIRCON", pricePKR: 1599, priceGBP: 24.99, discount: 5, img: "images/rings/r5.jpeg", "images": ["images/rings/r5.jpeg","images/rings/r5.1.jpeg"],categories: ["fancy-rings","rings"], 
             description: "Beautiful ring collection." },
 
         { id: 220, title: "silver bird oxidise jhumka ", pricePKR: 1399, priceGBP: 24.99, discount: 0, img: "images/earring/e-7.jpeg", "images": ["images/earring/e-7.jpeg","images/earring/e-7.1.jpeg"], category: "oxidize", 
@@ -88,7 +88,7 @@ export const allProducts = {
         { id: 231, title: "Ramadan Deal", pricePKR: 1699, priceGBP: 29.99, discount:0, isNew: true, img: "images/Pendants/Ramadan deal-1.jpeg","images": ["images/Pendants/Ramadan deal-1.jpeg","images/Pendants/p-7.jpeg","images/Pendants/id-4.jpeg","images/Pendants/id-5.jfif"], categories: ["pendants", "deals"], 
             description: "Celebrate this Ramadan with elegance and shine ✨Our premium gold-plated pendants are crafted with a luxury finish and minimal design, perfect for everyday wear and special occasions." },
          
-        { id: 232, title: " Golden Leaf Luxe Bracelet ✨🍃", pricePKR: 999, priceGBP: 27.99, discount: 0,isNew: true, img: "images/bracelets/b-9.jpeg", "images": ["images/bracelets/b-9.jpeg","images/bracelets/b-9.1.jpeg"],category: "bracelets", description: "This elegant gold-tone cuff bracelet features a modern layered design with a beautiful central stone and crystal detailing for a premium luxury look. The open cuff style makes it easy to wear and comfortable for daily use and special occasions.Its sleek and classy design makes it perfect for parties, weddings, and everyday fashion. A must-have statement bracelet for modern women who love elegant jewelry."},
+        { id: 232, title: " Golden Leaf Luxe Bracelet ✨🍃", pricePKR: 999, priceGBP: 27.99, discount: 0, stock: 0, isNew: true, img: "images/bracelets/b-9.jpeg", "images": ["images/bracelets/b-9.jpeg","images/bracelets/b-9.1.jpeg"],category: "bracelets", description: "This elegant gold-tone cuff bracelet features a modern layered design with a beautiful central stone and crystal detailing for a premium luxury look. The open cuff style makes it easy to wear and comfortable for daily use and special occasions.Its sleek and classy design makes it perfect for parties, weddings, and everyday fashion. A must-have statement bracelet for modern women who love elegant jewelry."},
         
 
 
@@ -365,7 +365,7 @@ title: "Wing Statement Ring",
   variants: ["afterpin"],
   img: "images/rings/triple.jpeg",
   images: ["images/rings/triple.jpeg","images/rings/triple-row.jpeg","images/rings/triple-2.jpeg","images/rings/triple-3.jpeg"],
-  category: "rings",
+  categories: ["fancy-rings","rings"],
   description: "Elevate your jewelry collection with this stunning Triple-Row Peridot Statement Ring. Designed for those who appreciate bold luxury, this ring features two outer rows of vibrant, square-cut peridot green stones, perfectly complemented by a shimmering center row of micro-pavé crystals.The wide, high-polish sterling silver band offers a modern, structural look, while the intricate filigree detailing on the sides adds a touch of classic craftsmanship. Whether worn as a standout piece for a special event or as a signature daily accessory, this ring is the ultimate blend of nature-inspired color and high-end glamour."
 },
 {id: 264,
@@ -852,9 +852,10 @@ title: "Wing Statement Ring",
 
 { id: 300,
    title: "Emerald Whisper Ring",
-   pricePKR: 449,
+  pricePKR: 449,
   priceGBP: 9.99,
   discount: 0,
+  stock: 0,
    isNew: true,
   variants: ["afterpin"],
    img: "images/rings/EmeraldWhisperRing.jpeg",
@@ -916,7 +917,7 @@ title: "Wing Statement Ring",
   variants: ["afterpin"],
    img: "images/Fancy-ring/Nova-Prism-Ring.jpeg",
   images: ["images/Fancy-ring/Nova-Prism-Ring.jpeg","images/Fancy-ring/Nova-Prism-Ring1.jpeg","images/Fancy-ring/Nova-Prism-Ring2.jpeg","images/Fancy-ring/Nova-Prism-Ring3.jpeg"],
-  category: ["fancy-rings"],
+  categories: ["fancy-rings","rings"],
   description: "Nova Prism Ring is where modern geometry meets timeless elegance. Featuring a luminous pearl-inspired square centerpiece framed with sparkling crystal accents, this statement ring is designed to elevate every outfit with effortless sophistication.Its sleek silver-tone finish and contemporary silhouette make it the perfect accessory for brunch dates, office wear, evening events, and special occasions. Lightweight yet eye-catching, it's a must-have for every modern jewelry collection."
   
 },
@@ -949,6 +950,48 @@ title: "Wing Statement Ring",
 
 },
 
+
+{ id: 307,
+   title: "Daisy Noir Cuff Earrings",
+  pricePKR: 649,
+  priceGBP: 10.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/earring/Daisy-Noir-Cuff.jpeg",
+  images: ["images/earring/Daisy-Noir-Cuff.jpeg", "images/earring/Daisy-Noir-Cuff1.jpeg","images/earring/Daisy-Noir-Cuff3.jpeg","images/earring/Daisy-Noir-Cuff2.jpeg"],
+  category: "earrings",
+  description: "Add a touch of elegance without the commitment of a piercing. 💫 Our Daisy Noir Cuff Earrings features a sparkling crystal star paired with a chic black clover on a luxurious gold finish. Lightweight, stylish, and adjustable for a comfortable fit—perfect for everyday wear or special occasions."
+
+},
+
+  { id: 308,
+   title: "NOOR-E-ALLAH Pendant ",
+  pricePKR: 799,
+  priceGBP: 14.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/Pendants/Noor-e-allah1.jpeg",
+  "images": ["images/Pendants/Noor-e-allah1.jpeg","images/Pendants/Noor-e-allah2.jpeg",,"images/Pendants/Noor-e-allah5.jpeg","images/Pendants/Noor-e-allah3.jpeg","images/Pendants/Noor-e-allah4.jpeg"] ,
+    category: "pendants", 
+    description: "Carry a symbol of faith with timeless elegance. The Noor-e-Allah Pendant is beautifully crafted from premium stainless steel with a luxurious gold-plated finish. Its lightweight, skin-friendly design makes it perfect for everyday wear or as a meaningful gift for your loved ones. Designed to complement both casual and formal outfits while maintaining a premium look."
+
+  },
+
+  { id: 309,
+   title: "BARAKAH CLOVER Pendant ",
+  pricePKR: 799,
+  priceGBP: 14.99,
+  discount: 0,
+   isNew: true,
+  variants: ["afterpin"],
+  img: "images/Pendants/Barakah-clover-pendant.jpeg",
+  "images": ["images/Pendants/Barakah-clover-pendant.jpeg","images/Pendants/Barakah-clover-pendant1.jpeg","images/Pendants/Barakah-clover-pendant3.jpeg","images/Pendants/Barakah-clover-pendant4.jpeg","images/Pendants/Barakah-clover-pendant5.jpeg"] ,
+    category: "pendants", 
+    description: "Carry a symbol of faith with timeless elegance. The Barakah-clover Pendant is beautifully crafted from premium stainless steel with a luxurious gold-plated finish. Its lightweight, skin-friendly design makes it perfect for everyday wear or as a meaningful gift for your loved ones. Designed to complement both casual and formal outfits while maintaining a premium look."
+
+  },
 ],
 
 
